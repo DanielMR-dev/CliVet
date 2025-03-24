@@ -9,23 +9,19 @@ const predefinedQA = [
     },
     {
         question: "¿Ofrecen servicios de emergencia?",
-        answer:
-        "Sí, ofrecemos servicios de emergencia durante nuestro horario de atención. Para emergencias fuera de horario, por favor contacte a nuestra línea de emergencia.",
+        answer: "Sí, ofrecemos servicios de emergencia durante nuestro horario de atención. Para emergencias fuera de horario, por favor contacte a nuestra línea de emergencia.",
     },
     {
         question: "¿Qué servicios ofrecen?",
-        answer:
-        "Ofrecemos consultas, cirugías, peluquería, hospitalización, vacunación y servicio de guardería para mascotas.",
+        answer: "Ofrecemos consultas, cirugías, peluquería, hospitalización, vacunación y servicio de guardería para mascotas.",
     },
     {
         question: "¿Cómo puedo agendar una cita?",
-        answer:
-        "Puede agendar una cita registrándose en nuestra plataforma o llamando directamente a nuestro número de contacto.",
+        answer: "Puede agendar una cita registrándose en nuestra plataforma o llamando directamente a nuestro número de contacto.",
     },
     {
         question: "¿Cuánto cuesta la guardería?",
-        answer:
-        "El costo de la guardería depende del peso de su mascota y el tiempo de estancia. Puede obtener un cálculo preciso en nuestra sección de guardería.",
+        answer: "El costo de la guardería depende del peso de su mascota y el tiempo de estancia. Puede obtener un cálculo preciso en nuestra sección de guardería.",
     },
 ];
 
