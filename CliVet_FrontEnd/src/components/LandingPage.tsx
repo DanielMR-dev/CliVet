@@ -1,4 +1,4 @@
-import heroImage from "../assets/images/hero-image.jpg";
+import heroImage from "@/assets/images/hero-image.jpg";
 import { Stethoscope, Clock, Heart, Users, ChevronRight } from "lucide-react";
 
 const Feature = ({ icon: Icon, title, description }) => (
@@ -123,7 +123,7 @@ export default function LandingPage() {
                     <div className="mt-8 pt-8 border-t border-gray-700 text-center">
                         <p>&copy; 2025 CliVet. Todos los derechos reservados.</p>
                     </div>
-                </div>
+                </div> 
             
             </footer>
         </div>
