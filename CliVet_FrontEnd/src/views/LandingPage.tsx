@@ -1,8 +1,20 @@
 import heroImage from "../assets/images/hero-image.jpg";
+import { Stethoscope, Clock, Heart, Users, ChevronRight } from "lucide-react";
+
+const Feature = ({ icon: Icon, title, description }) => (
+    <div className="flex flex-col items-center text-center p-6 bg-white rounded-lg shadow-lg">
+        <div className="bg-blue-100 p-3 rounded-full">
+            <Icon className="h-8 w-8 text-blue-600" />
+        </div>
+        <h3 className="mt-4 text-xl font-semibold">{title}</h3>
+        <p className="mt-2 text-gray-600">{description}</p>
+    </div>
+);
 
 export default function LandingPage() {
     return (
         <div className="min-h-screen bg-gray-50">
+            {/* Header Section */}
             <header className="bg-white shadow">
                 <div className="max-w-6xl mx-auto py-4 px-4 sm:px-6 lg:px-8 flex justify-between items-center">
                     <h1 className="text-3xl font-bold text-blue-600">CliVet</h1>
@@ -34,7 +46,69 @@ export default function LandingPage() {
 
                     </div>
                 </section>
+                {/* Features Section */}
+                <section className="py-15">
+                    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <h2 className="text-3xl font-bold text-center mb-12">¿Por qué elegir CliVet?</h2>
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                            <Feature
+                                icon={Stethoscope}
+                                title="Atención Experta"
+                                description="Nuestro equipo de veterinarios altamente calificados está listo para cuidar de tu mascota"
+                            />
+                            <Feature
+                                icon={Clock}
+                                title="Horario Flexible"
+                                description="Ofrecemos horarios convenientes y servicio de emergencia 24/7."
+                            />
+                            <Feature
+                                icon={Heart}
+                                title="Cuidado Compasivo"
+                                description="Tratamos a cada mascota con el amor y respeto que se merece."
+                            />
+                            <Feature
+                                icon={Users}
+                                title="Enfoque Familiar"
+                                description="Consideramos a las mascotas y sus dueños como parte de nuestra familia CliVet."
+                            />                     
+                        </div>
+                    </div>
+                </section>
+                {/* Testimonials Section */}
+                <section className="bg-gray-100 py-15">
+                    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <h2 className="text-3xl font-bold text-center mb-12">Lo que dicen nuestros clientes</h2>
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                            {[1, 2, 3].map((i) => (
+                                <div key={i} className="bg-white p-6 rounded-lg shadow-md">
+                                    <p className="text-gray-600 mb-4">
+                                        "CliVet ha sido increíble con nuestro perro Max. Su atención y cuidado son incomparables."
+                                    </p>
+                                    <p className="font-semibold">- Cliente Feliz {i}</p>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+                {/* CTA Section */}
+                <section className="bg-blue-600 text-white py-15">
+                    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                        <h2 className="text-3xl font-bold mb-4">¿Listo para darle a tu mascota el mejor cuidado?</h2>
+                        <p className="text-xl mb-8">
+                            Únete a la familia CliVet hoy y experimenta la diferencia en el cuidado veterinario.
+                        </p>
+                        <button
+                            className="bg-white text-blue-600 px-8 py-3 rounded-full font-semibold text-lg hover:bg-gray-100 transition duration-300 inline-flex items-center"
+                        >
+                            Comienza Ahora <ChevronRight className="ml-2" />
+                        </button>
+                    </div>
+                </section>
             </main>
+            {/* Footer Section */}
+            <footer>
+            
+            </footer>
         </div>
     );
 };
