@@ -1,5 +1,6 @@
-import heroImage from "@/assets/images/hero-image.jpg";
 import { Stethoscope, Clock, Heart, Users, ChevronRight } from "lucide-react";
+import heroImage from "@/assets/images/hero-image.jpg";
+import Chatbot from "./Chatbot";
 
 const Feature = ({ icon: Icon, title, description }) => (
     <div className="flex flex-col items-center text-center p-6 bg-white rounded-lg shadow-lg">
@@ -126,6 +127,7 @@ export default function LandingPage() {
                 </div> 
             
             </footer>
+            <Chatbot />
         </div>
     );
 };
