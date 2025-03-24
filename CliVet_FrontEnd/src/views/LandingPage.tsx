@@ -106,7 +106,24 @@ export default function LandingPage() {
                 </section>
             </main>
             {/* Footer Section */}
-            <footer>
+            <footer className="bg-gray-800 text-white py-10">
+                <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="flex flex-col md:flex-row items-center justify-between">
+                        <div>
+                            <h3 className="text-lg font-semibold mb-4">CliVet</h3>
+                            <p>Cuidado veterinario de calidad para tus mascotas</p>
+                        </div>
+                        <div>
+                            <h3 className="text-lg font-semibold mb-4">Contacto</h3>
+                            <p>123 Calle Principal</p>
+                            <p>Ciudad, País</p>
+                            <p>Tel: (123) 456-7890</p>
+                        </div>
+                    </div>
+                    <div className="mt-8 pt-8 border-t border-gray-700 text-center">
+                        <p>&copy; 2025 CliVet. Todos los derechos reservados.</p>
+                    </div>
+                </div>
             
             </footer>
         </div>
