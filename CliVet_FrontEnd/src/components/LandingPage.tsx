@@ -1,6 +1,7 @@
 import { Stethoscope, Clock, Heart, Users, ChevronRight } from "lucide-react";
 import heroImage from "@/assets/images/hero-image.jpg";
 import Chatbot from "./Chatbot";
+import { Link } from "react-router-dom";
 
 const Feature = ({ icon: Icon, title, description }) => (
     <div className="flex flex-col items-center text-center p-6 bg-white rounded-lg shadow-lg">
@@ -19,9 +20,10 @@ export default function LandingPage() {
             <header className="bg-white shadow-sm fixed w-full z-10">
                 <div className="max-w-6xl mx-auto py-4 px-4 sm:px-6 lg:px-8 flex justify-between items-center">
                     <h1 className="text-3xl font-bold text-blue-600">CliVet</h1>
-                    <button
+                    <Link
+                        to={'/auth/login'}
                         className="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition duration-300"
-                    >Iniciar Sesión</button>
+                    >Iniciar Sesión</Link>
                 </div>
             </header>
             <main>
@@ -32,9 +34,10 @@ export default function LandingPage() {
                             <div className="md:w-1/2 mb-10 md:mb-0 mr-1.5">
                                 <h2 className="text-4xl md:text-5xl font-bold mb-4">Cuidado experto para tu mejor amigo</h2>
                                 <p className="text-xl mb-8">CliVet ofrece atención veterinaria de primera clase con un enfoque compasivo y personalizado.</p>
-                                <button
+                                <Link
+                                    to={'/auth/login'}
                                     className="bg-white text-blue-600 px-8 py-3 rounded-full font-semibold text-lg hover:bg-gray-100 transition duration-300"
-                                >Comienza Ahora</button>
+                                >Comienza Ahora</Link>
                             </div>
                             <div className="md:w-1/2">
                                 <img
@@ -98,11 +101,11 @@ export default function LandingPage() {
                         <p className="text-xl mb-8">
                             Únete a la familia CliVet hoy y experimenta la diferencia en el cuidado veterinario.
                         </p>
-                        <button
+                        <Link
+                            to={'/auth/login'}
                             className="bg-white text-blue-600 px-8 py-3 rounded-full font-semibold text-lg hover:bg-gray-100 transition duration-300 inline-flex items-center"
-                        >
-                            Comienza Ahora <ChevronRight className="ml-2" />
-                        </button>
+                        >Comienza Ahora <ChevronRight className="ml-2" />
+                        </Link>
                     </div>
                 </section>
             </main>
