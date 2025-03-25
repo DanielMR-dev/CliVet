@@ -1,29 +1,6 @@
 import { useState, useRef, useEffect } from "react"
 import { MessageCircle, X, Send } from "lucide-react"
-
-// Preguntas y respuestas predeterminadas
-const predefinedQA = [
-    {
-        question: "¿Cuál es el horario de atención?",
-        answer: "Nuestro horario de atención es de lunes a viernes de 7:00 AM a 6:00 PM, y sábados de 7:00 AM a 2:00 PM.",
-    },
-    {
-        question: "¿Ofrecen servicios de emergencia?",
-        answer: "Sí, ofrecemos servicios de emergencia durante nuestro horario de atención. Para emergencias fuera de horario, por favor contacte a nuestra línea de emergencia.",
-    },
-    {
-        question: "¿Qué servicios ofrecen?",
-        answer: "Ofrecemos consultas, cirugías, peluquería, hospitalización, vacunación y servicio de guardería para mascotas.",
-    },
-    {
-        question: "¿Cómo puedo agendar una cita?",
-        answer: "Puede agendar una cita registrándose en nuestra plataforma o llamando directamente a nuestro número de contacto.",
-    },
-    {
-        question: "¿Cuánto cuesta la guardería?",
-        answer: "El costo de la guardería depende del peso de su mascota y el tiempo de estancia. Puede obtener un cálculo preciso en nuestra sección de guardería.",
-    },
-];
+import { predefinedQA } from "@/utils/predifinedQA";
 
 export default function Chatbot() {
     const [isOpen, setIsOpen] = useState(false);
@@ -84,7 +61,7 @@ export default function Chatbot() {
                         {messages.map((message, index) => (
                             <div key={index} className={`flex ${message.isBot ? "justify-start" : "justify-end"}`}>
                                 <div
-                                className={`max-w-[70%] p-2 rounded-lg ${message.isBot ? "bg-gray-200" : "bg-blue-500 text-white"}`}
+                                    className={`max-w-[70%] p-2 rounded-lg ${message.isBot ? "bg-gray-200" : "bg-blue-500 text-white"}`}
                                 >
                                 {message.text}
                                 </div>
