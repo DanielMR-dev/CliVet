@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 
 export default function LoginView() {
 
@@ -16,20 +17,17 @@ export default function LoginView() {
                 <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
                     <form className="space-y-6" onSubmit={hadleSubmit}>
                         <div className="flex flex-col">
-                        <label
-                            className="block text-l font-medium text-gray-700"
-                        >Correo Electrónico</label>
-
-                        <input
-                            id="email"
-                            name="email"
-                            type="email"
-                            required
-                            className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                        />
-                        
+                            <label
+                                className="block text-l font-medium text-gray-700"
+                            >Correo Electrónico</label>
+                            <input
+                                id="email"
+                                name="email"
+                                type="email"
+                                required
+                                className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                            />    
                         </div>
-
                         <div className="flex flex-col">
                             <label
                                 className="block text-l font-medium text-gray-700"
@@ -42,7 +40,6 @@ export default function LoginView() {
                                 className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                             />
                         </div>
-
                         <input
                             type="submit"
                             value='Iniciar Sesión'
@@ -60,9 +57,10 @@ export default function LoginView() {
                         </div>
                     </div>
                     <div className="mt-5">
-                        <button
+                        <Link
+                            to={'/auth/register'}
                             className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-blue-600 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-                        >Registrarse</button>
+                        >Registrarse</Link>
                     </div>        
                 </div>
             </div>
