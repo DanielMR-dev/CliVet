@@ -4,6 +4,7 @@ import LoginView from "@/views/auth/LoginView";
 import RegisterView from "@/views/auth/RegisterView";
 import AdminView from "@/views/admin/AdminView";
 import DoctorView from "@/views/doctor/DoctorView";
+import ClientView from "@/views/client/ClientView";
 
 export default function Router() {
     return (
@@ -14,7 +15,7 @@ export default function Router() {
                 <Route path="/auth/register" element={<RegisterView/>}/> 
                 <Route path="/admin" element={<AdminView/>}/>
                 <Route path="/doctor" element={<DoctorView/>}/>
-                <Route path="/client" element={<AdminView/>}/>
+                <Route path="/client" element={<ClientView/>}/>
             </Routes>
         </BrowserRouter>
     
