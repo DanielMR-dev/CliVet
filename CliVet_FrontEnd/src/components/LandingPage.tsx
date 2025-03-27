@@ -47,7 +47,6 @@ export default function LandingPage() {
                                 />
                             </div>
                         </div>
-
                     </div>
                 </section>
                 {/* Features Section */}
