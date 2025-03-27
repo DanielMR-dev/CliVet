@@ -13,7 +13,7 @@ export default function AdminView() {
                     >Cerrar Sesión</Link>
                 </div>
             </header>
-            <main className="max-w-6xl">
+            <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* Panel de control */}
                 <section className="text-center mt-4">
                     <h2 className="text-xl font-semibold">Panel de control</h2>
@@ -36,6 +36,15 @@ export default function AdminView() {
                 <div className="flex justify-end mt-4">
                     <button className="px-6 py-2 bg-gray-300 rounded hover:bg-gray-400"
                     >Agregar</button>
+                </div>
+                {/* Tarjetas de información */}
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-6">
+                    {[...Array(4)].map((_, index) => (
+                    <div key={index} className="border p-4 bg-white rounded shadow-md">
+                        <h3 className="font-semibold border-b pb-2">Información</h3>
+                        <p className="mt-2 text-gray-600">Contenido relevante...</p>
+                    </div>
+                    ))}
                 </div>
             </main>
         </div>
