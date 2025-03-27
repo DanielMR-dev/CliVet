@@ -18,6 +18,20 @@ export default function AdminView() {
                 <section className="text-center mt-4">
                     <h2 className="text-xl font-semibold">Panel de control</h2>
                 </section>
+                {/* Tabs */}
+                <div className="flex justify-center space-x-2 mt-4">
+                    <button 
+                        className="px-4 py-2 bg-black text-white rounded"
+                    >Procesos</button>
+                    <button 
+                        className="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300"
+                    >Colaboradores</button>
+                    <button 
+                        className="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300"
+                    >Mascotas</button>
+                    <button className="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300"
+                    >Servicios</button>
+                </div>
                 
             </main>
         </div>
