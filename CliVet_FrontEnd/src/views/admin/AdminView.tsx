@@ -32,7 +32,11 @@ export default function AdminView() {
                     <button className="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300"
                     >Servicios</button>
                 </div>
-                
+                {/* Botón agregar */}
+                <div className="flex justify-end mt-4">
+                    <button className="px-6 py-2 bg-gray-300 rounded hover:bg-gray-400"
+                    >Agregar</button>
+                </div>
             </main>
         </div>
     )
