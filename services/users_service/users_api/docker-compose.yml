@@ -1,0 +1,9 @@
+services:
+  web:
+    build: .
+    container_name: users_service
+    restart: always
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
