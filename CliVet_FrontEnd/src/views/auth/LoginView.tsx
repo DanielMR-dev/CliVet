@@ -16,6 +16,19 @@ export default function LoginView() {
             <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
                 <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
                     <form className="space-y-6" onSubmit={hadleSubmit}>
+                        <div>
+                            <label htmlFor="userType" className="block text-l font-medium text-gray-700"
+                            >Tipo de Usuario</label>
+                            <select
+                                id="userType" 
+                                name="userType"
+                                className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md"
+                            >
+                                <option value="client">Cliente</option>
+                                <option value="doctor">Médico</option>
+                                <option value="admin">Administrador</option>
+                            </select>
+                        </div>
                         <div className="flex flex-col">
                             <label
                                 className="block text-l font-medium text-gray-700"
