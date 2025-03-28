@@ -77,15 +77,3 @@ async def crear_medico(request: Request):
 
     except Exception as e:
         return {"error": f"Error al registrar al medico: {str(e)}"} # Cambiar 
-    
-
-@app.get("/medico/{id}")
-async def get_medico(id: int):
-    empleados = Table("empleados", metadata, autoload_with=engine)
-    query = select(empleados).where(empleados.c.id == id)
-    with engine.connect() as connection:
-        result = connection.execute(query)
-        rows = result.fetchall()
-
-    return [dict(row._mapping) for row in rows]
-    
