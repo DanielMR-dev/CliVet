@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { FiLogOut } from "react-icons/fi";
 
 export default function AdminView() {
     const [modalOpen, setModalOpen] = useState(false); // Saber si el modal de cada Card está abierto
@@ -23,7 +24,7 @@ export default function AdminView() {
                     <Link
                         to={'/'}
                         className="bg-red-600 text-white px-6 py-2 rounded-md hover:bg-red-700 transition duration-300"
-                    >Cerrar Sesión</Link>
+                    ><FiLogOut /></Link>
                 </div>
             </header>
             <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
