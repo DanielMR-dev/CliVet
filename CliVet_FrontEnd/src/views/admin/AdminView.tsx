@@ -8,7 +8,10 @@ export default function AdminView() {
             {/* Header Section */}
             <header className="bg-white shadow-sm w-full">
                 <div className="max-w-6xl mx-auto py-4 px-4 sm:px-6 lg:px-8 flex justify-between items-center">
-                    <h1 className="text-3xl font-bold text-blue-600">CliVet</h1>
+                    <Link
+                        to={'/'} 
+                        className="text-3xl font-bold text-blue-600"
+                    >CliVet</Link>
                     <Link
                         to={'/'}
                         className="bg-red-600 text-white px-6 py-2 rounded-md hover:bg-red-700 transition duration-300"
@@ -74,7 +77,7 @@ export default function AdminView() {
                                 <label className="block font-semibold mt-2">Nombre proceso:</label>
                                 <input type="text" className="w-full border p-2 rounded mt-1" />
                                 <label className="block font-semibold mt-2">Descripción:</label>
-                                <textarea className="w-full border p-2 rounded mt-1" rows="3"></textarea>
+                                <textarea className="w-full border p-2 rounded mt-1" rows={3}></textarea>
                                 <label className="block font-semibold mt-2">Precio:</label>
                                 <input type="text" className="w-full border p-2 rounded mt-1" />
                             </div>
