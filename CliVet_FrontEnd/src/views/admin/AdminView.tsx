@@ -2,7 +2,15 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 
 export default function AdminView() {
-    const [modalOpen, setModalOpen] = useState(false);
+    const [modalOpen, setModalOpen] = useState(false); // Saber si el modal de cada Card está abierto
+    const [activeTab, setActiveTab] = useState("Procesos"); // Saber qué tab está activo
+
+    const tabContent = {
+        "Procesos": "Información sobre los procesos en la clínica veterinaria.",
+        "Colaboradores": "Lista y detalles de los colaboradores de la clínica.",
+        "Mascotas": "Registro y datos de las mascotas atendidas.",
+        "Servicios": "Servicios ofrecidos por la clínica y su disponibilidad."
+    };
     return (
         <div className="w-full min-h-screen bg-gray-50">
             {/* Header Section */}
@@ -25,18 +33,15 @@ export default function AdminView() {
                 </section>
                 {/* Tabs */}
                 <div className="flex justify-center space-x-2 mt-4">
-                    <button 
-                        className="px-4 py-2 bg-blue-600 text-white rounded"
-                    >Procesos</button>
-                    <button 
-                        className="px-4 py-2 bg-gray-200 rounded hover:bg-blue-300"
-                    >Colaboradores</button>
-                    <button 
-                        className="px-4 py-2 bg-gray-200 rounded hover:bg-blue-300"
-                    >Mascotas</button>
-                    <button 
-                        className="px-4 py-2 bg-gray-200 rounded hover:bg-blue-300"
-                    >Servicios</button>
+                    {Object.keys(tabContent).map((tab) => (
+                        <button 
+                            key={tab} 
+                            onClick={() => setActiveTab(tab)}
+                            className={`px-4 py-2 rounded ${activeTab === tab ? 'bg-blue-600 text-white' : 'bg-gray-200 hover:bg-blue-300'}`}
+                        >
+                            {tab}
+                        </button>
+                    ))}
                 </div>
                 {/* Botón agregar */}
                 <div className="flex justify-end mt-4">
