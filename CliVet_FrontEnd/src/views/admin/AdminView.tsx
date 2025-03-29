@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { FiLogOut } from "react-icons/fi";
+import { FiLogOut, FiSearch } from "react-icons/fi";
 
 export default function AdminView() {
     const [modalOpen, setModalOpen] = useState(false); // Saber si el modal de cada Card está abierto
@@ -47,15 +47,23 @@ export default function AdminView() {
                 {/* Barra de búsqueda y botón agregar */}
                 <div className={`flex mt-4 ${activeTab === "Procesos" ? "justify-end" : "justify-between"}`}>
                     {(activeTab === "Colaboradores" || activeTab === "Mascotas" || activeTab === "Servicios") && (
-                        <input 
-                            type="text" 
-                            placeholder="Buscar..." 
-                            className="border p-2 rounded w-1/3"
-                        />
+                        <div className="relative w-1/3">
+                            <input 
+                                type="text" 
+                                placeholder="Buscar..." 
+                                className="border p-2 rounded w-full pr-10"
+                            />
+                            <FiSearch className="absolute right-3 top-3 text-gray-500" />
+                        </div>
                     )}
-                    <button 
-                        className="px-6 py-2 bg-gray-300 rounded hover:bg-gray-400"
-                    >Agregar</button>
+                    {activeTab === "Servicios" ? (
+                        <div className="flex space-x-2">
+                            <button className="px-6 py-2 bg-gray-300 rounded hover:bg-gray-400">Agregar Guardería</button>
+                            <button className="px-6 py-2 bg-gray-300 rounded hover:bg-gray-400">Agregar Cita</button>
+                        </div>
+                    ) : (
+                        <button className="px-6 py-2 bg-gray-300 rounded hover:bg-gray-400">Agregar</button>
+                    )}
                 </div>
                 {/* Tarjetas de información */}
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-6">
