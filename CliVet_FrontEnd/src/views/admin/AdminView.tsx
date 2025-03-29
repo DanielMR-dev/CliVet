@@ -44,8 +44,15 @@ export default function AdminView() {
                         </button>
                     ))}
                 </div>
-                {/* Botón agregar */}
-                <div className="flex justify-end mt-4">
+                {/* Barra de búsqueda y botón agregar */}
+                <div className={`flex mt-4 ${activeTab === "Procesos" ? "justify-end" : "justify-between"}`}>
+                    {(activeTab === "Colaboradores" || activeTab === "Mascotas" || activeTab === "Servicios") && (
+                        <input 
+                            type="text" 
+                            placeholder="Buscar..." 
+                            className="border p-2 rounded w-1/3"
+                        />
+                    )}
                     <button 
                         className="px-6 py-2 bg-gray-300 rounded hover:bg-gray-400"
                     >Agregar</button>
