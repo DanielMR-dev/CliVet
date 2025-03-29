@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import LandingPage from "@/components/LandingPage";
+import LandingPage from "@/views/LandingPage";
 import LoginView from "@/views/auth/LoginView";
 import RegisterView from "@/views/auth/RegisterView";
 import AdminView from "@/views/admin/AdminView";
