@@ -2,10 +2,10 @@ from fastapi import FastAPI
 from sqlalchemy import create_engine, MetaData, Table, delete
 
 '''
-CODIGO ENFOCADO AL SERVICIO DE ELIMINAR USUARIOS
+CODIGO ENFOCADO AL SERVICIO DE ELIMINAR MASCOTAS
 
 FUNCIONALIDADES
-    1. Eliminar a un usuario por ID
+    1. Eliminar a una mascota por ID
 
 '''
 
@@ -20,12 +20,12 @@ metadata.reflect(bind=engine)  # Reflejar todas las tablas existentes
 app = FastAPI()
 
 @app.delete("/{cliente_id}")
-async def eliminar_colaborador(cliente_id: int):
+async def eliminar_mascota(cliente_id: int):
     try:
-        clientes = Table("cliente", metadata, autoload_with=engine)        
+        mascotas = Table("mascota", metadata, autoload_with=engine)        
 
         # Crear la consulta DELETE
-        query = delete(clientes).where(clientes.c.id == cliente_id)
+        query = delete(mascotas).where(mascotas.c.id == cliente_id)
 
         # Ejecutar la consulta
         with engine.connect() as connection:
@@ -33,9 +33,9 @@ async def eliminar_colaborador(cliente_id: int):
             connection.commit()
 
         if result.rowcount == 0:
-            return {"error": "Cliente no encontrado"}
+            return {"error": "Mascota no encontrada"}
         
-        return {"mensaje": "Cliente eliminado correctamente"}
+        return {"mensaje": "Mascota eliminada correctamente"}
 
     except Exception as e:
-        return {"error": f"Error al eliminar al cliente: {str(e)}"}
+        return {"error": f"Error al eliminar mascota: {str(e)}"}

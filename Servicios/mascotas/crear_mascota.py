@@ -3,11 +3,11 @@ from sqlalchemy import create_engine, MetaData, Table, insert, select
 from datetime import datetime
 
 '''
-CODIGO ENFOCADO AL SERVICIO DE REGISTRAR NUEVOS USUARIOS
+CODIGO ENFOCADO AL SERVICIO DE CREAR UNA MASCOTA
 
 FUNCIONALIDADES
-    1. Recibir un JSON con la información de un nuevo cliente y añadirlo a base de datos
-    2. Recibir un ID de usuario y retornar si este usuario existe o no en base de datos
+    1. Recibir un JSON con la información de una nueva mascota y añadirla a base de datos
+    2. Recibir un ID de mascota y retornar si esta mascota existe o no en base de datos
 
 '''
 
@@ -21,24 +21,25 @@ metadata.reflect(bind=engine)  # Reflejar todas las tablas existentes
 
 app = FastAPI()
 
-@app.post("/registrar_usuario")
-async def registrar_usuario(request: Request):
+@app.post("/registrar_mascota")
+async def registrar_mascota(request: Request):
     try:
         # Se selecciona la tabla de colaboradores
-        clientes = Table("cliente", metadata, autoload_with=engine)
+        mascotas = Table("mascota", metadata, autoload_with=engine)
 
         # Recuperar los datos como un json
         data = await request.json()
 
         # Crear la sentencia insert
-        query = insert(clientes).values(
+        query = insert(mascotas).values(
             id=data.get("id"),
-            nombre_completo=data.get("nombre_completo"),
-            fecha_nacimiento=datetime.strptime(data.get("fecha_nacimiento"), "%d-%m-%Y"),
-            clave=data.get("clave").encode(),
-            email=data.get("email"),
-            telefono=data.get("telefono"),
-            direccion=data.get("direccion")
+            nombre=data.get("nombre"),
+            edad=data.get("edad"),
+            id_propietario=data.get("id_propietario"),
+            agresividad=data.get("agresividad"),
+            peso=data.get("peso"),
+            direccion=data.get("direccion"),
+            id_especie=data.get("id_especie")
         )
 
         # Ejecutar la consulta
@@ -46,20 +47,20 @@ async def registrar_usuario(request: Request):
             connection.execute(query)
             connection.commit()
 
-        return {"mensaje": "Cliente registrado correctamente"} # Cambiar 
+        return {"mensaje": "Mascota registrada correctamente"} # Cambiar 
 
     except Exception as e:
-        return {"error": f"Error al registrar al cliente: {str(e)}"} # Cambiar 
+        return {"error": f"Error al registrar la mascota: {str(e)}"} # Cambiar 
     
 
 
-@app.get("/{cliente_id}")
-async def buscar_usuario(cliente_id: int):
+@app.get("/{mascota_id}")
+async def buscar_mascota(mascota_id: int):
     try:
-        clientes = Table("cliente", metadata, autoload_with=engine)    
+        mascotas = Table("mascota", metadata, autoload_with=engine)    
 
         # Crear la consulta DELETE
-        query = select(clientes).where(clientes.c.id == cliente_id)
+        query = select(mascotas).where(mascotas.c.id == mascota_id)
 
         # Ejecutar la consulta
         with engine.connect() as connection:
@@ -67,10 +68,10 @@ async def buscar_usuario(cliente_id: int):
             connection.commit()
 
         if result.rowcount == 0:
-            return {"error": "Cliente no encontrado"}
+            return {"error": "Mascota no encontrada"}
         
         rows = result.fetchall()
         return [dict(row._mapping) for row in rows]
 
     except Exception as e:
-        return {"error": f"Error al buscar cliente: {str(e)}"}
+        return {"error": f"Error al buscar mascota: {str(e)}"}
