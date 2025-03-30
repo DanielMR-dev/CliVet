@@ -2,7 +2,7 @@ import { FiClipboard, FiMenu, FiUser } from "react-icons/fi";
 import { FaPaw } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
-export default function Sidebar({ activeTab, setActiveTab, isOpen, toggleSidebar }) {
+export default function SidebarClient({ activeTab, setActiveTab, isOpen, toggleSidebar }) {
     return (
         <div className={`fixed md:relative ${isOpen ? "w-64" : "w-20"} bg-gray-200 h-full transition-all flex flex-col items-center`}> 
             <Link to={'/'} className="text-3xl font-bold text-blue-600 mt-4">{isOpen ? "CliVet" : "CV"}</Link>

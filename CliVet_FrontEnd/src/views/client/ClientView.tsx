@@ -1,4 +1,4 @@
-import Sidebar from "@/components/Sidebar";
+import SidebarClient from "@/views/client/SidebarClient";
 import { useState } from "react";
 import { FiLogOut } from "react-icons/fi";
 import { Link } from "react-router-dom";
@@ -9,7 +9,7 @@ export default function ClientView() {
     const [isSidebarOpen, setSidebarOpen] = useState(true); // Estado del sidebar
     return (
         <div className="flex h-screen">
-            <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} isOpen={isSidebarOpen} toggleSidebar={() => setSidebarOpen(!isSidebarOpen)} />
+            <SidebarClient activeTab={activeTab} setActiveTab={setActiveTab} isOpen={isSidebarOpen} toggleSidebar={() => setSidebarOpen(!isSidebarOpen)} />
             
             <div className="flex-1 flex flex-col p-6">
                 <div className="flex justify-between items-center">
