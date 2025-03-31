@@ -28,18 +28,13 @@ print(response.json())'''
 # print(response.json())
 
 
-# url = "http://127.0.0.1:8005/registrar_usuario"
+# url = "http://127.0.0.1:8000/usuarios/10023765"
 # data = {
-#     "id": 10023765,
 #     "nombre_completo": "Santiago Garcia Henao",
-#     "fecha_nacimiento": "03-05-2003",
-#     "clave": "asdfawerve",
-#     "email": "santiago123@gmail.com",
-#     "telefono": "310700674",
-#     "direccion": "La Virginia, Risaralda"
+#     "email": "garciaHenao@gmail.com"
 # }
 
-# response = requests.post(url, json=data)
+# response = requests.put(url, json=data)
 # print(response.json())
 
 '''
@@ -47,19 +42,13 @@ url = "http://127.0.0.1:8002/10023765"
 response = requests.delete(url)
 print(response.json())'''
 
-# url = "http://127.0.0.1:8000/registrar_mascota"
+# url = "http://127.0.0.1:8000/mascotas/2"
 # data = {
-# "id": 2,
-# "nombre": "Eustaquio",
-# "edad": 12,
-# "id_propietario": "10023765",
-# "agresividad": "Agresivo",
-# "peso": 18,
-# "direccion": "La Virginia, Risaralda",
-# "id_especie": 1
+# "nombre": "Eustaquio Fernando",
+# "edad": 15
 # }
 
-# response = requests.post(url, json=data)
+# response = requests.put(url, json=data)
 # print(response.json())
 
 '''url = "http://127.0.0.1:8000/1"
@@ -97,14 +86,10 @@ print(response.json())'''
 # response = requests.post(url, json=data)
 # print(response.json())
 
-##!! Modificar una cita ( Permite solo entregar los datos que se desean modificar)
+#!! Modificar una cita ( Permite solo entregar los datos que se desean modificar)
 # url = 'http://127.0.0.1:8000/citas/1'
 # data = {
-# # "id_tipo": 1,
-# # "id_mascota": 2,
-# "id_colaborador": 2,
-# # "fecha_hora": "2023-10-20 15:30:00",
-# "modificable_por_usuario": 1
+# "fecha_hora": "2023-05-20 15:30:00"
 # }
 # response = requests.put(url, json=data)
 # print(response.json())
@@ -152,3 +137,13 @@ print(response.json())'''
 
 # response = requests.get(url)
 # print(response.json())
+
+
+url = "http://127.0.0.1:8000/iniciar_sesion"
+data = {
+"id": 10023765,
+"clave": "asdfawerver"
+}
+
+response = requests.get(url, json=data)
+print(response.json())

@@ -34,21 +34,15 @@ async def modificar_mascota(id: int, request: Request):
         # Recuperar los datos como un json
         data = await request.json()
 
+        # Remover 'id' si está en los datos (no se debe actualizar)
+        data.pop("id", None)
+
+        # Si no hay datos para actualizar, devolver error
+        if not data:
+            return {"error": "No se enviaron datos para actualizar"}
+
         # Crear la sentencia insert
-        query = update(
-            mascotas
-            ).where(
-                mascotas.c.id == id
-                ).values(
-                    id=data.get("id"),
-                    nombre=data.get("nombre"),
-                    edad=data.get("edad"),
-                    id_propietario=data.get("id_propietario"),
-                    agresividad=data.get("agresividad"),
-                    peso=data.get("peso"),
-                    direccion=data.get("direccion"),
-                    id_especie=data.get("id_especie")
-                    )
+        query = update(mascotas).where(mascotas.c.id == id).values(**data)
 
         # Ejecutar la consulta
         with engine.connect() as connection:

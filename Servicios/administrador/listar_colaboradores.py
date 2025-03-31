@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Query
 from sqlalchemy import create_engine, MetaData, Table, select
 import os
 from dotenv import load_dotenv
@@ -36,11 +36,14 @@ async def get_procesos():
     return [dict(row._mapping) for row in rows]
 
 
-
-@app.get("/colaboradores/{id}")
-async def get_proceso_id(id: int):
+'''
+EJEMPLO DE SOLICITUD:
+    http://127.0.0.1:8000/colaboradores/por-id?id_colaborador=2
+'''
+@app.get("/colaboradores/por-id")
+async def get_proceso_id(id_colaborador: int = Query(...)):
     colaboradores = Table("colaborador", metadata, autoload_with=engine)
-    query = select(colaboradores).where(colaboradores.c.id == id)
+    query = select(colaboradores).where(colaboradores.c.id == id_colaborador)
     with engine.connect() as connection:
         result = connection.execute(query)
         rows = result.fetchall()

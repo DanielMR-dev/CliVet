@@ -24,7 +24,6 @@ metadata.reflect(bind=engine)  # Reflejar todas las tablas existentes
 
 app = FastAPI()
 
-# Si no se van a manejar modelos, lo mejor es que la request tenga el JSON con la informacion de todas las columnas
 @app.put("/colaboradores/{id}")
 async def crear_colaborador(id:int, request: Request):
     try:
@@ -34,19 +33,15 @@ async def crear_colaborador(id:int, request: Request):
         # Recuperar los datos como un json
         data = await request.json()
 
+        # Remover el id si esta en los datos, ya que no se debe actualizar
+        data.pop("id", None)
+
+        # Si no hay datos para actualizar, devolver error
+        if not data:
+            return {"error": "No se enviaron datos para actualizar"}
+
         # Crear la sentencia insert
-        query = update(
-            colaboradores
-            ).where(
-                colaboradores.c.id == id
-                ).values(
-                    id=data.get("id"),
-                    nombre_completo=data.get("nombre_completo"),
-                    id_tipo=data.get("id_tipo"),
-                    email=data.get("email"),
-                    telefono=data.get("telefono"),
-                    direccion=data.get("direccion")
-                    )
+        query = update(colaboradores).where(colaboradores.c.id == id).values(**data)
 
         # Ejecutar la consulta
         with engine.connect() as connection:

@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Query
 from sqlalchemy import create_engine, MetaData, Table, select
 import os
 from dotenv import load_dotenv
@@ -27,7 +27,7 @@ metadata.reflect(bind=engine)  # Reflejar todas las tablas existentes
 app = FastAPI()
     
 @app.get("/mascotas")
-async def get_procesos():
+async def listar_todas_las_mascotas():
     mascotas = Table("mascota", metadata, autoload_with=engine)
     query = select(mascotas)
     with engine.connect() as connection:
@@ -38,10 +38,10 @@ async def get_procesos():
 
 
 
-@app.get("/mascotas/usuario/{id}")
-async def get_proceso_id(id: int):
+@app.get("/mascotas/por-usuario")
+async def get_proceso_id(id_usuario: int = Query(...)):
     mascotas = Table("mascota", metadata, autoload_with=engine)
-    query = select(mascotas).where(mascotas.c.id_propietario == id)
+    query = select(mascotas).where(mascotas.c.id_propietario == id_usuario)
     with engine.connect() as connection:
         result = connection.execute(query)
         rows = result.fetchall()
@@ -49,10 +49,10 @@ async def get_proceso_id(id: int):
     return [dict(row._mapping) for row in rows]
 
 
-@app.get("/mascotas/{id}")
-async def get_proceso_id(id: int):
+@app.get("/mascotas/por-id")
+async def get_proceso_id(id_mascota: int = Query(...)):
     mascotas = Table("mascota", metadata, autoload_with=engine)
-    query = select(mascotas).where(mascotas.c.id == id)
+    query = select(mascotas).where(mascotas.c.id == id_mascota)
     with engine.connect() as connection:
         result = connection.execute(query)
         rows = result.fetchall()

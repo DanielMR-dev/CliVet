@@ -26,33 +26,30 @@ metadata.reflect(bind=engine)  # Reflejar todas las tablas existentes
 
 app = FastAPI()
 
-@app.post("/registrar_usuario")
-async def registrar_usuario(request: Request):
+@app.get("/iniciar_sesion")
+async def buscar_usuario(request: Request):
     try:
-        # Se selecciona la tabla de colaboradores
-        clientes = Table("cliente", metadata, autoload_with=engine)
+        clientes = Table("cliente", metadata, autoload_with=engine)    
 
         # Recuperar los datos como un json
         data = await request.json()
 
-        # Crear la sentencia insert
-        query = insert(clientes).values(
-            id=data.get("id"),
-            nombre_completo=data.get("nombre_completo"),
-            fecha_nacimiento=datetime.strptime(data.get("fecha_nacimiento"), "%d-%m-%Y"),
-            clave=data.get("clave").encode(),
-            email=data.get("email"),
-            telefono=data.get("telefono"),
-            direccion=data.get("direccion")
-        )
+        # Crear la consulta DELETE
+        query = select(clientes).where(
+            (clientes.c.id == data.get("id")) &
+            (clientes.c.clave == data.get("clave").encode())
+            )
 
         # Ejecutar la consulta
         with engine.connect() as connection:
-            connection.execute(query)
+            result = connection.execute(query)
             connection.commit()
 
-        return {"mensaje": "Cliente registrado correctamente"} # Cambiar 
+        if result.rowcount == 0:
+            return {"message": "Credenciales invalidas"}
+        
+        rows = result.fetchall()
+        return {"message": "Credenciales validas"}
 
     except Exception as e:
-        return {"error": f"Error al registrar al cliente: {str(e)}"} # Cambiar 
-    
+        return {"error": f"Error al buscar cliente: {str(e)}"}

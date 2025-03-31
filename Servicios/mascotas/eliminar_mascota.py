@@ -24,13 +24,13 @@ metadata.reflect(bind=engine)  # Reflejar todas las tablas existentes
 
 app = FastAPI()
 
-@app.delete("/{cliente_id}")
-async def eliminar_mascota(cliente_id: int):
+@app.delete("/{mascota_id}")
+async def eliminar_mascota(mascota_id: int):
     try:
         mascotas = Table("mascota", metadata, autoload_with=engine)        
 
         # Crear la consulta DELETE
-        query = delete(mascotas).where(mascotas.c.id == cliente_id)
+        query = delete(mascotas).where(mascotas.c.id == mascota_id)
 
         # Ejecutar la consulta
         with engine.connect() as connection:

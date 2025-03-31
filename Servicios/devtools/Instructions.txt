@@ -1,4 +1,4 @@
 Para ejecutar cada uno de los servicios, se debe ejecutar el siguiente comando:
-    1. export DATABASE_URL="postgresql://admin:xpi6jXD9lN1mhNzqHrldmYUK5wdQpam1@dpg-cvg564jtq21c73e0jth0-a.oregon-postgres.render.com:5432/clivet2025"
+    1. uvicorn Servicios.usuario.iniciar_sesion:app --port ### --env-file ENVIRONMENT_FILE_NAME.env --reload
 
-    2. uvicorn Servicios.administrador.listar_procesos:app --port #### --reload
+El argumento --reload es para desarrollo, se debe quitar una vez este en produccion

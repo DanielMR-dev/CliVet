@@ -34,20 +34,15 @@ async def registrar_usuario(id: int, request: Request):
         # Recuperar los datos como un json
         data = await request.json()
 
+        # Remover 'id' si está en los datos (no se debe actualizar)
+        data.pop("id", None)
+
+        # Si no hay datos para actualizar, devolver error
+        if not data:
+            return {"error": "No se enviaron datos para actualizar"}
+
         # Crear la sentencia insert
-        query = update(
-            clientes
-            ).where(
-                clientes.c.id == id
-                ).values(
-                    id=data.get("id"),
-                    nombre_completo=data.get("nombre_completo"),
-                    fecha_nacimiento=datetime.strptime(data.get("fecha_nacimiento"), "%d-%m-%Y"),
-                    clave=data.get("clave").encode(),
-                    email=data.get("email"),
-                    telefono=data.get("telefono"),
-                    direccion=data.get("direccion")
-                    )
+        query = update(clientes).where(clientes.c.id == id).values(**data)
 
         # Ejecutar la consulta
         with engine.connect() as connection:
