@@ -11,3 +11,13 @@ export const UsuarioSchema = z.object({
     telefono: z.string().optional(), // Puede ser opcional
     role: UserRoleEnum,
 });
+
+// Esquema específico para Clientes
+export const ClienteSchema = UsuarioSchema.extend({
+    role: z.literal("CLIENTE"), // Restringe este esquema al rol "CLIENTE"
+    direccion: z.string().min(5, "La dirección debe ser válida"),
+    fechaNacimiento: z.string().refine(
+      (fecha) => !isNaN(Date.parse(fecha)),
+      "Debe ser una fecha válida"
+    ),
+});
