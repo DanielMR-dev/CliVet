@@ -21,3 +21,10 @@ export const ClienteSchema = UsuarioSchema.extend({
       "Debe ser una fecha válida"
     ),
 });
+
+// Esquema específico para Administradores
+export const AdministradorSchema = UsuarioSchema.extend({
+    role: z.literal("ADMIN"), // Restringe este esquema al rol "ADMIN"
+    permisos: z.array(z.string()).nonempty("Debe tener al menos un permiso"),
+});
+
