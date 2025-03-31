@@ -1,6 +1,11 @@
 from fastapi import FastAPI
 from sqlalchemy import create_engine, MetaData, Table, delete
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
+
+DATABASE_URL = os.getenv("DATABASE_URL")
 '''
 CODIGO ENFOCADO AL SERVICIO DE ELIMINAR USUARIOS
 
@@ -10,7 +15,7 @@ FUNCIONALIDADES
 '''
 
 # Conexión a la base de datos (ajustar URL)
-DATABASE_URL = "postgresql://postgres:admin@localhost:5432/clivet"
+# DATABASE_URL = "postgresql://postgres:admin@localhost:5432/clivet"
 engine = create_engine(DATABASE_URL)
 
 # Cargar metadatos sin definir modelos
