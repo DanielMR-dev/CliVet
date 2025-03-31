@@ -51,7 +51,7 @@ export default function AdminView() {
                             <input 
                                 type="text" 
                                 placeholder="Buscar..." 
-                                className="border p-2 rounded w-full pr-10"
+                                className="border p-1.5 rounded w-full pr-10"
                             />
                             <FiSearch className="absolute right-3 top-3 text-gray-500" />
                         </div>
