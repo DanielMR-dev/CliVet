@@ -138,12 +138,18 @@ print(response.json())'''
 # response = requests.get(url)
 # print(response.json())
 
+##!! Iniciar sesion 
+# url = "http://127.0.0.1:8000/iniciar_sesion"
+# data = {
+# "id": 10023765,
+# "clave": "asdfawerver"
+# }
 
-url = "http://127.0.0.1:8000/iniciar_sesion"
-data = {
-"id": 10023765,
-"clave": "asdfawerver"
-}
+# response = requests.get(url, json=data)
+# print(response.json())
 
-response = requests.get(url, json=data)
+##!! Listar citas disponibles por fecha y tipo
+url = "http://localhost:8000/citas/disponibles/2025-04-01/2"
+
+response = requests.get(url)
 print(response.json())
