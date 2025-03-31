@@ -4,7 +4,7 @@ import { z } from "zod";
 export const UserRoleEnum = z.enum(["ADMIN", "MEDICO", "CLIENTE"]);
 
 // Esquema base para todos los usuarios
-export const UsuarioSchema = z.object({
+export const UserSchema = z.object({
     id: z.number(),
     nombre: z.string().min(3, "El nombre debe tener al menos 3 caracteres"),
     email: z.string().email("Correo electrónico inválido"),
@@ -13,7 +13,7 @@ export const UsuarioSchema = z.object({
 });
 
 // Esquema específico para Clientes
-export const ClienteSchema = UsuarioSchema.extend({
+export const ClientSchema = UserSchema.extend({
     role: z.literal("CLIENTE"), // Restringe este esquema al rol "CLIENTE"
     direccion: z.string().min(5, "La dirección debe ser válida"),
     fechaNacimiento: z.string().refine(
@@ -23,8 +23,12 @@ export const ClienteSchema = UsuarioSchema.extend({
 });
 
 // Esquema específico para Administradores
-export const AdministradorSchema = UsuarioSchema.extend({
+export const AdminSchema = UserSchema.extend({
     role: z.literal("ADMIN"), // Restringe este esquema al rol "ADMIN"
     permisos: z.array(z.string()).nonempty("Debe tener al menos un permiso"),
 });
 
+// Extraer los tipos en TypeScript
+export type User = z.infer<typeof UserSchema>;
+export type Client = z.infer<typeof ClientSchema>;
+export type Admin = z.infer<typeof AdminSchema>;
