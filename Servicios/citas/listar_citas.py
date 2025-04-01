@@ -18,8 +18,8 @@ app = FastAPI()
 @app.get("/citas")
 async def listar_todas_las_citas():
     """ Lista todas las citas. """
-    cita = Table("cita", metadata, autoload_with=engine)
-    query = select(cita)
+    citas = Table("cita", metadata, autoload_with=engine)
+    query = select(citas)
     
     with engine.connect() as connection:
         result = connection.execute(query)

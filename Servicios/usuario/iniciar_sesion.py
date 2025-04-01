@@ -34,7 +34,7 @@ async def buscar_usuario(request: Request):
         # Recuperar los datos como un json
         data = await request.json()
 
-        # Crear la consulta DELETE
+        # Crear la consulta
         query = select(clientes).where(
             (clientes.c.id == data.get("id")) &
             (clientes.c.clave == data.get("clave").encode())
@@ -47,8 +47,7 @@ async def buscar_usuario(request: Request):
 
         if result.rowcount == 0:
             return {"message": "Credenciales invalidas"}
-        
-        rows = result.fetchall()
+
         return {"message": "Credenciales validas"}
 
     except Exception as e:
