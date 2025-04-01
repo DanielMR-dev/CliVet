@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { FiLogOut } from "react-icons/fi";
 import { Link } from "react-router-dom";
-import SidebarDoctor from "./SidebarDoctor";
+import SidebarDoctor from "./components/SidebarDoctor";
 
 export default function DoctorView() {
     const [activeTab, setActiveTab] = useState("Servicios");
