@@ -1,7 +1,7 @@
-import SidebarClient from "@/views/client/SidebarClient";
 import { useState } from "react";
 import { FiLogOut } from "react-icons/fi";
 import { Link } from "react-router-dom";
+import SidebarClient from "@/views/client/SidebarClient";
 import ProfileCard from "./ProfileCard";
 
 export default function ClientView() {

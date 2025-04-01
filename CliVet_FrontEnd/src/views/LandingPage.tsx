@@ -1,6 +1,6 @@
 import { Stethoscope, Clock, Heart, Users, ChevronRight } from "lucide-react";
 import heroImage from "@/assets/images/hero-image.jpg";
-import Chatbot from "@/components/Chatbot";
+import Chatbot from "@/views/Chatbot";
 import { Link } from "react-router-dom";
 
 const Feature = ({ icon: Icon, title, description }) => (
