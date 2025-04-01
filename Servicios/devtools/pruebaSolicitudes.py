@@ -149,7 +149,17 @@ print(response.json())'''
 # print(response.json())
 
 ##!! Listar citas disponibles por fecha y tipo
-url = "http://localhost:8000/citas/disponibles/2025-04-01/2"
+# url = "http://localhost:8000/citas/disponibles/2025-04-01/2"
 
-response = requests.get(url)
+# response = requests.get(url)
+# print(response.json())
+
+url = "http://localhost:8000/crear_estadia_guarderia"
+data = {
+"fecha_ingreso": "2025-04-01 14",
+"fecha_recogida": "2025-04-02 14",
+"id_mascota": 2,
+"observaciones": "Darle un dulce todas las mañanas"
+}
+response = requests.post(url, json=data)
 print(response.json())

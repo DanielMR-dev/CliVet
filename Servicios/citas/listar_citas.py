@@ -1,9 +1,20 @@
-from fastapi import FastAPI, Query
-from sqlalchemy import create_engine, MetaData, Table, select
+from fastapi import FastAPI, Query, HTTPException
+from sqlalchemy import create_engine, MetaData, Table, select, and_
 import os
+from datetime import datetime, time, timedelta
 from dotenv import load_dotenv
 
 load_dotenv()
+
+# Diccionario que relaciona a los diferentes tipos de colaboradores con los tipos de citas
+colaboradores_citas = {
+    1: [1, 2], # Medico - Revision y cirugia
+    2: None, # Inventario - None (no atienden citas)
+    3: None, # Proveedor - None (no atienden citas)
+    4: 3, # Peluqueria - Peluqueria
+    5: None, # Guarderia - None (el tipo de cita de este colaborador tiene un manejo distinto)
+    6: 4 # Enfermeria - Vacunas
+}
 
 DATABASE_URL = os.getenv("DATABASE_URL")
 engine = create_engine(DATABASE_URL)
@@ -28,6 +39,7 @@ async def listar_todas_las_citas():
     return [dict(row._mapping) for row in rows]
 
 
+
 @app.get("/citas/por-fecha-tipo")
 async def listar_por_fecha_tipo(fecha: str = Query(...), id_tipo: int = Query(...)):
     """ Lista citas filtrando por fecha y tipo. """
@@ -39,6 +51,7 @@ async def listar_por_fecha_tipo(fecha: str = Query(...), id_tipo: int = Query(..
         rows = result.fetchall()
 
     return [dict(row._mapping) for row in rows]
+
 
 
 @app.get("/citas/por-tipo")
@@ -54,6 +67,7 @@ async def listar_por_tipo(id_tipo: int = Query(...)):
     return [dict(row._mapping) for row in rows]
 
 
+
 @app.get("/citas/por-colaborador")
 async def listar_por_colaborador(id_colaborador: int = Query(...)):
     cita = Table("cita", metadata, autoload_with=engine)
@@ -65,6 +79,7 @@ async def listar_por_colaborador(id_colaborador: int = Query(...)):
         rows = result.fetchall()
 
     return [dict(row._mapping) for row in rows]
+
 
 
 @app.get("/citas/por-cliente")
@@ -86,6 +101,7 @@ async def listar_por_cliente(id_cliente: int = Query(...)):
     return [dict(row._mapping) for row in rows]
 
 
+
 @app.get("/citas/por-mascota")
 async def listar_por_mascota(id_mascota: int = Query(...)):
     """ Lista citas filtrando por mascota. """
@@ -98,21 +114,7 @@ async def listar_por_mascota(id_mascota: int = Query(...)):
 
     return [dict(row._mapping) for row in rows]
 
-from fastapi import FastAPI, HTTPException
-from sqlalchemy import create_engine, MetaData, Table, select, and_
-from datetime import datetime, time, timedelta
-import os
-from dotenv import load_dotenv
 
-load_dotenv()
-
-DATABASE_URL = os.getenv("DATABASE_URL")
-engine = create_engine(DATABASE_URL)
-
-metadata = MetaData()
-metadata.reflect(bind=engine)
-
-app = FastAPI()
 
 @app.get("/citas/disponibles/{fecha}/{id_tipo}")
 async def obtener_horarios_disponibles(fecha: str, id_tipo: int):
