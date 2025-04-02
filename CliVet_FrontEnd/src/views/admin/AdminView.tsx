@@ -1,12 +1,12 @@
 import { useState } from "react";
-import HeaderAdmin from "./components/HeaderAdmin";
 import { FiSearch } from "react-icons/fi";
+import HeaderAdmin from "./components/HeaderAdmin";
 import InfoCardModal from "./components/InfoCardModal";
 import AddCollaboratorModal from "./components/AddCollaboratorModal";
 
 export default function AdminView() {
-    const [modalOpen, setModalOpen] = useState(false); // Saber si el modal de cada Card está abierto
-    const [addModalOpen, setAddModalOpen] = useState(false); // Modal para agregar colaborador
+    const [infoCardModalOpen, setInfoCardModalOpen] = useState(false); // Saber si el modal de cada Card está abierto
+    const [addCollaboratorModalOpen, setAddCollaboratorModalOpen] = useState<boolean>(false); // Modal para agregar colaborador
     const [activeTab, setActiveTab] = useState("Procesos"); // Saber qué tab está activo
 
     const tabContent = {
@@ -51,7 +51,7 @@ export default function AdminView() {
                     {activeTab === "Colaboradores" && (
                         <button 
                             className="px-6 py-2 bg-gray-300 rounded hover:bg-gray-400"
-                            onClick={() => setAddModalOpen(true)}
+                            onClick={() => setAddCollaboratorModalOpen(true)}
                         >Agregar</button>
                     )}
                 </div>
@@ -61,7 +61,7 @@ export default function AdminView() {
                         <div 
                             key={index} 
                             className="border p-4 bg-white rounded shadow-md cursor-pointer"
-                            onClick={() => setModalOpen(true)}
+                            onClick={() => setInfoCardModalOpen(true)}
                         >
                             <h3 className="font-semibold border-b pb-2">Información</h3>
                             <p className="mt-2 text-gray-600">Contenido relevante...</p>
@@ -70,8 +70,8 @@ export default function AdminView() {
                 </div>
                 {/* Modal de Información */}
                 {/* Modales */}
-                <InfoCardModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />
-                <AddCollaboratorModal isOpen={addModalOpen} onClose={() => setAddModalOpen(false)} />
+                <InfoCardModal isOpen={infoCardModalOpen} onClose={() => setInfoCardModalOpen(false)} />
+                <AddCollaboratorModal isOpen={addCollaboratorModalOpen} onClose={() => setAddCollaboratorModalOpen(false)} />
             </main>
         </div>
     );

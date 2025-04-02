@@ -1,5 +1,10 @@
+interface InfoCardModalProps {
+    isOpen: boolean;
+    onClose: () => void;
+};
 
-export default function InfoCardModal({ isOpen, onClose }) {
+
+export default function InfoCardModal({ isOpen, onClose }: InfoCardModalProps) {
     if (!isOpen) return null;
 
     return (
