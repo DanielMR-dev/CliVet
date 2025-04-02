@@ -1,5 +1,9 @@
+interface AddCollaboratorModalProps {
+    isOpen: boolean;
+    onClose: () => void;
+};
 
-export default function AddCollaboratorModal({ isOpen, onClose }) {
+export default function AddCollaboratorModal({ isOpen, onClose } : AddCollaboratorModalProps) {
     if (!isOpen) return null;
 
     return (

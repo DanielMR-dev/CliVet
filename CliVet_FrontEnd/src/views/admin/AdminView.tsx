@@ -5,7 +5,7 @@ import InfoCardModal from "./components/InfoCardModal";
 import AddCollaboratorModal from "./components/AddCollaboratorModal";
 
 export default function AdminView() {
-    const [infoCardModalOpen, setInfoCardModalOpen] = useState(false); // Saber si el modal de cada Card está abierto
+    const [infoCardModalOpen, setInfoCardModalOpen] = useState<boolean>(false); // Saber si el modal de cada Card está abierto
     const [addCollaboratorModalOpen, setAddCollaboratorModalOpen] = useState<boolean>(false); // Modal para agregar colaborador
     const [activeTab, setActiveTab] = useState("Procesos"); // Saber qué tab está activo
 

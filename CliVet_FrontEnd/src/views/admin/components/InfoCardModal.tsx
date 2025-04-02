@@ -4,7 +4,7 @@ interface InfoCardModalProps {
 };
 
 
-export default function InfoCardModal({ isOpen, onClose }: InfoCardModalProps) {
+export default function InfoCardModal({ isOpen, onClose } : InfoCardModalProps) {
     if (!isOpen) return null;
 
     return (
