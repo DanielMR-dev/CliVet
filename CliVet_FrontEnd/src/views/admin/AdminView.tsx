@@ -1,7 +1,6 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import { FiLogOut, FiSearch } from "react-icons/fi";
 import HeaderAdmin from "./components/HeaderAdmin";
+import { FiSearch } from "react-icons/fi";
 
 export default function AdminView() {
     const [modalOpen, setModalOpen] = useState(false); // Saber si el modal de cada Card está abierto
