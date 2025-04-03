@@ -1,10 +1,9 @@
-from fastapi import FastAPI, Query, HTTPException
-from sqlalchemy import create_engine, MetaData, Table, select, and_
+from fastapi import APIRouter, Query, HTTPException
+from sqlalchemy import Table, select, and_
 import os
 from datetime import datetime, time, timedelta
-from dotenv import load_dotenv
+from citas.database import engine, metadata
 
-load_dotenv()
 
 # Diccionario que relaciona a los diferentes tipos de colaboradores con los tipos de citas
 colaboradores_citas = {
@@ -16,17 +15,10 @@ colaboradores_citas = {
     6: 4 # Enfermeria - Vacunas
 }
 
-DATABASE_URL = os.getenv("DATABASE_URL")
-engine = create_engine(DATABASE_URL)
 
-# Cargar metadatos sin definir modelos
-metadata = MetaData()
-metadata.reflect(bind=engine)
+router = APIRouter()
 
-app = FastAPI()
-
-
-@app.get("/citas")
+@router.get("/citas")
 async def listar_todas_las_citas():
     """ Lista todas las citas. """
     citas = Table("cita", metadata, autoload_with=engine)
@@ -40,7 +32,7 @@ async def listar_todas_las_citas():
 
 
 
-@app.get("/citas/por-fecha-tipo")
+@router.get("/citas/por-fecha-tipo")
 async def listar_por_fecha_tipo(fecha: str = Query(...), id_tipo: int = Query(...)):
     """ Lista citas filtrando por fecha y tipo. """
     cita = Table("cita", metadata, autoload_with=engine)
@@ -54,7 +46,7 @@ async def listar_por_fecha_tipo(fecha: str = Query(...), id_tipo: int = Query(..
 
 
 
-@app.get("/citas/por-tipo")
+@router.get("/citas/por-tipo")
 async def listar_por_tipo(id_tipo: int = Query(...)):
     """ Lista citas filtrando por tipo. """
     cita = Table("cita", metadata, autoload_with=engine)
@@ -68,7 +60,7 @@ async def listar_por_tipo(id_tipo: int = Query(...)):
 
 
 
-@app.get("/citas/por-colaborador")
+@router.get("/citas/por-colaborador")
 async def listar_por_colaborador(id_colaborador: int = Query(...)):
     cita = Table("cita", metadata, autoload_with=engine)
 
@@ -82,7 +74,7 @@ async def listar_por_colaborador(id_colaborador: int = Query(...)):
 
 
 
-@app.get("/citas/por-cliente")
+@router.get("/citas/por-cliente")
 async def listar_por_cliente(id_cliente: int = Query(...)):
     """ Lista citas filtrando por cliente. """
     cita = Table("cita", metadata, autoload_with=engine)
@@ -102,7 +94,7 @@ async def listar_por_cliente(id_cliente: int = Query(...)):
 
 
 
-@app.get("/citas/por-mascota")
+@router.get("/citas/por-mascota")
 async def listar_por_mascota(id_mascota: int = Query(...)):
     """ Lista citas filtrando por mascota. """
     cita = Table("cita", metadata, autoload_with=engine)
@@ -116,7 +108,7 @@ async def listar_por_mascota(id_mascota: int = Query(...)):
 
 
 
-@app.get("/citas/disponibles/{fecha}/{id_tipo}")
+@router.get("/citas/disponibles/{fecha}/{id_tipo}")
 async def obtener_horarios_disponibles(fecha: str, id_tipo: int):
     """ Obtiene los horarios disponibles para una cita en una fecha dada. """
     try:

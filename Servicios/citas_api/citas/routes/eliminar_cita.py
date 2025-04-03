@@ -1,20 +1,10 @@
-from fastapi import FastAPI
-from sqlalchemy import create_engine, MetaData, Table, delete
-import os
-from dotenv import load_dotenv
-load_dotenv()
+from fastapi import APIRouter
+from sqlalchemy import Table, delete
+from citas.database import engine, metadata
 
+router = APIRouter()
 
-DATABASE_URL = os.getenv("DATABASE_URL")
-
-engine = create_engine(DATABASE_URL)
-
-metadata = MetaData()
-metadata.reflect(bind=engine)  # Reflejar todas las tablas existentes
-
-app = FastAPI()
-
-@app.delete("/{cita_id}")
+@router.delete("/{cita_id}")
 async def eliminar_colaborador(cita_id: int):
     try:
         cita = Table("cita", metadata, autoload_with=engine)        

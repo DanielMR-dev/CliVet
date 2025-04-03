@@ -1,21 +1,12 @@
-from fastapi import FastAPI, Request
-from sqlalchemy import create_engine, MetaData, Table, update
-import os
-from dotenv import load_dotenv
+from fastapi import APIRouter, Request
+from sqlalchemy import Table, update
+from citas.database import engine, metadata
 
-load_dotenv()
 
-DATABASE_URL = os.getenv("DATABASE_URL")
+router = APIRouter()
 
-engine = create_engine(DATABASE_URL)
 
-# Cargar metadatos sin definir modelos
-metadata = MetaData()
-metadata.reflect(bind=engine)  # Reflejar todas las tablas existentes
-
-app = FastAPI()
-
-@app.put("/citas/{id}")
+@router.put("/citas/{id}")
 async def actualizar_cita(id: int, request: Request):
     try:
         # Obtener la tabla

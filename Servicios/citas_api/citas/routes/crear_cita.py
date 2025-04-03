@@ -1,12 +1,9 @@
-from fastapi import FastAPI, Request, Query
-from sqlalchemy import create_engine, MetaData, Table, insert
-import os
-from dotenv import load_dotenv
+from fastapi import Request, Query, APIRouter
+from sqlalchemy import Table, insert
+from citas.database import engine, metadata
 from datetime import datetime
-load_dotenv()
 
 
-DATABASE_URL = os.getenv("DATABASE_URL")
 '''
 CODIGO ENFOCADO AL SERVICIO DE CREAR COLABORADORES
 
@@ -16,17 +13,9 @@ FUNCIONALIDADES
 
 '''
 
-# Conexión a la base de datos (ajustar URL)
-# DATABASE_URL = "postgresql://postgres:admin@localhost:5432/clivet"
-engine = create_engine(DATABASE_URL)
+router = APIRouter()
 
-# Cargar metadatos sin definir modelos
-metadata = MetaData()
-metadata.reflect(bind=engine)  # Reflejar todas las tablas existentes
-
-app = FastAPI()
-
-@app.post("/crear_cita")
+@router.post("/crear_cita")
 async def crear_cita(request: Request):
     try:
         # Se selecciona la tabla de colaboradores
@@ -57,7 +46,7 @@ async def crear_cita(request: Request):
 
 
 
-@app.post("/crear_estadia_guarderia")
+@router.post("/crear_estadia_guarderia")
 async def crear_estadia_guarderia(request: Request):
     try:
         # Se selecciona la tabla de colaboradores
@@ -98,7 +87,7 @@ async def crear_estadia_guarderia(request: Request):
 EJEMPLO DE SOLICITUD:
     http://127.0.0.1:8000/estimar_costo_guarderia?fecha_hora_inicio=2025-04-01%2014&fecha_hora_fin=2025-04-02%2014&peso_mascota=6
 '''
-@app.get("/estimar_costo_guarderia")
+@router.get("/estimar_costo_guarderia")
 async def crear_estadia_guarderia(fecha_hora_inicio: str = Query(...), fecha_hora_fin: str = Query(...), peso_mascota: int = Query(...)):
     try:
 
