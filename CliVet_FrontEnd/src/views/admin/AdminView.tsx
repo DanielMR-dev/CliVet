@@ -1,7 +1,6 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import { FiLogOut, FiSearch } from "react-icons/fi";
-import HeaderAdmin from "./components/HeaderAdmin";
+import { FiEdit, FiSearch, FiTrash } from "react-icons/fi";
+import HeaderAdmin from "@/views/admin/components/HeaderAdmin";
 
 export default function AdminView() {
     const [modalOpen, setModalOpen] = useState(false); // Saber si el modal de cada Card está abierto
@@ -55,16 +54,26 @@ export default function AdminView() {
                         <button className="px-6 py-2 bg-gray-300 rounded hover:bg-gray-400">Agregar</button>
                     )}
                 </div>
-                {/* Tarjetas de información */}
+                {/* Tarjetas de Información */}
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-6">
                     {[...Array(4)].map((_, index) => (
                         <div 
                             key={index} 
-                            className="border p-4 bg-white rounded shadow-md cursor-pointer"
+                            className="border p-4 bg-white rounded shadow-md cursor-pointer relative"
                             onClick={() => setModalOpen(true)}
                         >
                             <h3 className="font-semibold border-b pb-2">Información</h3>
                             <p className="mt-2 text-gray-600">Contenido relevante...</p>
+
+                            {/* Botones de editar y eliminar */}
+                            <div className="absolute bottom-2 right-2 flex space-x-2">
+                                <button className="p-2 bg-gray-200 rounded hover:bg-gray-300">
+                                    <FiEdit className="text-gray-700" />
+                                </button>
+                                <button className="p-2 bg-gray-200 rounded hover:bg-red-300">
+                                    <FiTrash className="text-red-600" />
+                                </button>
+                            </div>
                         </div>
                     ))}
                 </div>

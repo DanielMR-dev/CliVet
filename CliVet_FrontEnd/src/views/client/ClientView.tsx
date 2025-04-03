@@ -2,7 +2,7 @@ import { useState } from "react";
 import { FiLogOut } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import SidebarClient from "@/views/client/components/SidebarClient";
-import ProfileCard from "./components/ProfileCard";
+import ProfileCard from "@/views/client/components/ProfileCard";
 
 export default function ClientView() {
     const [activeTab, setActiveTab] = useState("Servicios"); // Estado de los tabs
