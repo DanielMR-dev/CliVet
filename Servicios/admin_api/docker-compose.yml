@@ -1,0 +1,11 @@
+services:
+  admin_api:
+    build: .
+    container_name: admin_api
+    ports:
+      - "4000:4000"
+    volumes:
+      - .:/app
+    environment:
+      - PYTHONUNBUFFERED=1
+    command: uvicorn main:app --host 0.0.0.0 --port 4000 --reload
