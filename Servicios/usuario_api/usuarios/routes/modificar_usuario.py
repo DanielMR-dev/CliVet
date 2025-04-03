@@ -5,7 +5,7 @@ from datetime import datetime
 
 router = APIRouter()
 
-@router.put("/usuarios/{id}")
+@router.put("/modificar/{id}")
 async def registrar_usuario(id: int, request: Request):
     try:
         # Se selecciona la tabla de colaboradores

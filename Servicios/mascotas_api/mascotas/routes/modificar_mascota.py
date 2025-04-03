@@ -4,7 +4,7 @@ from mascotas.database import engine, metadata
 
 router = APIRouter()
 
-@router.put("/mascotas/{id}")
+@router.put("/modificar/{id}")
 async def modificar_mascota(id: int, request: Request):
     try:
         mascotas = Table("mascota", metadata, autoload_with=engine)

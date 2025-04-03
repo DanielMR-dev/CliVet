@@ -6,7 +6,7 @@ from citas.database import engine, metadata
 router = APIRouter()
 
 
-@router.put("/citas/{id}")
+@router.put("/modificar/{id}")
 async def actualizar_cita(id: int, request: Request):
     try:
         # Obtener la tabla

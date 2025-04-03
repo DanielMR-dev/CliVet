@@ -4,7 +4,7 @@ from usuarios.database import engine, metadata
 
 router = APIRouter()
 
-@router.delete("/{cliente_id}")
+@router.delete("/eliminar/{cliente_id}")
 async def eliminar_colaborador(cliente_id: int):
     try:
         clientes = Table("cliente", metadata, autoload_with=engine)        
@@ -23,7 +23,8 @@ async def eliminar_colaborador(cliente_id: int):
     except Exception as e:
         return {"error": f"Error al eliminar al cliente: {str(e)}"}
     
-@router.get("/usuarios")
+    
+'''@router.get("/usuarios")
 async def get_users():
     usuarios = Table("cliente", metadata, autoload_with=engine)
     query = select(usuarios)
@@ -31,4 +32,4 @@ async def get_users():
         result = connection.execute(query)
         rows = result.fetchall()
 
-    return [dict(row._mapping) for row in rows]
+    return [dict(row._mapping) for row in rows]'''

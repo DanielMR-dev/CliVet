@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Request, Depends
+from fastapi import APIRouter, Request, Depends, Query
 from sqlalchemy import Table, insert, select, update, delete
 from administrador.database import engine, metadata, SessionLocal
 
@@ -25,6 +25,8 @@ async def crear_colaborador(request: Request):
     except Exception as e:
         return {"error": f"Error al registrar al colaborador: {str(e)}"}
 
+
+
 @router.get("/colaboradores")
 async def listar_colaboradores():
     query = select(colaboradores)
@@ -33,13 +35,23 @@ async def listar_colaboradores():
         rows = result.fetchall()
     return [dict(row._mapping) for row in rows]
 
-@router.get("/colaboradores/{id}")
-async def obtener_colaborador(id: int):
-    query = select(colaboradores).where(colaboradores.c.id == id)
+
+
+'''
+EJEMPLO DE SOLICITUD:
+    http://127.0.0.1:8000/colaboradores/por-id?id_colaborador=2
+'''
+@router.get("/colaboradores/por-id")
+async def get_colaborador_id(id_colaborador: int = Query(...)):
+    colaboradores = Table("colaborador", metadata, autoload_with=engine)
+    query = select(colaboradores).where(colaboradores.c.id == id_colaborador)
     with engine.connect() as connection:
         result = connection.execute(query)
         rows = result.fetchall()
+
     return [dict(row._mapping) for row in rows]
+
+
 
 @router.put("/colaboradores/{id}")
 async def modificar_colaborador(id: int, request: Request):
@@ -60,6 +72,8 @@ async def modificar_colaborador(id: int, request: Request):
         return {"mensaje": "Colaborador actualizado correctamente"}
     except Exception as e:
         return {"error": f"Error al actualizar al colaborador: {str(e)}"}
+
+
 
 @router.delete("/colaboradores/{id}")
 async def eliminar_colaborador(id: int):

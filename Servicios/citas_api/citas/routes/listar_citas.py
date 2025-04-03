@@ -18,7 +18,7 @@ colaboradores_citas = {
 
 router = APIRouter()
 
-@router.get("/citas")
+@router.get("/listar")
 async def listar_todas_las_citas():
     """ Lista todas las citas. """
     citas = Table("cita", metadata, autoload_with=engine)
@@ -32,7 +32,7 @@ async def listar_todas_las_citas():
 
 
 
-@router.get("/citas/por-fecha-tipo")
+@router.get("/listar/por-fecha-tipo")
 async def listar_por_fecha_tipo(fecha: str = Query(...), id_tipo: int = Query(...)):
     """ Lista citas filtrando por fecha y tipo. """
     cita = Table("cita", metadata, autoload_with=engine)
@@ -46,7 +46,7 @@ async def listar_por_fecha_tipo(fecha: str = Query(...), id_tipo: int = Query(..
 
 
 
-@router.get("/citas/por-tipo")
+@router.get("/listar/por-tipo")
 async def listar_por_tipo(id_tipo: int = Query(...)):
     """ Lista citas filtrando por tipo. """
     cita = Table("cita", metadata, autoload_with=engine)
@@ -60,7 +60,7 @@ async def listar_por_tipo(id_tipo: int = Query(...)):
 
 
 
-@router.get("/citas/por-colaborador")
+@router.get("/listar/por-colaborador")
 async def listar_por_colaborador(id_colaborador: int = Query(...)):
     cita = Table("cita", metadata, autoload_with=engine)
 
@@ -74,7 +74,7 @@ async def listar_por_colaborador(id_colaborador: int = Query(...)):
 
 
 
-@router.get("/citas/por-cliente")
+@router.get("/listar/por-cliente")
 async def listar_por_cliente(id_cliente: int = Query(...)):
     """ Lista citas filtrando por cliente. """
     cita = Table("cita", metadata, autoload_with=engine)
@@ -94,7 +94,7 @@ async def listar_por_cliente(id_cliente: int = Query(...)):
 
 
 
-@router.get("/citas/por-mascota")
+@router.get("/listar/por-mascota")
 async def listar_por_mascota(id_mascota: int = Query(...)):
     """ Lista citas filtrando por mascota. """
     cita = Table("cita", metadata, autoload_with=engine)
@@ -108,7 +108,7 @@ async def listar_por_mascota(id_mascota: int = Query(...)):
 
 
 
-@router.get("/citas/disponibles/{fecha}/{id_tipo}")
+@router.get("/listar/disponibles/{fecha}/{id_tipo}")
 async def obtener_horarios_disponibles(fecha: str, id_tipo: int):
     """ Obtiene los horarios disponibles para una cita en una fecha dada. """
     try:

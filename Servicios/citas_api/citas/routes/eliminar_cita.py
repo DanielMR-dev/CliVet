@@ -4,7 +4,7 @@ from citas.database import engine, metadata
 
 router = APIRouter()
 
-@router.delete("/{cita_id}")
+@router.delete("/eliminar/{cita_id}")
 async def eliminar_colaborador(cita_id: int):
     try:
         cita = Table("cita", metadata, autoload_with=engine)        
