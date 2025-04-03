@@ -1,9 +1,12 @@
 import { useState } from "react";
-import { FiEdit, FiSearch, FiTrash } from "react-icons/fi";
-import HeaderAdmin from "@/views/admin/components/HeaderAdmin";
+import { FiSearch } from "react-icons/fi";
+import HeaderAdmin from "./components/HeaderAdmin";
+import InfoCardModal from "./components/InfoCardModal";
+import AddCollaboratorModal from "./components/AddCollaboratorModal";
 
 export default function AdminView() {
-    const [modalOpen, setModalOpen] = useState(false); // Saber si el modal de cada Card está abierto
+    const [infoCardModalOpen, setInfoCardModalOpen] = useState<boolean>(false); // Saber si el modal de cada Card está abierto
+    const [addCollaboratorModalOpen, setAddCollaboratorModalOpen] = useState<boolean>(false); // Modal para agregar colaborador
     const [activeTab, setActiveTab] = useState("Procesos"); // Saber qué tab está activo
 
     const tabContent = {
@@ -45,13 +48,11 @@ export default function AdminView() {
                             <FiSearch className="absolute right-3 top-3 text-gray-500" />
                         </div>
                     )}
-                    {activeTab === "Servicios" ? (
-                        <div className="flex space-x-2">
-                            <button className="px-6 py-2 bg-gray-300 rounded hover:bg-gray-400">Agregar Guardería</button>
-                            <button className="px-6 py-2 bg-gray-300 rounded hover:bg-gray-400">Agregar Cita</button>
-                        </div>
-                    ) : (
-                        <button className="px-6 py-2 bg-gray-300 rounded hover:bg-gray-400">Agregar</button>
+                    {activeTab === "Colaboradores" && (
+                        <button 
+                            className="px-6 py-2 bg-gray-300 rounded hover:bg-gray-400"
+                            onClick={() => setAddCollaboratorModalOpen(true)}
+                        >Agregar</button>
                     )}
                 </div>
                 {/* Tarjetas de Información */}
@@ -59,8 +60,8 @@ export default function AdminView() {
                     {[...Array(4)].map((_, index) => (
                         <div 
                             key={index} 
-                            className="border p-4 bg-white rounded shadow-md cursor-pointer relative"
-                            onClick={() => setModalOpen(true)}
+                            className="border p-4 bg-white rounded shadow-md cursor-pointer"
+                            onClick={() => setInfoCardModalOpen(true)}
                         >
                             <h3 className="font-semibold border-b pb-2">Información</h3>
                             <p className="mt-2 text-gray-600">Contenido relevante...</p>
@@ -77,33 +78,10 @@ export default function AdminView() {
                         </div>
                     ))}
                 </div>
-                {/* Modal */}
-                {modalOpen && (
-                    <div 
-                        className="fixed inset-0 flex items-center justify-center bg-black/30" 
-                        onClick={() => setModalOpen(false)}
-                    >
-                        <div className="bg-white p-6 rounded shadow-lg w-1/2 relative" onClick={(e) => e.stopPropagation()}>
-                            <button 
-                                className="absolute top-2 right-2 text-gray-600 hover:text-gray-900 text-2xl" 
-                                onClick={() => setModalOpen(false)}
-                            >
-                                &times;
-                            </button>
-                            <h3 className="text-lg font-bold border-b pb-2">Información del proceso</h3>
-                            <div className="mt-4">
-                                <label className="block font-semibold">No. Proceso:</label>
-                                <input type="text" className="w-full border p-2 rounded mt-1" />
-                                <label className="block font-semibold mt-2">Nombre proceso:</label>
-                                <input type="text" className="w-full border p-2 rounded mt-1" />
-                                <label className="block font-semibold mt-2">Descripción:</label>
-                                <textarea className="w-full border p-2 rounded mt-1" rows={3}></textarea>
-                                <label className="block font-semibold mt-2">Precio:</label>
-                                <input type="text" className="w-full border p-2 rounded mt-1" />
-                            </div>
-                        </div>
-                    </div>
-                )}
+                {/* Modal de Información */}
+                {/* Modales */}
+                <InfoCardModal isOpen={infoCardModalOpen} onClose={() => setInfoCardModalOpen(false)} />
+                <AddCollaboratorModal isOpen={addCollaboratorModalOpen} onClose={() => setAddCollaboratorModalOpen(false)} />
             </main>
         </div>
     );
