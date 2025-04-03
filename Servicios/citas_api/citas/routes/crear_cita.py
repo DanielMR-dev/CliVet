@@ -26,9 +26,12 @@ async def crear_cita(request: Request):
 
         # Crear la sentencia insert
         query = insert(cita).values(
-            fecha=data.get("fecha"),
-            metodo_envio=data.get("metodo_envio"),
-            id_cita=data.get("id_cita")
+            id=data.get("id"),
+            id_tipo=data.get("id_tipo"),
+            id_mascota=data.get("id_mascota"),
+            id_colaborador=data.get("id_colaborador"),
+            fecha_hora=data.get("fecha_hora"),
+            modificable_por_usuario=data.get("modificable_por_usuario")
         )
 
         # Ejecutar la consulta
@@ -54,12 +57,9 @@ async def programar_recordatorio(request: Request):
 
         # Crear la sentencia insert
         query = insert(recordatorio).values(
-            id=data.get("id"),
-            id_tipo=data.get("id_tipo"),
-            id_mascota=data.get("id_mascota"),
-            id_colaborador=data.get("id_colaborador"),
-            fecha_hora=data.get("fecha_hora"),
-            modificable_por_usuario=data.get("modificable_por_usuario")
+            fecha=data.get("fecha"),
+            metodo_envio=data.get("metodo_envio"),
+            id_cita=data.get("id_cita")
         )
 
         # Ejecutar la consulta
@@ -67,10 +67,10 @@ async def programar_recordatorio(request: Request):
             connection.execute(query)
             connection.commit()
 
-        return {"mensaje": "cita creada correctamente"} # Cambiar 
+        return {"mensaje": "Recordatorio creado correctamente"} # Cambiar 
 
     except Exception as e:
-        return {"error": f"Error al registrar la cita: {str(e)}"} # Cambiar 
+        return {"error": f"Error al programar recordatorio: {str(e)}"} # Cambiar 
 
 
 
