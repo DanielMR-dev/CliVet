@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FiSearch } from "react-icons/fi";
+import { FiEdit, FiSearch, FiTrash } from "react-icons/fi";
 import HeaderAdmin from "./components/HeaderAdmin";
 import InfoCardModal from "./components/InfoCardModal";
 import AddCollaboratorModal from "./components/AddCollaboratorModal";
@@ -36,7 +36,7 @@ export default function AdminView() {
                         </button>
                     ))}
                 </div>
-                {/* Barra de búsqueda y botón agregar */}
+                {/* Barra de búsqueda y botones agregar */}
                 <div className={`flex mt-4 ${activeTab === "Procesos" ? "justify-end" : "justify-between"}`}>
                     {(activeTab === "Colaboradores" || activeTab === "Mascotas" || activeTab === "Servicios") && (
                         <div className="relative w-1/3">
@@ -53,6 +53,12 @@ export default function AdminView() {
                             className="px-6 py-2 bg-gray-300 rounded hover:bg-gray-400"
                             onClick={() => setAddCollaboratorModalOpen(true)}
                         >Agregar</button>
+                    )}
+                    {activeTab === "Servicios" && (
+                        <div className="flex space-x-2">
+                            <button className="px-6 py-2 bg-gray-300 rounded hover:bg-gray-400">Agregar guardería</button>
+                            <button className="px-6 py-2 bg-gray-300 rounded hover:bg-gray-400">Agregar cita</button>
+                        </div>
                     )}
                 </div>
                 {/* Tarjetas de Información */}
