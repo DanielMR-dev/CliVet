@@ -26,6 +26,34 @@ async def crear_cita(request: Request):
 
         # Crear la sentencia insert
         query = insert(cita).values(
+            fecha=data.get("fecha"),
+            metodo_envio=data.get("metodo_envio"),
+            id_cita=data.get("id_cita")
+        )
+
+        # Ejecutar la consulta
+        with engine.connect() as connection:
+            connection.execute(query)
+            connection.commit()
+
+        return {"mensaje": "cita creada correctamente"} # Cambiar 
+
+    except Exception as e:
+        return {"error": f"Error al registrar la cita: {str(e)}"} # Cambiar 
+    
+
+
+@router.post("/programar_recordatorio")
+async def programar_recordatorio(request: Request):
+    try:
+        # Se selecciona la tabla de colaboradores
+        recordatorio = Table("recordatorio", metadata, autoload_with=engine)
+
+        # Recuperar los datos como un json
+        data = await request.json()
+
+        # Crear la sentencia insert
+        query = insert(recordatorio).values(
             id=data.get("id"),
             id_tipo=data.get("id_tipo"),
             id_mascota=data.get("id_mascota"),
