@@ -33,7 +33,7 @@ export default function CollaboratorsTab() {
                         <p className="mt-2 text-gray-600">Contenido relevante...</p>
 
                         {/* Botones de editar y eliminar */}
-                        <div className="absolute bottom-2 right-2 flex space-x-2">
+                        <div className="flex justify-between mt-4 space-x-2">
                             <button className="p-2 bg-gray-200 rounded hover:bg-gray-300">
                                 <FiEdit className="text-gray-700" />
                             </button>

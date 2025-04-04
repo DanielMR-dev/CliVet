@@ -46,7 +46,6 @@ export default function AdminView() {
                 <div className="mt-6">
                     {renderTabContent()}
                 </div>
-                
             </main>
         </div>
     );
