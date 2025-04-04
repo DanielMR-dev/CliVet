@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { FiEdit, FiTrash } from "react-icons/fi";
 import InfoProcessCardModal from "./InfoProcessCardModal";
 
 export default function ProcessesTab() {

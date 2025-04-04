@@ -1,16 +1,11 @@
 import { useState } from "react";
-import { FiEdit, FiSearch, FiTrash } from "react-icons/fi";
 import HeaderAdmin from "./components/HeaderAdmin";
-import InfoCardModal from "./components/processes/InfoProcessCardModal";
-import AddCollaboratorModal from "./components/collaborator/AddCollaboratorModal";
 import ProcessesTab from "./components/processes/ProcessesTab";
 import CollaboratorsTab from "./components/collaborator/CollaboratorsTab";
 import PetsTab from "./components/pets/PetsTab";
 import ServicesTab from "./components/services/ServicesTab";
 
 export default function AdminView() {
-    const [infoCardModalOpen, setInfoCardModalOpen] = useState<boolean>(false); // Saber si el modal de cada Card está abierto
-    const [addCollaboratorModalOpen, setAddCollaboratorModalOpen] = useState<boolean>(false); // Modal para agregar colaborador
     const [activeTab, setActiveTab] = useState("Procesos"); // Saber qué tab está activo
 
     const renderTabContent = () => {
@@ -18,7 +13,7 @@ export default function AdminView() {
             case "Procesos":
                 return <ProcessesTab />;
             case "Colaboradores":
-                return <CollaboratorsTab onAdd={() => setAddCollaboratorModalOpen(true)} />;
+                return <CollaboratorsTab/>;
             case "Mascotas":
                 return <PetsTab />;
             case "Servicios":
