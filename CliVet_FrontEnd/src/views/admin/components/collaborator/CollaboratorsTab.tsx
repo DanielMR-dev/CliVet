@@ -1,0 +1,47 @@
+import { useState } from "react";
+import { FiEdit, FiSearch, FiTrash } from "react-icons/fi";
+import AddCollaboratorModal from "./AddCollaboratorModal";
+
+export default function CollaboratorsTab() {
+    const [addCollaboratorModalOpen, setAddCollaboratorModalOpen] = useState<boolean>(false); // Modal para agregar colaborador
+    return (
+        <div className="flex mt-4  justify-end">
+            <div className="relative w-1/3">
+                <input 
+                    type="text" 
+                    placeholder="Buscar..." 
+                    className="border p-1.5 rounded w-full pr-10"
+                />
+                <FiSearch className="absolute right-3 top-3 text-gray-500" />
+            </div>
+            <button 
+                className="px-6 py-2 bg-gray-300 rounded hover:bg-gray-400"
+                onClick={() => setAddCollaboratorModalOpen(true)}
+            >Agregar</button>
+            {/* Tarjetas de Información */}
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-6">
+                {[...Array(4)].map((_, index) => (
+                    <div 
+                        key={index} 
+                        className="border p-4 bg-white rounded shadow-md cursor-pointer"
+                        
+                    >
+                        <h3 className="font-semibold border-b pb-2">Información</h3>
+                        <p className="mt-2 text-gray-600">Contenido relevante...</p>
+
+                        {/* Botones de editar y eliminar */}
+                        <div className="absolute bottom-2 right-2 flex space-x-2">
+                            <button className="p-2 bg-gray-200 rounded hover:bg-gray-300">
+                                <FiEdit className="text-gray-700" />
+                            </button>
+                            <button className="p-2 bg-gray-200 rounded hover:bg-red-300">
+                                <FiTrash className="text-red-600" />
+                            </button>
+                        </div>
+                    </div>
+                ))}
+            </div>
+            <AddCollaboratorModal isOpen={addCollaboratorModalOpen} onClose={() => setAddCollaboratorModalOpen(false)} />
+        </div>
+    );
+};
