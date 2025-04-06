@@ -3,20 +3,13 @@ import { FiClock, FiEdit, FiSearch, FiTrash } from "react-icons/fi";
 import ScheduleAppointmentModal from "./ScheduleAppointmentModal";
 import EditAppointmentModal from "./EditAppointmentModal";
 import DeleteAppointmentModal from "./DeleteAppointmentModal";
+import ReminderModal from "./ReminderModal";
 
 export default function ServicesTab() {
     const [isScheduleModalOpen, setIsScheduleModalOpen] = useState(false);
     const [editAppointmentOpen, setEditAppointmentOpen] = useState(false);
     const [deleteModalOpen, setDeleteModalOpen] = useState(false);
-    const [selectedAppointment, setSelectedAppointment] = useState<{ pet: string; date: string; responsible: string; reschedule: string } | null>(null);
-
-    // Datos de prueba para la cita
-    const appointmentData = {
-        pet: "Max",
-        date: "2025-04-15",
-        responsible: "Dra. Gómez",
-        reschedule: "Cita anterior: 2025-04-10",
-    };
+    const [reminderModalOpen, setReminderModalOpen] = useState(false);
 
     return (
         <div className="mt-4">
@@ -60,14 +53,14 @@ export default function ServicesTab() {
                             <div className="flex space-x-2">
                                 <button 
                                     className="p-2 bg-gray-200 rounded hover:bg-gray-300"
-                                    onClick={() => {
-                                        setSelectedAppointment(appointmentData);
-                                        setEditAppointmentOpen(true);
-                                    }}
+                                    onClick={() => setEditAppointmentOpen(true)}
                                 >
                                     <FiEdit className="text-gray-700" />
                                 </button>
-                                <button className="p-2 bg-gray-200 rounded hover:bg-gray-300">
+                                <button 
+                                    className="p-2 bg-gray-200 rounded hover:bg-gray-300"
+                                    onClick={() => setReminderModalOpen(true)}
+                                >
                                     <FiClock className="text-gray-700" />
                                 </button>
                             </div>
@@ -94,7 +87,6 @@ export default function ServicesTab() {
                 isOpen={editAppointmentOpen} 
                 onClose={() => setEditAppointmentOpen(false)}
                 onSave={(data) => console.log("Datos guardados:", data)}
-                initialData={selectedAppointment || { pet: "", date: "", responsible: "", reschedule: "" }}
             />
 
             {/* Modal de confirmación de eliminación */}
@@ -104,6 +96,16 @@ export default function ServicesTab() {
                 onConfirm={() => {
                     console.log("Cita eliminada");
                     setDeleteModalOpen(false);
+                }}
+            />
+
+            {/* Modal de programar recordatorio */}
+            <ReminderModal
+                isOpen={reminderModalOpen}
+                onClose={() => setReminderModalOpen(false)}
+                onConfirm={(date, time) => {
+                    console.log(`Recordatorio programado para: ${date} a las ${time}`);
+                    setReminderModalOpen(false);
                 }}
             />
         </div>
