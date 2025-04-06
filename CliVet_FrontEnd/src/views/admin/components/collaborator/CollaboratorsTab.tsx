@@ -2,10 +2,19 @@ import { useState } from "react";
 import { FiEdit, FiSearch, FiTrash } from "react-icons/fi";
 import AddCollaboratorModal from "./AddCollaboratorModal";
 import EditCollaboratorModal from "./EditCollaboratorModal";
+import ConfirmDeleteCollaboratorModal from "./ConfirmDeleteCollaboratorModal";
 
 export default function CollaboratorsTab() {
     const [addCollaboratorModalOpen, setAddCollaboratorModalOpen] = useState<boolean>(false); // Modal para Agregar colaborador
     const [editCollaboratorModalOpen, setEditCollaboratorModalOpen] = useState<boolean>(false); // Modal para Editar colaborador
+    const [deleteCollaboratorModalOpen, setDeleteCollaboratorModalOpen] = useState<boolean>(false); // Modal para Editar colaborador
+
+    // Función que se ejecuta al confirmar la eliminación
+    const handleConfirmDelete = () => {
+        console.log("Colaborador eliminado.");
+        setDeleteCollaboratorModalOpen(false);
+    };
+
     return (
         <div className="mt-4">
             {/* Barra de búsqueda y botón agregar */}
@@ -42,18 +51,34 @@ export default function CollaboratorsTab() {
                             >
                                 <FiEdit className="text-gray-700" />
                             </button>
-                            <button className="p-2 bg-gray-200 rounded hover:bg-red-300">
+                            <button 
+                                className="p-2 bg-gray-200 rounded hover:bg-red-300"
+                                onClick={() => setDeleteCollaboratorModalOpen(true)}
+                            >
                                 <FiTrash className="text-red-600" />
                             </button>
                         </div>
                     </div>
                 ))}
             </div>
-
             {/* Modal para Agregar colaborador */}
-            <AddCollaboratorModal isOpen={addCollaboratorModalOpen} onClose={() => setAddCollaboratorModalOpen(false)} />
+            <AddCollaboratorModal 
+                isOpen={addCollaboratorModalOpen} 
+                onClose={() => setAddCollaboratorModalOpen(false)} 
+            />
+
             {/* Modal para Editar colaborador */}
-            <EditCollaboratorModal isOpen={editCollaboratorModalOpen} onClose={() => setEditCollaboratorModalOpen(false)} />
+            <EditCollaboratorModal 
+                isOpen={editCollaboratorModalOpen} 
+                onClose={() => setEditCollaboratorModalOpen(false)} 
+            />
+
+            {/* Modal para Confirmar Eliminación */}
+            <ConfirmDeleteCollaboratorModal 
+                isOpen={deleteCollaboratorModalOpen} 
+                onClose={() => setDeleteCollaboratorModalOpen(false)} 
+                onConfirm={handleConfirmDelete}  
+            />
         </div>
     );
 };
