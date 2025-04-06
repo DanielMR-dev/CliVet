@@ -7,9 +7,18 @@ export default function AddCollaboratorModal({ isOpen, onClose } : AddCollaborat
     if (!isOpen) return null;
 
     return (
-        <div className="fixed inset-0 flex items-center justify-center bg-black/30" onClick={onClose}>
-            <div className="bg-white p-6 rounded shadow-lg w-1/2 relative" onClick={(e) => e.stopPropagation()}>
-                <button className="absolute top-2 right-2 text-gray-600 hover:text-gray-900 text-2xl" onClick={onClose}>
+        <div 
+            className="fixed inset-0 flex items-center justify-center bg-black/30" 
+            onClick={onClose}
+        >
+            <div 
+                className="bg-white p-6 rounded shadow-lg w-1/2 relative" 
+                onClick={(e) => e.stopPropagation()}
+            >
+                <button 
+                    className="absolute top-2 right-2 text-gray-600 hover:text-gray-900 text-2xl" 
+                    onClick={onClose}
+                >
                     &times;
                 </button>
                 <h3 className="text-lg font-bold border-b pb-2">Agregar colaborador</h3>

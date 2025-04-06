@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { FiClock, FiEdit, FiSearch, FiTrash } from "react-icons/fi";
-import { FiX, FiCalendar, FiList, FiMail } from "react-icons/fi";
+import { FiClock, FiEdit, FiSearch, FiTrash, FiX, FiCalendar, FiList, FiMail } from "react-icons/fi";
 
 export default function ServicesTab() {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -45,16 +44,13 @@ export default function ServicesTab() {
                         {/* Botones de acciones */}
                         <div className="flex justify-between mt-4">
                             <div className="flex space-x-2">
-                                {/* Botón de editar */}
                                 <button className="p-2 bg-gray-200 rounded hover:bg-gray-300">
                                     <FiEdit className="text-gray-700" />
                                 </button>
-                                {/* Botón de reloj */}
                                 <button className="p-2 bg-gray-200 rounded hover:bg-gray-300">
                                     <FiClock className="text-gray-700" />
                                 </button>
                             </div>
-                            {/* Botón de eliminar */}
                             <button className="p-2 bg-gray-200 rounded hover:bg-red-300">
                                 <FiTrash className="text-red-600" />
                             </button>
@@ -65,12 +61,18 @@ export default function ServicesTab() {
 
             {/* Ventana Modal */}
             {isModalOpen && (
-                <div className="fixed inset-0 bg-black/30 flex justify-center items-center">
-                    <div className="bg-white p-6 rounded-lg shadow-lg w-96 relative">
+                <div 
+                    className="fixed inset-0 bg-black/30 flex justify-center items-center"
+                    onClick={() => setIsModalOpen(false)} // Cierra al hacer clic en el fondo
+                >
+                    <div 
+                        className="bg-white p-6 rounded-lg shadow-lg w-96 relative"
+                        onClick={(e) => e.stopPropagation()} // Evita que se cierre al hacer clic dentro
+                    >
                         {/* Botón de cerrar */}
                         <button 
                             className="absolute top-3 right-3 text-gray-600 hover:text-black"
-                            onClick={() => setIsModalOpen(false)} // Cierra el modal
+                            onClick={() => setIsModalOpen(false)}
                         >
                             <FiX size={24} />
                         </button>
