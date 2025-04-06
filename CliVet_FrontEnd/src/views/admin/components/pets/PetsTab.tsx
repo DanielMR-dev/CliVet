@@ -8,8 +8,8 @@ export default function PetsTab() {
 
     // Datos de prueba para el historial médico
     const medicalRecords = [
-        { date: "01/01/2015", responsible: "Dr. Smith", description: "Consulta general, vacuna aplicada." },
-        { date: "15/06/2018", responsible: "Dra. López", description: "Control de peso y desparasitación." },
+        { date: "01/01/2025", responsible: "Dr. Smith", description: "Consulta general, vacuna aplicada." },
+        { date: "15/03/2025", responsible: "Dra. López", description: "Control de peso y desparasitación." },
     ];
 
     return (
