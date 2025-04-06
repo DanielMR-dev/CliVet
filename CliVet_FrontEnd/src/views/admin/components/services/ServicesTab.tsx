@@ -1,8 +1,20 @@
 import { useState } from "react";
-import { FiClock, FiEdit, FiSearch, FiTrash, FiX, FiCalendar, FiList, FiMail } from "react-icons/fi";
+import { FiClock, FiEdit, FiSearch, FiTrash } from "react-icons/fi";
+import EditAppointmentModal from "./EditAppointmentModal";
+import ScheduleAppointmentModal from "./ScheduleAppointmentModal";
 
 export default function ServicesTab() {
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isScheduleModalOpen, setIsScheduleModalOpen] = useState(false);
+    const [editAppointmentOpen, setEditAppointmentOpen] = useState(false);
+    const [selectedAppointment, setSelectedAppointment] = useState<{ pet: string; date: string; responsible: string; reschedule: string } | null>(null);
+
+    // Datos de prueba para la cita
+    const appointmentData = {
+        pet: "Max",
+        date: "2025-04-15",
+        responsible: "Dra. Gómez",
+        reschedule: "Cita anterior: 2025-04-10",
+    };
 
     return (
         <div className="mt-4">
@@ -24,7 +36,7 @@ export default function ServicesTab() {
                     </button>
                     <button 
                         className="px-6 py-2 bg-gray-300 rounded hover:bg-gray-400 ml-2"
-                        onClick={() => setIsModalOpen(true)} // Abre el modal
+                        onClick={() => setIsScheduleModalOpen(true)} // Abre el modal de agendar cita
                     >
                         Agregar cita
                     </button>
@@ -44,7 +56,13 @@ export default function ServicesTab() {
                         {/* Botones de acciones */}
                         <div className="flex justify-between mt-4">
                             <div className="flex space-x-2">
-                                <button className="p-2 bg-gray-200 rounded hover:bg-gray-300">
+                                <button 
+                                    className="p-2 bg-gray-200 rounded hover:bg-gray-300"
+                                    onClick={() => {
+                                        setSelectedAppointment(appointmentData);
+                                        setEditAppointmentOpen(true);
+                                    }}
+                                >
                                     <FiEdit className="text-gray-700" />
                                 </button>
                                 <button className="p-2 bg-gray-200 rounded hover:bg-gray-300">
@@ -59,64 +77,20 @@ export default function ServicesTab() {
                 ))}
             </div>
 
-            {/* Ventana Modal */}
-            {isModalOpen && (
-                <div 
-                    className="fixed inset-0 bg-black/30 flex justify-center items-center"
-                    onClick={() => setIsModalOpen(false)} // Cierra al hacer clic en el fondo
-                >
-                    <div 
-                        className="bg-white p-6 rounded-lg shadow-lg w-96 relative"
-                        onClick={(e) => e.stopPropagation()} // Evita que se cierre al hacer clic dentro
-                    >
-                        {/* Botón de cerrar */}
-                        <button 
-                            className="absolute top-3 right-3 text-gray-600 hover:text-black"
-                            onClick={() => setIsModalOpen(false)}
-                        >
-                            <FiX size={24} />
-                        </button>
+            {/* Modal de agendar cita */}
+            <ScheduleAppointmentModal 
+                isOpen={isScheduleModalOpen} 
+                onClose={() => setIsScheduleModalOpen(false)}
+                onSave={(data) => console.log("Nueva cita agendada:", data)}
+            />
 
-                        {/* Contenido del Modal */}
-                        <h2 className="text-lg font-semibold text-center mb-4">Agendar cita</h2>
-
-                        <div className="grid grid-cols-2 gap-4">
-                            <div>
-                                <label className="block font-semibold">Mascota:</label>
-                                <input className="border w-full p-2 rounded" type="text" />
-                            </div>
-                            <div>
-                                <label className="block font-semibold">Tipo:</label>
-                                <div className="relative">
-                                    <input className="border w-full p-2 rounded pr-8" type="text" />
-                                    <FiList className="absolute right-3 top-3 text-gray-500" />
-                                </div>
-                            </div>
-                            <div>
-                                <label className="block font-semibold">Fecha y hora:</label>
-                                <div className="relative">
-                                    <input className="border w-full p-2 rounded pr-8" type="text" />
-                                    <FiCalendar className="absolute right-3 top-3 text-gray-500" />
-                                </div>
-                            </div>
-                            <div>
-                                <label className="block font-semibold">Citas disponibles:</label>
-                                <div className="relative">
-                                    <input className="border w-full p-2 rounded pr-8" type="text" />
-                                    <FiMail className="absolute right-3 top-3 text-gray-500" />
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Botón para agendar */}
-                        <div className="text-center mt-6">
-                            <button className="bg-blue-600 px-6 py-2 text-white rounded hover:bg-blue-700">
-                                Agendar cita
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            )}
+            {/* Modal de edición de cita */}
+            <EditAppointmentModal 
+                isOpen={editAppointmentOpen} 
+                onClose={() => setEditAppointmentOpen(false)}
+                onSave={(data) => console.log("Datos guardados:", data)}
+                initialData={selectedAppointment || { pet: "", date: "", responsible: "", reschedule: "" }}
+            />
         </div>
     );
 }
