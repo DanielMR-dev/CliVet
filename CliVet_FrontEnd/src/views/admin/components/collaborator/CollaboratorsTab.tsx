@@ -2,7 +2,7 @@ import { useState } from "react";
 import { FiEdit, FiSearch, FiTrash } from "react-icons/fi";
 import AddCollaboratorModal from "./AddCollaboratorModal";
 import EditCollaboratorModal from "./EditCollaboratorModal";
-import ConfirmDeleteCollaboratorModal from "./ConfirmDeleteCollaboratorModal";
+import DeleteCollaboratorModal from "./DeleteCollaboratorModal";
 
 export default function CollaboratorsTab() {
     const [addCollaboratorModalOpen, setAddCollaboratorModalOpen] = useState<boolean>(false); // Modal para Agregar colaborador
@@ -74,7 +74,7 @@ export default function CollaboratorsTab() {
             />
 
             {/* Modal para Confirmar Eliminación */}
-            <ConfirmDeleteCollaboratorModal 
+            <DeleteCollaboratorModal 
                 isOpen={deleteCollaboratorModalOpen} 
                 onClose={() => setDeleteCollaboratorModalOpen(false)} 
                 onConfirm={handleConfirmDelete}  

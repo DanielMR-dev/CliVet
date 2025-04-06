@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { FiClock, FiEdit, FiSearch, FiTrash } from "react-icons/fi";
-import EditAppointmentModal from "./EditAppointmentModal";
 import ScheduleAppointmentModal from "./ScheduleAppointmentModal";
+import EditAppointmentModal from "./EditAppointmentModal";
+import DeleteAppointmentModal from "./DeleteAppointmentModal";
 
 export default function ServicesTab() {
     const [isScheduleModalOpen, setIsScheduleModalOpen] = useState(false);
     const [editAppointmentOpen, setEditAppointmentOpen] = useState(false);
+    const [deleteModalOpen, setDeleteModalOpen] = useState(false);
     const [selectedAppointment, setSelectedAppointment] = useState<{ pet: string; date: string; responsible: string; reschedule: string } | null>(null);
 
     // Datos de prueba para la cita
@@ -69,7 +71,10 @@ export default function ServicesTab() {
                                     <FiClock className="text-gray-700" />
                                 </button>
                             </div>
-                            <button className="p-2 bg-gray-200 rounded hover:bg-red-300">
+                            <button 
+                                className="p-2 bg-gray-200 rounded hover:bg-red-300"
+                                onClick={() => setDeleteModalOpen(true)}
+                            >
                                 <FiTrash className="text-red-600" />
                             </button>
                         </div>
@@ -90,6 +95,16 @@ export default function ServicesTab() {
                 onClose={() => setEditAppointmentOpen(false)}
                 onSave={(data) => console.log("Datos guardados:", data)}
                 initialData={selectedAppointment || { pet: "", date: "", responsible: "", reschedule: "" }}
+            />
+
+            {/* Modal de confirmación de eliminación */}
+            <DeleteAppointmentModal
+                isOpen={deleteModalOpen}
+                onClose={() => setDeleteModalOpen(false)}
+                onConfirm={() => {
+                    console.log("Cita eliminada");
+                    setDeleteModalOpen(false);
+                }}
             />
         </div>
     );

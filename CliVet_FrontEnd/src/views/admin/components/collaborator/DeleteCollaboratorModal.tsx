@@ -1,12 +1,12 @@
 import { FiX } from "react-icons/fi";
 
-interface ConfirmDeleteModalProps {
+interface DeleteCollaboratorModalProps {
     isOpen: boolean;
     onClose: () => void;
     onConfirm: () => void;
 }
 
-export default function ConfirmDeleteCollaboratorModal({ isOpen, onClose, onConfirm }: ConfirmDeleteModalProps) {
+export default function DeleteCollaboratorModal({ isOpen, onClose, onConfirm }: DeleteCollaboratorModalProps) {
     if (!isOpen) return null;
 
     return (
@@ -30,7 +30,7 @@ export default function ConfirmDeleteCollaboratorModal({ isOpen, onClose, onConf
 
                 {/* Botón de confirmar */}
                 <button 
-                    className="px-6 py-2 text-white bg-blue-600 rounded hover:bg-blue-700"
+                    className="px-6 py-2 text-white bg-red-600 rounded hover:bg-red-700"
                     onClick={onConfirm}
                 >
                     Confirmar
