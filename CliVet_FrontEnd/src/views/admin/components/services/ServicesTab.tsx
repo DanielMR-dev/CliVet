@@ -108,7 +108,7 @@ export default function ServicesTab() {
 
                         {/* Botón para agendar */}
                         <div className="text-center mt-6">
-                            <button className="bg-gray-300 px-6 py-2 rounded hover:bg-gray-400">
+                            <button className="bg-blue-600 px-6 py-2 text-white rounded hover:bg-blue-700">
                                 Agendar cita
                             </button>
                         </div>
