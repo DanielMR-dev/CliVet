@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { FiEdit, FiSearch, FiTrash } from "react-icons/fi";
 import AddCollaboratorModal from "./AddCollaboratorModal";
+import EditCollaboratorModal from "./EditCollaboratorModal";
 
 export default function CollaboratorsTab() {
-    const [addCollaboratorModalOpen, setAddCollaboratorModalOpen] = useState<boolean>(false); // Modal para agregar colaborador
+    const [addCollaboratorModalOpen, setAddCollaboratorModalOpen] = useState<boolean>(false); // Modal para Agregar colaborador
+    const [editCollaboratorModalOpen, setEditCollaboratorModalOpen] = useState<boolean>(false); // Modal para Editar colaborador
     return (
         <div className="mt-4">
             {/* Barra de búsqueda y botón agregar */}
@@ -34,7 +36,10 @@ export default function CollaboratorsTab() {
 
                         {/* Botones de editar y eliminar */}
                         <div className="flex justify-between mt-4 space-x-2">
-                            <button className="p-2 bg-gray-200 rounded hover:bg-gray-300">
+                            <button 
+                                className="p-2 bg-gray-200 rounded hover:bg-gray-300"
+                                onClick={() => setEditCollaboratorModalOpen(true)}
+                            >
                                 <FiEdit className="text-gray-700" />
                             </button>
                             <button className="p-2 bg-gray-200 rounded hover:bg-red-300">
@@ -45,8 +50,10 @@ export default function CollaboratorsTab() {
                 ))}
             </div>
 
-            {/* Modal para agregar colaborador */}
+            {/* Modal para Agregar colaborador */}
             <AddCollaboratorModal isOpen={addCollaboratorModalOpen} onClose={() => setAddCollaboratorModalOpen(false)} />
+            {/* Modal para Editar colaborador */}
+            <EditCollaboratorModal isOpen={editCollaboratorModalOpen} onClose={() => setEditCollaboratorModalOpen(false)} />
         </div>
     );
 };
