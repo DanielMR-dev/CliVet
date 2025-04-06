@@ -1,4 +1,4 @@
-import { FiEdit, FiSearch, FiTrash } from "react-icons/fi";
+import { FiClock, FiEdit, FiSearch, FiTrash } from "react-icons/fi";
 
 export default function ServicesTab() {
     return (
@@ -34,11 +34,19 @@ export default function ServicesTab() {
                         <h3 className="font-semibold border-b pb-2">Información</h3>
                         <p className="mt-2 text-gray-600">Contenido relevante...</p>
 
-                        {/* Botones de editar y eliminar */}
-                        <div className="flex justify-between mt-4 space-x-2">
-                            <button className="p-2 bg-gray-200 rounded hover:bg-gray-300">
-                                <FiEdit className="text-gray-700" />
-                            </button>
+                        {/* Botones de acciones */}
+                        <div className="flex justify-between mt-4">
+                            <div className="flex space-x-2">
+                                {/* Botón de editar */}
+                                <button className="p-2 bg-gray-200 rounded hover:bg-gray-300">
+                                    <FiEdit className="text-gray-700" />
+                                </button>
+                                {/* Botón de reloj */}
+                                <button className="p-2 bg-gray-200 rounded hover:bg-gray-300">
+                                    <FiClock className="text-gray-700" />
+                                </button>
+                            </div>
+                            {/* Botón de eliminar */}
                             <button className="p-2 bg-gray-200 rounded hover:bg-red-300">
                                 <FiTrash className="text-red-600" />
                             </button>
