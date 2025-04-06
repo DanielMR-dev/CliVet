@@ -4,12 +4,14 @@ import ScheduleAppointmentModal from "./ScheduleAppointmentModal";
 import EditAppointmentModal from "./EditAppointmentModal";
 import DeleteAppointmentModal from "./DeleteAppointmentModal";
 import ReminderModal from "./ReminderModal";
+import AddDaycareModal from "./AddDaycareModal";
 
 export default function ServicesTab() {
     const [isScheduleModalOpen, setIsScheduleModalOpen] = useState(false);
     const [editAppointmentOpen, setEditAppointmentOpen] = useState(false);
     const [deleteModalOpen, setDeleteModalOpen] = useState(false);
     const [reminderModalOpen, setReminderModalOpen] = useState(false);
+    const [daycareModalOpen, setDaycareModalOpen] = useState(false);
 
     return (
         <div className="mt-4">
@@ -26,11 +28,14 @@ export default function ServicesTab() {
 
                 {/* Botones de agregar */}
                 <div className="flex space-x-2">
-                    <button className="px-6 py-2 bg-gray-300 rounded hover:bg-gray-400">
+                    <button 
+                        className="px-6 py-2 bg-gray-300 rounded hover:bg-gray-400"
+                        onClick={() => setDaycareModalOpen(true)} // Abre el modal de guardería
+                    >
                         Agregar guardería
                     </button>
                     <button 
-                        className="px-6 py-2 bg-gray-300 rounded hover:bg-gray-400 ml-2"
+                        className="px-6 py-2 bg-gray-300 rounded hover:bg-gray-400"
                         onClick={() => setIsScheduleModalOpen(true)} // Abre el modal de agendar cita
                     >
                         Agregar cita
@@ -106,6 +111,16 @@ export default function ServicesTab() {
                 onConfirm={(date, time) => {
                     console.log(`Recordatorio programado para: ${date} a las ${time}`);
                     setReminderModalOpen(false);
+                }}
+            />
+
+            {/* Modal de agregar guardería */}
+            <AddDaycareModal
+                isOpen={daycareModalOpen}
+                onClose={() => setDaycareModalOpen(false)}
+                onSave={(data) => {
+                    console.log("Guardería agregada:", data);
+                    setDaycareModalOpen(false);
                 }}
             />
         </div>
