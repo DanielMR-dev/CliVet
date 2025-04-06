@@ -1,3 +1,5 @@
+import { FiX } from "react-icons/fi";
+
 interface AddCollaboratorModalProps {
     isOpen: boolean;
     onClose: () => void;
@@ -15,11 +17,12 @@ export default function AddCollaboratorModal({ isOpen, onClose } : AddCollaborat
                 className="bg-white p-6 rounded shadow-lg w-1/2 relative" 
                 onClick={(e) => e.stopPropagation()}
             >
+                {/* Botón de cerrar */}
                 <button 
-                    className="absolute top-2 right-2 text-gray-600 hover:text-gray-900 text-2xl" 
+                    className="absolute top-3 right-3 text-gray-600 hover:text-black"
                     onClick={onClose}
                 >
-                    &times;
+                    <FiX size={24} />
                 </button>
                 <h3 className="text-lg font-bold border-b pb-2">Agregar colaborador</h3>
                 <div className="mt-4 grid grid-cols-2 gap-4">
