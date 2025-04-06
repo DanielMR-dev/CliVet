@@ -1,5 +1,5 @@
 
-export default function ProfileCard() {
+export default function ProfileTab() {
     return (
         <div className="p-6 bg-white rounded shadow-md w-full max-w-3xl mx-auto mt-6">
             <div className="grid grid-cols-2 gap-4">

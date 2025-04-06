@@ -2,11 +2,25 @@ import { useState } from "react";
 import { FiLogOut } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import SidebarClient from "@/views/client/components/SidebarClient";
-import ProfileCard from "@/views/client/components/ProfileCard";
+import ProfileTab from "@/views/client/components/profile/ProfileTab";
+import ServicesTab from "./components/services/ServicesTab";
+import PetsTab from "./components/pets/PetsTab";
 
 export default function ClientView() {
     const [activeTab, setActiveTab] = useState("Servicios"); // Estado de los tabs
     const [isSidebarOpen, setSidebarOpen] = useState(true); // Estado del sidebar
+    const renderTabContent = () => {
+        switch (activeTab) {
+            case "Perfil":
+                return <ProfileTab />;
+            case "Mascotas":
+                return <PetsTab />;
+            case "Servicios":
+                return <ServicesTab />;
+            default:
+                return <ServicesTab />;
+        }
+    };
     return (
         <div className="flex h-screen">
             <SidebarClient activeTab={activeTab} setActiveTab={setActiveTab} isOpen={isSidebarOpen} toggleSidebar={() => setSidebarOpen(!isSidebarOpen)} />
@@ -18,27 +32,7 @@ export default function ClientView() {
                         <FiLogOut />
                     </Link>
                 </div>
-                {activeTab === "Servicios" && (
-                    <div className="flex justify-start space-x-2 mt-4">
-                        <button className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400">Agregar cita</button>
-                        <button className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400">Agregar guardería</button>
-                    </div>
-                )}
-                {activeTab === "Mascotas" && (
-                    <div className="flex justify-start mt-4">
-                        <button className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400">Agregar mascota</button>
-                    </div>
-                )}
-                {activeTab === "Perfil" && <ProfileCard />}
-                {activeTab !== "Perfil" && (
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
-                        {[...Array(6)].map((_, index) => (
-                            <div key={index} className="border p-4 bg-white rounded shadow-md">
-                                <h3 className="font-semibold border-b pb-2">Información</h3>
-                            </div>
-                        ))}
-                    </div>
-                )}
+                {renderTabContent()}
             </div>
         </div>
     );
