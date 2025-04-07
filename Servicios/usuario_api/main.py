@@ -1,6 +1,5 @@
 from fastapi import FastAPI
-from Servicios.usuario_api.usuarios.routes import modificar_usuario
-from usuarios.routes import eliminar_usuario, registrar_usuario
+from usuarios.routes import eliminar_usuario, registrar_usuario, modificar_usuario
 
 app = FastAPI(title="API de Gestión de Clivet")
 
