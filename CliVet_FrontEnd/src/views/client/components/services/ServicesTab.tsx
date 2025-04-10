@@ -1,8 +1,10 @@
 import { useState } from "react";
 import ScheduleAppointmentModal from "./ScheduleAppointmentModal";
+import DaycareModal from "./DaycareModal";
 
 export default function ServicesTab() {
     const [isScheduleModalOpen, setIsScheduleModalOpen] = useState(false);
+    const [isDaycareModalOpen, setIsDaycareModalOpen] = useState(false);
 
     return (
         <div className="flex-1 flex flex-col">
@@ -15,8 +17,11 @@ export default function ServicesTab() {
                     Agregar cita
                 </button>
                 
-                {/* Botón para agregar guardería (sin funcionalidad) */}
-                <button className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400">
+                {/* Botón para abrir modal de Agregar Guardería */}
+                <button 
+                    className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400"
+                    onClick={() => setIsDaycareModalOpen(true)}
+                >
                     Agregar guardería
                 </button>
             </div>
@@ -30,10 +35,15 @@ export default function ServicesTab() {
                 ))}
             </div>
 
-            {/* Modal de Agendar Cita */}
+            {/* Modales */}
             <ScheduleAppointmentModal 
                 isOpen={isScheduleModalOpen} 
                 onClose={() => setIsScheduleModalOpen(false)}
+            />
+
+            <DaycareModal 
+                isOpen={isDaycareModalOpen} 
+                onClose={() => setIsDaycareModalOpen(false)}
             />
         </div>
     );
