@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Query, HTTPException
-from sqlalchemy import Table, select, and_,or_
+from sqlalchemy import Table, select, and_,or_, func
 import os
 from datetime import datetime, time, timedelta
 from citas.database import engine, metadata
@@ -17,7 +17,7 @@ colaboradores_citas = {
 
 router = APIRouter()
 
-@router.get("/listar")
+@router.get("/")
 async def listar_todas_las_citas():
     """ Lista todas las citas. """
     citas = Table("cita", metadata, autoload_with=engine)
@@ -31,11 +31,15 @@ async def listar_todas_las_citas():
 
 
 
-@router.get("/listar/por-fecha-tipo")
+@router.get("/fechaTipo")
 async def listar_por_fecha_tipo(fecha: str = Query(...), id_tipo: int = Query(...)):
-    """ Lista citas filtrando por fecha y tipo. """
+    """Lista citas filtrando por fecha (ignorando hora) y tipo."""
     cita = Table("cita", metadata, autoload_with=engine)
-    query = select(cita).where((cita.c.fecha_hora == fecha) & (cita.c.id_tipo == id_tipo))
+
+    query = select(cita).where(
+        func.date(cita.c.fecha_hora) == fecha,
+        cita.c.id_tipo == id_tipo
+    )
 
     with engine.connect() as connection:
         result = connection.execute(query)
@@ -44,8 +48,7 @@ async def listar_por_fecha_tipo(fecha: str = Query(...), id_tipo: int = Query(..
     return [dict(row._mapping) for row in rows]
 
 
-
-@router.get("/listar/por-tipo")
+@router.get("/tipo")
 async def listar_por_tipo(id_tipo: int = Query(...)):
     """ Lista citas filtrando por tipo. """
     cita = Table("cita", metadata, autoload_with=engine)
@@ -59,11 +62,11 @@ async def listar_por_tipo(id_tipo: int = Query(...)):
 
 
 
-@router.get("/listar/por-colaborador")
-async def listar_por_colaborador(id_colaborador: int = Query(...)):
+@router.get("/colaborador/{id}")
+async def listar_por_colaborador(id: int ):
     cita = Table("cita", metadata, autoload_with=engine)
 
-    query = select(cita).where(cita.c.id_colaborador == id_colaborador)
+    query = select(cita).where(cita.c.id_colaborador == id)
 
     with engine.connect() as connection:
         result = connection.execute(query)
@@ -73,14 +76,14 @@ async def listar_por_colaborador(id_colaborador: int = Query(...)):
 
 
 
-@router.get("/listar/por-cliente")
-async def listar_por_cliente(id_cliente: int = Query(...)):
+@router.get("/cliente/{id}")
+async def listar_por_cliente(id: int):
     """ Lista citas filtrando por cliente. """
     cita = Table("cita", metadata, autoload_with=engine)
     mascota = Table("mascota", metadata, autoload_with=engine)
 
     # Obtener las mascotas del cliente
-    subquery = select(mascota.c.id).where(mascota.c.id_propietario == id_cliente)
+    subquery = select(mascota.c.id).where(mascota.c.id_propietario == id)
 
     # Buscar todas las citas donde aparecen esas mascotas
     query = select(cita).where(cita.c.id_mascota.in_(subquery))
@@ -93,11 +96,11 @@ async def listar_por_cliente(id_cliente: int = Query(...)):
 
 
 
-@router.get("/listar/por-mascota")
-async def listar_por_mascota(id_mascota: int = Query(...)):
+@router.get("/mascota/{id}")
+async def listar_por_mascota(id: int):
     """ Lista citas filtrando por mascota. """
     cita = Table("cita", metadata, autoload_with=engine)
-    query = select(cita).where(cita.c.id_mascota == id_mascota)
+    query = select(cita).where(cita.c.id_mascota == id)
 
     with engine.connect() as connection:
         result = connection.execute(query)
@@ -119,7 +122,7 @@ colaboradores_citas = {
     6: [4]      # Enfermería: vacunas
 }
 
-@router.get("/listar/disponibles/{fecha}/{id_tipo}")
+@router.get("/disponibles/{fecha}/{id_tipo}")
 async def obtener_horarios_disponibles(fecha: str, id_tipo: int):
     try:
         fecha_obj = datetime.strptime(fecha, "%Y-%m-%d").date()

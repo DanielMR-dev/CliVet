@@ -5,36 +5,30 @@ from datetime import datetime
 
 router = APIRouter()
 
-@router.put("/modificar/{id}")
+@router.put("/{id}")
 async def registrar_usuario(id: int, request: Request):
     try:
-        # Se selecciona la tabla de colaboradores
         clientes = Table("cliente", metadata, autoload_with=engine)
-
-        # Recuperar los datos como un json
         data = await request.json()
+        
+        campos_actualizar = {}
 
-        # Crear la sentencia insert
-        query = update(
-            clientes
-            ).where(
-                clientes.c.id == id
-                ).values(
-                    id=data.get("id"),
-                    nombre_completo=data.get("nombre_completo"),
-                    fecha_nacimiento=datetime.strptime(data.get("fecha_nacimiento"), "%d-%m-%Y"),
-                    clave=data.get("clave").encode(),
-                    email=data.get("email"),
-                    telefono=data.get("telefono"),
-                    direccion=data.get("direccion")
-                    )
+        for campo, valor in data.items():
+            if campo == "clave":
+                campos_actualizar["clave"] = valor.encode() 
+            elif campo == "fecha_nacimiento":
 
-        # Ejecutar la consulta
+                campos_actualizar["fecha_nacimiento"] = datetime.strptime(valor, "%Y-%m-%d")
+            else:
+                campos_actualizar[campo] = valor 
+
+        query = update(clientes).where(clientes.c.id == id).values(**campos_actualizar)
+
         with engine.connect() as connection:
             connection.execute(query)
             connection.commit()
 
-        return {"mensaje": "Cliente editado correctamente"} # Cambiar 
+        return {"mensaje": "Cliente editado correctamente"}
 
     except Exception as e:
-        return {"error": f"Error al editar al cliente: {str(e)}"} # Cambiar 
+        return {"error": f"Error al editar al cliente: {str(e)}"}

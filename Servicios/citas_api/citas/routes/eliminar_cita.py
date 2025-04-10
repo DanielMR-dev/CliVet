@@ -4,13 +4,13 @@ from citas.database import engine, metadata
 
 router = APIRouter()
 
-@router.delete("/eliminar/{cita_id}")
-async def eliminar_colaborador(cita_id: int):
+@router.delete("/{id}")
+async def eliminar_colaborador(id: int):
     try:
         cita = Table("cita", metadata, autoload_with=engine)        
 
         # Crear la consulta DELETE
-        query = delete(cita).where(cita.c.id == cita_id)
+        query = delete(cita).where(cita.c.id == id)
 
         # Ejecutar la consulta
         with engine.connect() as connection:

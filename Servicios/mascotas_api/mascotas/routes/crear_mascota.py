@@ -4,7 +4,7 @@ from mascotas.database import engine, metadata
 
 router = APIRouter()
 
-@router.post("/registrar_mascota")
+@router.post("/")
 async def registrar_mascota(request: Request):
     try:
         mascotas = Table("mascota", metadata, autoload_with=engine)

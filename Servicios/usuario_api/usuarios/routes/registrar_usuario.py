@@ -5,7 +5,7 @@ from datetime import datetime
 
 router = APIRouter()
 
-@router.post("/registrar_usuario")
+@router.post("/registrar")
 async def registrar_usuario(request: Request):
     try:
         clientes = Table("cliente", metadata, autoload_with=engine)
@@ -15,7 +15,7 @@ async def registrar_usuario(request: Request):
         query = insert(clientes).values(
             id=data.get("id"),
             nombre_completo=data.get("nombre_completo"),
-            fecha_nacimiento=datetime.strptime(data.get("fecha_nacimiento"), "%d-%m-%Y"),
+            fecha_nacimiento=datetime.strptime(data.get("fecha_nacimiento"), "%Y-%m-%d"),
             clave=data.get("clave").encode(),
             email=data.get("email"),
             telefono=data.get("telefono"),

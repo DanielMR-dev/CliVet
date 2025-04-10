@@ -15,7 +15,7 @@ FUNCIONALIDADES
 
 router = APIRouter()
 
-@router.post("/crear_cita")
+@router.post("/")
 async def crear_cita(request: Request):
     try:
         # Se selecciona la tabla de colaboradores
@@ -46,7 +46,7 @@ async def crear_cita(request: Request):
     
 
 
-@router.post("/programar_recordatorio")
+@router.post("/recordatorio")
 async def programar_recordatorio(request: Request):
     try:
         # Se selecciona la tabla de colaboradores
@@ -74,7 +74,7 @@ async def programar_recordatorio(request: Request):
 
 
 
-@router.post("/crear_estadia_guarderia")
+@router.post("/guarderia")
 async def crear_estadia_guarderia(request: Request):
     try:
         # Se selecciona la tabla de colaboradores
@@ -115,7 +115,7 @@ async def crear_estadia_guarderia(request: Request):
 EJEMPLO DE SOLICITUD:
     http://127.0.0.1:8000/estimar_costo_guarderia?fecha_hora_inicio=2025-04-01%2014&fecha_hora_fin=2025-04-02%2014&peso_mascota=6
 '''
-@router.get("/estimar_costo_guarderia")
+@router.get("/guarderia")
 async def crear_estadia_guarderia(fecha_hora_inicio: str = Query(...), fecha_hora_fin: str = Query(...), peso_mascota: int = Query(...)):
     try:
 

@@ -15,7 +15,7 @@ FUNCIONALIDADES
 
 router = APIRouter()
 
-@router.get("/iniciar_sesion")
+@router.post("/ingresar")
 async def buscar_usuario(request: Request):
     try:
         clientes = Table("cliente", metadata, autoload_with=engine)    

@@ -4,12 +4,12 @@ from usuarios.database import engine, metadata
 
 router = APIRouter()
 
-@router.delete("/eliminar/{cliente_id}")
-async def eliminar_colaborador(cliente_id: int):
+@router.delete("/{id}")
+async def eliminar_colaborador(id: int):
     try:
         clientes = Table("cliente", metadata, autoload_with=engine)        
 
-        query = delete(clientes).where(clientes.c.id == cliente_id)
+        query = delete(clientes).where(clientes.c.id == id)
 
         with engine.connect() as connection:
             result = connection.execute(query)

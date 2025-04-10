@@ -6,7 +6,7 @@ router = APIRouter()
 
 medicos = Table("empleados", metadata, autoload_with=engine)
 
-@router.post("/crear_medico")
+@router.post("/medico")
 async def crear_medico(request: Request):
     try:
         data = await request.json()
