@@ -28,7 +28,7 @@ export default function CollaboratorsTab() {
                     <FiSearch className="absolute right-3 top-3 text-gray-500" />
                 </div>
                 <button 
-                    className="px-6 py-2 bg-gray-300 rounded hover:bg-gray-400"
+                    className="px-6 py-2 bg-gray-300 rounded hover:bg-gray-400 hover:cursor-pointer"
                     onClick={() => setAddCollaboratorModalOpen(true)}
                 >Agregar</button>
             </div>
@@ -46,13 +46,13 @@ export default function CollaboratorsTab() {
                         {/* Botones de editar y eliminar */}
                         <div className="flex justify-between mt-4 space-x-2">
                             <button 
-                                className="p-2 bg-gray-200 rounded hover:bg-gray-300"
+                                className="p-2 bg-gray-200 rounded hover:bg-gray-300 hover:cursor-pointer"
                                 onClick={() => setEditCollaboratorModalOpen(true)}
                             >
                                 <FiEdit className="text-gray-700" />
                             </button>
                             <button 
-                                className="p-2 bg-gray-200 rounded hover:bg-red-300"
+                                className="p-2 bg-gray-200 rounded hover:bg-red-300 hover:cursor-pointer"
                                 onClick={() => setDeleteCollaboratorModalOpen(true)}
                             >
                                 <FiTrash className="text-red-600" />

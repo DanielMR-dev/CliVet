@@ -9,7 +9,7 @@ export default function PetsTab() {
             <div className="flex justify-start mt-4">
                 {/* Botón para abrir modal de Agregar Mascota */}
                 <button 
-                    className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400"
+                    className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400 hover:cursor-pointer"
                     onClick={() => setIsAddPetModalOpen(true)}
                 >
                     Agregar mascota

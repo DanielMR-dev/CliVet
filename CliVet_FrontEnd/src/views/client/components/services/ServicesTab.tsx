@@ -11,7 +11,7 @@ export default function ServicesTab() {
             <div className="flex justify-start space-x-2 mt-4">
                 {/* Botón para abrir modal de Agendar Cita */}
                 <button 
-                    className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400"
+                    className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400 hover:cursor-pointer"
                     onClick={() => setIsScheduleModalOpen(true)}
                 >
                     Agregar cita
@@ -19,7 +19,7 @@ export default function ServicesTab() {
                 
                 {/* Botón para abrir modal de Agregar Guardería */}
                 <button 
-                    className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400"
+                    className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400 hover:cursor-pointer"
                     onClick={() => setIsDaycareModalOpen(true)}
                 >
                     Agregar guardería

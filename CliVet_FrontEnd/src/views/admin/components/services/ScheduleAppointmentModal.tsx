@@ -60,7 +60,7 @@ export default function ScheduleAppointmentModal({ isOpen, onClose, onSave }: Sc
                 {/* Botón para agendar */}
                 <div className="text-center mt-6">
                     <button 
-                        className="bg-blue-600 px-6 py-2 text-white rounded hover:bg-blue-700"
+                        className="bg-blue-600 px-6 py-2 text-white rounded hover:bg-blue-700 hover:cursor-pointer"
                         onClick={() => onSave({ pet: "", type: "", date: "", available: "" })}
                     >
                         Agendar cita

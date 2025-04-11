@@ -37,8 +37,8 @@ export default function ProfileTab() {
                 </div>
             </div>
             <div className="flex justify-between mt-6">
-                <button className="px-4 py-2 bg-blue-600 text-white rounded">Guardar Cambios</button>
-                <button className="px-4 py-2 bg-red-600 text-white rounded">Eliminar Cuenta</button>
+                <button className="px-4 py-2 bg-blue-600 text-white rounded hover:cursor-pointer">Guardar Cambios</button>
+                <button className="px-4 py-2 bg-red-600 text-white rounded hover:cursor-pointer">Eliminar Cuenta</button>
             </div>
         </div>
     );

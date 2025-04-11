@@ -30,7 +30,7 @@ export default function DeleteCollaboratorModal({ isOpen, onClose, onConfirm }: 
 
                 {/* Botón de confirmar */}
                 <button 
-                    className="px-6 py-2 text-white bg-red-600 rounded hover:bg-red-700"
+                    className="px-6 py-2 text-white bg-red-600 rounded hover:bg-red-700 hover:cursor-pointer"
                     onClick={onConfirm}
                 >
                     Confirmar

@@ -32,7 +32,7 @@ export default function DeleteAppointmentModal({ isOpen, onClose, onConfirm }: D
                 {/* Botón de confirmar */}
                 <div className="text-center mt-4">
                     <button 
-                        className="bg-red-600 px-6 py-2 text-white rounded hover:bg-red-700"
+                        className="bg-red-600 px-6 py-2 text-white rounded hover:bg-red-700 hover:cursor-pointer"
                         onClick={onConfirm}
                     >
                         Confirmar

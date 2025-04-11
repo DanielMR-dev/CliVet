@@ -79,7 +79,7 @@ export default function EditAppointmentModal({ isOpen, onClose, onSave, initialD
                 {/* Botón de guardar cambios */}
                 <div className="mt-4 flex justify-center">
                     <button 
-                        className="px-6 py-2 text-white bg-blue-600 rounded hover:bg-blue-700"
+                        className="px-6 py-2 text-white bg-blue-600 rounded hover:bg-blue-700 hover:cursor-pointer"
                         onClick={() => onSave({
                             pet: initialData?.pet || "",
                             date: initialData?.date || "",

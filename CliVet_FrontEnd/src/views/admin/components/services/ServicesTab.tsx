@@ -29,13 +29,13 @@ export default function ServicesTab() {
                 {/* Botones de agregar */}
                 <div className="flex space-x-2">
                     <button 
-                        className="px-6 py-2 bg-gray-300 rounded hover:bg-gray-400"
+                        className="px-6 py-2 bg-gray-300 rounded hover:bg-gray-400 hover:cursor-pointer"
                         onClick={() => setDaycareModalOpen(true)} // Abre el modal de guardería
                     >
                         Agregar guardería
                     </button>
                     <button 
-                        className="px-6 py-2 bg-gray-300 rounded hover:bg-gray-400"
+                        className="px-6 py-2 bg-gray-300 rounded hover:bg-gray-400 hover:cursor-pointer"
                         onClick={() => setIsScheduleModalOpen(true)} // Abre el modal de agendar cita
                     >
                         Agregar cita
@@ -57,20 +57,20 @@ export default function ServicesTab() {
                         <div className="flex justify-between mt-4">
                             <div className="flex space-x-2">
                                 <button 
-                                    className="p-2 bg-gray-200 rounded hover:bg-gray-300"
+                                    className="p-2 bg-gray-200 rounded hover:bg-gray-300 hover:cursor-pointer"
                                     onClick={() => setEditAppointmentOpen(true)}
                                 >
                                     <FiEdit className="text-gray-700" />
                                 </button>
                                 <button 
-                                    className="p-2 bg-gray-200 rounded hover:bg-gray-300"
+                                    className="p-2 bg-gray-200 rounded hover:bg-gray-300 hover:cursor-pointer"
                                     onClick={() => setReminderModalOpen(true)}
                                 >
                                     <FiClock className="text-gray-700" />
                                 </button>
                             </div>
                             <button 
-                                className="p-2 bg-gray-200 rounded hover:bg-red-300"
+                                className="p-2 bg-gray-200 rounded hover:bg-red-300 hover:cursor-pointer"
                                 onClick={() => setDeleteModalOpen(true)}
                             >
                                 <FiTrash className="text-red-600" />

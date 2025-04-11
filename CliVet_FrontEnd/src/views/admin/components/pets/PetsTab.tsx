@@ -39,7 +39,7 @@ export default function PetsTab() {
                         {/* Botón para ver historial médico */}
                         <div className="flex justify-between mt-4 space-x-2">
                             <button 
-                                className="p-2 bg-gray-200 rounded hover:bg-gray-300"
+                                className="p-2 bg-gray-200 rounded hover:bg-gray-300 hover:cursor-pointer"
                                 onClick={() => {
                                     setSelectedRecords(medicalRecords);
                                     setMedicalHistoryOpen(true);

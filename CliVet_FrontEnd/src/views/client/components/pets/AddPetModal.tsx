@@ -102,7 +102,7 @@ export default function AddPetModal({ isOpen, onClose }: AddPetModalProps) {
                 {/* Botón para agregar */}
                 <div className="text-center mt-4">
                     <button 
-                        className="bg-blue-600 px-6 py-2 text-white rounded hover:bg-blue-700"
+                        className="bg-blue-600 px-6 py-2 text-white rounded hover:bg-blue-700 hover:cursor-pointer"
                         onClick={onClose}
                     >
                         Agregar Mascota

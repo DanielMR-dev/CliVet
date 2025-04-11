@@ -52,7 +52,9 @@ export default function EditCollaboratorModal({ isOpen, onClose } : EditCollabor
                     </div>
                 </div>
                 <div className="mt-4 text-center">
-                    <button className="px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Guardar</button>
+                    <button 
+                        className="px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 hover:cursor-pointer"
+                    >Guardar</button>
                 </div>
             </div>
         </div>
