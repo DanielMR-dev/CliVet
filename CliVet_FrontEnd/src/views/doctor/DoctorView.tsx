@@ -3,6 +3,7 @@ import { FiLogOut } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import SidebarDoctor from "@/views/doctor/components/SidebarDoctor";
 import ServicesTab from "./components/services/ServicesTab";
+import PetsTab from "./components/pets/PetsTab";
 
 export default function DoctorView() {
     const [activeTab, setActiveTab] = useState("Servicios"); // Estado de los tabs
