@@ -1,0 +1,4 @@
+Para ejecutar cada uno de los servicios, se debe ejecutar el siguiente comando:
+    1. uvicorn Servicios.usuario.iniciar_sesion:app --port ### --env-file ENVIRONMENT_FILE_NAME.env --reload
+
+El argumento --reload es para desarrollo, se debe quitar una vez este en produccion
