@@ -17,8 +17,10 @@ async def modificar_mascota(id: int, request: Request):
             connection.execute(query)
             connection.commit()
 
-        return {"mensaje": "Mascota modificada correctamente"} # Cambiar 
+        return {"mensaje": "Mascota modificada correctamente",
+                "status" : 200}
 
     except Exception as e:
-        return {"error": f"Error al modificar la mascota: {str(e)}"} # Cambiar 
+        return {"error": f"Error al modificar la mascota: {str(e)}",
+                "status" : 500}
     

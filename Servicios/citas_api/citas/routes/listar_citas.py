@@ -132,7 +132,8 @@ async def obtener_horarios_disponibles(fecha: str, id_tipo: int):
     # Validar que el tipo de cita tenga colaboradores asociados
     tipos_colab = colaboradores_citas.get(id_tipo)
     if not tipos_colab:
-        return {"mensaje": "Este tipo de cita no requiere colaboradores o se gestiona de otra manera", "disponibles": []}
+        return {"mensaje": "Este tipo de cita no requiere colaboradores o se gestiona de otra manera", "disponibles": [],
+                "status" : 400}
 
     # Determinar franja horaria según el día
     dia_semana = fecha_obj.weekday()
@@ -162,7 +163,8 @@ async def obtener_horarios_disponibles(fecha: str, id_tipo: int):
         )
         colaboradores_validos = connection.execute(query_colabs).fetchall()
         if not colaboradores_validos:
-            return {"mensaje": "No hay colaboradores disponibles para este tipo de cita", "disponibles": []}
+            return {"mensaje": "No hay colaboradores disponibles para este tipo de cita", "disponibles": [],
+                    "status" : 404}
 
         colaboradores_ids = [colab.id for colab in colaboradores_validos]
 
@@ -203,4 +205,4 @@ async def obtener_horarios_disponibles(fecha: str, id_tipo: int):
                 "colaboradores_disponibles": colaboradores_disponibles
             })
 
-    return {"fecha": fecha, "disponibilidad": resultado}
+    return {"fecha": fecha, "disponibilidad": resultado, "status" : 200}

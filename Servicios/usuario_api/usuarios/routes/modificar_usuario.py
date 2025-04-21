@@ -28,7 +28,9 @@ async def registrar_usuario(id: int, request: Request):
             connection.execute(query)
             connection.commit()
 
-        return {"mensaje": "Cliente editado correctamente"}
+        return {"mensaje": "Cliente editado correctamente",
+                "status": 200}
 
     except Exception as e:
-        return {"error": f"Error al editar al cliente: {str(e)}"}
+        return {"error": f"Error al editar al cliente: {str(e)}",
+                "status" : 500}

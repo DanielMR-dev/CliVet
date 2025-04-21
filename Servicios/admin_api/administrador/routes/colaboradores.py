@@ -21,9 +21,11 @@ async def crear_colaborador(request: Request):
         with engine.connect() as connection:
             connection.execute(query)
             connection.commit()
-        return {"mensaje": "Colaborador registrado correctamente"}
+        return {"mensaje": "Colaborador registrado correctamente",
+                "status" : 200}
     except Exception as e:
-        return {"error": f"Error al registrar al colaborador: {str(e)}"}
+        return {"error": f"Error al registrar al colaborador: {str(e)}",
+                'status' : 500}
 
 
 
@@ -37,10 +39,6 @@ async def listar_colaboradores():
 
 
 
-'''
-EJEMPLO DE SOLICITUD:
-    http://127.0.0.1:8000/colaboradores/por-id?id_colaborador=2
-'''
 @router.get("/colaboradores/{id}")
 async def get_colaborador_id(id: int):
     colaboradores = Table("colaborador", metadata, autoload_with=engine)
@@ -62,8 +60,10 @@ async def modificar_colaborador(id: int, request: Request):
             result = connection.execute(query)
             connection.commit()
         if result.rowcount == 0:
-            return {"error": "Colaborador no encontrado"}
-        return {"mensaje": "Colaborador actualizado correctamente"}
+            return {"error": "Colaborador no encontrado",
+                    'status' : 404}
+        return {"mensaje": "Colaborador actualizado correctamente",
+                'status' : 200}
     except Exception as e:
         return {"error": f"Error al actualizar al colaborador: {str(e)}"}
 
@@ -76,5 +76,7 @@ async def eliminar_colaborador(id: int):
         result = connection.execute(query)
         connection.commit()
     if result.rowcount == 0:
-        return {"error": "Colaborador no encontrado"}
-    return {"mensaje": "Colaborador eliminado correctamente"}
+        return {"error": "Colaborador no encontrado",
+                'status' : 404}
+    return {"mensaje": "Colaborador eliminado correctamente",
+            'status' : 200}

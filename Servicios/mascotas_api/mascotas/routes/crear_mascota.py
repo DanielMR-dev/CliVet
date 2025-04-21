@@ -25,6 +25,8 @@ async def registrar_mascota(request: Request):
             connection.execute(query)
             connection.commit()
 
-        return {"mensaje": "Mascota registrada correctamente"}
+        return {"mensaje": "Mascota registrada correctamente",
+                "status" : 200}
     except Exception as e:
-        return {"error": f"Error al registrar la mascota: {str(e)}"}
+        return {"error": f"Error al registrar la mascota: {str(e)}",
+                "status" : 500}

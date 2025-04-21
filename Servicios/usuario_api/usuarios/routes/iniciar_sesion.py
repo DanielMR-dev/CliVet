@@ -20,7 +20,7 @@ def create_token(payload: dict) -> str:
     payload_b64 = base64.urlsafe_b64encode(json.dumps(payload).encode()).decode().rstrip("=")
     return f"{header_b64}.{payload_b64}."
 
-@router.post("/ingresar")
+@router.post("/ingresar/cliente")
 async def login_cliente(request: Request):
     clientes = Table("cliente", metadata, autoload_with=engine)
     data = await request.json()
@@ -33,8 +33,10 @@ async def login_cliente(request: Request):
         row = result.first()
 
     if not row:
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
-                            detail="Credenciales inválidas")
+        return {
+            "error" : "Credenciales inválidas",
+            "status" : 401
+        }
 
     # Construimos un “token” con la info del cliente
     token = create_token({
@@ -42,7 +44,8 @@ async def login_cliente(request: Request):
         "type": "cliente",
         # aquí podrías añadir más campos de row si quieres
     })
-    return {"access_token": token, "token_type": "bearer"}
+    return {"access_token": token, "token_type": "bearer",
+            "status" : 200}
 
 @router.post("/ingresar/empleado")
 async def login_empleado(request: Request):
@@ -51,8 +54,10 @@ async def login_empleado(request: Request):
     emp_id = payload.get("id")
     clave = payload.get("clave")
     if not emp_id or not clave:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
-                            detail="Se requiere 'id' y 'clave'")
+        return {
+            "error" : "Se requiere ID y contraseña",
+            "status" : 400
+        } 
 
     query = select(empleados).where(
         (empleados.c.id == emp_id) &
@@ -63,8 +68,10 @@ async def login_empleado(request: Request):
         row = result.first()
 
     if not row:
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
-                            detail="Credenciales inválidas")
+        return {
+            "error" : "Credenciales inválidas",
+            "status" : 401
+        }
 
     # Construimos un “token” con la info del empleado
     token = create_token({
@@ -72,4 +79,5 @@ async def login_empleado(request: Request):
         "type": "empleado",
         "role": row.id_rol
     })
-    return {"access_token": token, "token_type": "bearer"}
+    return {"access_token": token, "token_type": "bearer",
+            "status" : 200}

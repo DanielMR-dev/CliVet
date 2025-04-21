@@ -26,10 +26,12 @@ async def registrar_usuario(request: Request):
             connection.execute(query)
             connection.commit()
 
-        return {"mensaje": "Cliente registrado correctamente"}
+        return {"mensaje": "Cliente registrado correctamente",
+                "status" : 200}
 
     except Exception as e:
-        return {"error": f"Error al registrar al cliente: {str(e)}"}
+        return {"error": f"Error al registrar al cliente: {str(e)}",
+                "status" : 500}
     
 
 
@@ -45,10 +47,12 @@ async def buscar_usuario(cliente_id: int):
             connection.commit()
 
         if result.rowcount == 0:
-            return {"error": "Cliente no encontrado"}
+            return {"error": "Cliente no encontrado",
+                    "status" : 400}
         
         rows = result.fetchall()
         return [dict(row._mapping) for row in rows]
 
     except Exception as e:
-        return {"error": f"Error al buscar cliente: {str(e)}"}
+        return {"error": f"Error al buscar cliente: {str(e)}",
+                "status" : 500}

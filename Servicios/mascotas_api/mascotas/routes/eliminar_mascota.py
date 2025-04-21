@@ -16,9 +16,12 @@ async def eliminar_mascota(id: int):
             connection.commit()
 
         if result.rowcount == 0:
-            return {"error": "Mascota no encontrada"}
+            return {"error": "Mascota no encontrada",
+                    "status" : 404}
         
-        return {"mensaje": "Mascota eliminada correctamente"}
+        return {"mensaje": "Mascota eliminada correctamente",
+                "status" : 200}
 
     except Exception as e:
-        return {"error": f"Error al eliminar mascota: {str(e)}"}
+        return {"error": f"Error al eliminar mascota: {str(e)}",
+                "status" : 500}

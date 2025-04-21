@@ -19,6 +19,8 @@ async def crear_medico(request: Request):
         with engine.connect() as connection:
             connection.execute(query)
             connection.commit()
-        return {"mensaje": "Médico registrado correctamente"}
+        return {"mensaje": "Médico registrado correctamente",
+                "status" : 200}
     except Exception as e:
-        return {"error": f"Error al registrar al médico: {str(e)}"}
+        return {"error" : f"Error al registrar al médico: {str(e)}",
+                "status" : 500}

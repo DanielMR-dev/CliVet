@@ -16,12 +16,15 @@ async def eliminar_colaborador(id: int):
             connection.commit()
 
         if result.rowcount == 0:
-            return {"error": "Cliente no encontrado"}
+            return {"error": "Cliente no encontrado",
+                    "status" : 404}
         
-        return {"mensaje": "Cliente eliminado correctamente"}
+        return {"mensaje": "Cliente eliminado correctamente",
+                "status" : 200}
 
     except Exception as e:
-        return {"error": f"Error al eliminar al cliente: {str(e)}"}
+        return {"error": f"Error al eliminar al cliente: {str(e)}",
+                "status" : 500}
     
     
 '''@router.get("/usuarios")

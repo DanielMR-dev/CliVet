@@ -20,7 +20,8 @@ async def actualizar_cita(id: int, request: Request):
 
         # Si no hay datos para actualizar, devolver error
         if not data:
-            return {"error": "No se enviaron datos para actualizar"}
+            return {"error": "No se enviaron datos para actualizar",
+                    "status" : 400}
 
         # Crear la consulta de actualización con solo los valores presentes
         query = update(cita).where(cita.c.id == id).values(**data)
@@ -31,9 +32,12 @@ async def actualizar_cita(id: int, request: Request):
             connection.commit()
 
         if result.rowcount == 0:
-            return {"error": "Cita no encontrada"}
+            return {"error": "Cita no encontrada",
+                    "status" : 404}
 
-        return {"mensaje": "Cita actualizada correctamente"}
+        return {"mensaje": "Cita actualizada correctamente",
+                "status" : 200}
 
     except Exception as e:
-        return {"error": f"Error al actualizar la cita: {str(e)}"}
+        return {"error": f"Error al actualizar la cita: {str(e)}",
+                "status" : 500}

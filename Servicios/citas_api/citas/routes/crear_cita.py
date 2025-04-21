@@ -39,10 +39,12 @@ async def crear_cita(request: Request):
             connection.execute(query)
             connection.commit()
 
-        return {"mensaje": "cita creada correctamente"} # Cambiar 
+        return {"mensaje": "cita creada correctamente",
+                "status" : 200}
 
     except Exception as e:
-        return {"error": f"Error al registrar la cita: {str(e)}"} # Cambiar 
+        return {"error": f"Error al registrar la cita: {str(e)}",
+                "status" : 500} # Cambiar 
     
 
 
@@ -67,10 +69,12 @@ async def programar_recordatorio(request: Request):
             connection.execute(query)
             connection.commit()
 
-        return {"mensaje": "Recordatorio creado correctamente"} # Cambiar 
+        return {"mensaje": "Recordatorio creado correctamente",
+                "status" : 200} # Cambiar 
 
     except Exception as e:
-        return {"error": f"Error al programar recordatorio: {str(e)}"} # Cambiar 
+        return {"error": f"Error al programar recordatorio: {str(e)}",
+                "status" : 500} # Cambiar 
 
 
 
@@ -104,10 +108,12 @@ async def crear_estadia_guarderia(request: Request):
             connection.execute(query)
             connection.commit()
 
-        return {"mensaje": "Reserva en guarderia creada correctamente"} # Cambiar 
+        return {"mensaje": "Reserva en guarderia creada correctamente",
+                "status" : 200} # Cambiar 
 
     except Exception as e:
-        return {"error": f"Error al registrar la reserva en guarderia: {str(e)}"} # Cambiar 
+        return {"error": f"Error al registrar la reserva en guarderia: {str(e)}",
+                "status" : 500} # Cambiar 
     
 
 
@@ -147,7 +153,9 @@ async def crear_estadia_guarderia(fecha_hora_inicio: str = Query(...), fecha_hor
 
         precio_total = precio_hora * horas
 
-        return {"precio_total": precio_total}
+        return {"precio_total": precio_total,
+                "status" : 200}
 
     except Exception as e:
-        return {"error": f"Error al registrar la cita: {str(e)}"} # Cambiar 
+        return {"error": f"Error al registrar la cita: {str(e)}",
+                "status" : 500}
