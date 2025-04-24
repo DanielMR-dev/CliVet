@@ -1,0 +1,7 @@
+devtools/*
+!devtools/checkDBConnect.py
+!devtools/Instructions.txt
+!devtools/pruebaSolicitudes.py
+.env
+__pycache__/
+!.gitkeep

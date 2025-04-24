@@ -1,0 +1,11 @@
+services:
+  usuarios_api:
+    build: .
+    container_name: usuarios_api
+    ports:
+      - "4002:4002"
+    volumes:
+      - .:/app
+    environment:
+      - PYTHONUNBUFFERED=1
+    command: uvicorn main:app --host 0.0.0.0 --port 4002 --reload

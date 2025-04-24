@@ -1,3 +1,0 @@
-Para ejecutar cada uno de los servicios, se debe ejecutar el siguiente comando:
-
-    uvicorn Servicios.administrador.listar_procesos:app --port #### --reload

@@ -1,0 +1,11 @@
+services:
+  mascotas_api:
+    build: .
+    container_name: mascotas_api
+    ports:
+      - "4001:4001"
+    volumes:
+      - .:/app
+    environment:
+      - PYTHONUNBUFFERED=1
+    command: uvicorn main:app --host 0.0.0.0 --port 4001 --reload
