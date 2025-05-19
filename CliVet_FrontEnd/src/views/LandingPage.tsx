@@ -30,7 +30,7 @@ export default function LandingPage() {
                 {/* Hero Section */}
                 <section className="bg-gradient-to-r from-blue-500 to-blue-700 text-white py-20">
                     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <div className="flex flex-col md:flex-row items-center justify-between pt-15">
+                        <div className="flex flex-col md:flex-row items-center justify-between">
                             <div className="md:w-1/2 mb-10 md:mb-0 mr-1.5">
                                 <h2 className="text-4xl md:text-5xl font-bold mb-4">Cuidado experto para tu mejor amigo</h2>
                                 <p className="text-xl mb-8">CliVet ofrece atención veterinaria de primera clase con un enfoque compasivo y personalizado.</p>

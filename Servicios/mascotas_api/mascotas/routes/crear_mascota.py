@@ -4,7 +4,7 @@ from mascotas.database import engine, metadata
 
 router = APIRouter()
 
-@router.post("/")
+@router.post("/registrar_mascota")
 async def registrar_mascota(request: Request):
     try:
         mascotas = Table("mascota", metadata, autoload_with=engine)
@@ -25,8 +25,6 @@ async def registrar_mascota(request: Request):
             connection.execute(query)
             connection.commit()
 
-        return {"mensaje": "Mascota registrada correctamente",
-                "status" : 200}
+        return {"mensaje": "Mascota registrada correctamente"}
     except Exception as e:
-        return {"error": f"Error al registrar la mascota: {str(e)}",
-                "status" : 500}
+        return {"error": f"Error al registrar la mascota: {str(e)}"}

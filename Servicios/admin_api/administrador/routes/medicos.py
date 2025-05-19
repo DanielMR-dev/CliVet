@@ -6,7 +6,7 @@ router = APIRouter()
 
 medicos = Table("empleados", metadata, autoload_with=engine)
 
-@router.post("/medico")
+@router.post("/crear_medico")
 async def crear_medico(request: Request):
     try:
         data = await request.json()
@@ -19,8 +19,6 @@ async def crear_medico(request: Request):
         with engine.connect() as connection:
             connection.execute(query)
             connection.commit()
-        return {"mensaje": "Médico registrado correctamente",
-                "status" : 200}
+        return {"mensaje": "Médico registrado correctamente"}
     except Exception as e:
-        return {"error" : f"Error al registrar al médico: {str(e)}",
-                "status" : 500}
+        return {"error": f"Error al registrar al médico: {str(e)}"}

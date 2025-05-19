@@ -124,7 +124,7 @@ export default function RegisterView() {
                         <input
                             type="submit"
                             value='Crear Cuenta'
-                            className="col-span-2 w-full flex justify-center py-2 border border-transparent rounded-md shadow-sm text-l font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 hover:cursor-pointer"
+                            className="col-span-2 w-full flex justify-center py-2 border border-transparent rounded-md shadow-sm text-l font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                         />
                     </form>      
                     <div className="relative mt-5">

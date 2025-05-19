@@ -9,6 +9,7 @@
     "baseUrl": "src",
     "paths": {
       "@/assets/*" : ["assets/*"],
+      "@/components/*" : ["components/*"],
       "@/types/*" : ["types/*"],
       "@/utils/*" : ["utils/*"],
       "@/views/*" : ["views/*"],
