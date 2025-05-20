@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'corsheaders',
+    'redirections',
 ]
 
 MIDDLEWARE = [
@@ -73,9 +74,9 @@ DATABASES = {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": "clivet2025",
         "USER": "admin",
-        "PASSWORD": "xpi6jXD9lN1mhNzqHrldmYUK5wdQpam1",
-        "HOST": "dpg-cvg564jtq21c73e0jth0-a.oregon-postgres.render.com",
-        "PORT": "5432",
+        "PASSWORD": "Clivet2025**++",
+        "HOST": "host.docker.internal",
+        "PORT": "5430",
     }
 }
 
