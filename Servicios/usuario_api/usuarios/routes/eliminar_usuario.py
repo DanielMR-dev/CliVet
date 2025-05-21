@@ -4,26 +4,30 @@ from usuarios.database import engine, metadata
 
 router = APIRouter()
 
-@router.delete("/{cliente_id}")
-async def eliminar_colaborador(cliente_id: int):
+@router.delete("/{id}")
+async def eliminar_colaborador(id: int):
     try:
         clientes = Table("cliente", metadata, autoload_with=engine)        
 
-        query = delete(clientes).where(clientes.c.id == cliente_id)
+        query = delete(clientes).where(clientes.c.id == id)
 
         with engine.connect() as connection:
             result = connection.execute(query)
             connection.commit()
 
         if result.rowcount == 0:
-            return {"error": "Cliente no encontrado"}
+            return {"error": "Cliente no encontrado",
+                    "status" : 404}
         
-        return {"mensaje": "Cliente eliminado correctamente"}
+        return {"mensaje": "Cliente eliminado correctamente",
+                "status" : 200}
 
     except Exception as e:
-        return {"error": f"Error al eliminar al cliente: {str(e)}"}
+        return {"error": f"Error al eliminar al cliente: {str(e)}",
+                "status" : 500}
     
-@router.get("/usuarios")
+    
+'''@router.get("/usuarios")
 async def get_users():
     usuarios = Table("cliente", metadata, autoload_with=engine)
     query = select(usuarios)
@@ -31,4 +35,4 @@ async def get_users():
         result = connection.execute(query)
         rows = result.fetchall()
 
-    return [dict(row._mapping) for row in rows]
+    return [dict(row._mapping) for row in rows]'''

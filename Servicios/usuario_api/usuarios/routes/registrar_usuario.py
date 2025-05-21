@@ -5,7 +5,7 @@ from datetime import datetime
 
 router = APIRouter()
 
-@router.post("/registrar_usuario")
+@router.post("/registrar")
 async def registrar_usuario(request: Request):
     try:
         clientes = Table("cliente", metadata, autoload_with=engine)
@@ -15,7 +15,7 @@ async def registrar_usuario(request: Request):
         query = insert(clientes).values(
             id=data.get("id"),
             nombre_completo=data.get("nombre_completo"),
-            fecha_nacimiento=datetime.strptime(data.get("fecha_nacimiento"), "%d-%m-%Y"),
+            fecha_nacimiento=datetime.strptime(data.get("fecha_nacimiento"), "%Y-%m-%d"),
             clave=data.get("clave").encode(),
             email=data.get("email"),
             telefono=data.get("telefono"),
@@ -26,10 +26,12 @@ async def registrar_usuario(request: Request):
             connection.execute(query)
             connection.commit()
 
-        return {"mensaje": "Cliente registrado correctamente"}
+        return {"mensaje": "Cliente registrado correctamente",
+                "status" : 200}
 
     except Exception as e:
-        return {"error": f"Error al registrar al cliente: {str(e)}"}
+        return {"error": f"Error al registrar al cliente: {str(e)}",
+                "status" : 500}
     
 
 
@@ -45,10 +47,12 @@ async def buscar_usuario(cliente_id: int):
             connection.commit()
 
         if result.rowcount == 0:
-            return {"error": "Cliente no encontrado"}
+            return {"error": "Cliente no encontrado",
+                    "status" : 400}
         
         rows = result.fetchall()
         return [dict(row._mapping) for row in rows]
 
     except Exception as e:
-        return {"error": f"Error al buscar cliente: {str(e)}"}
+        return {"error": f"Error al buscar cliente: {str(e)}",
+                "status" : 500}
