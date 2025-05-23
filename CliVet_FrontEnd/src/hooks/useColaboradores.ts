@@ -1,5 +1,10 @@
-// src/hooks/useColaboradores.ts
-import { useQuery, useMutation, useQueryClient, UseMutationResult, UseQueryResult } from "@tanstack/react-query";
+import {
+    useQuery,
+    useMutation,
+    useQueryClient,
+    UseQueryResult,
+    UseMutationResult
+} from "@tanstack/react-query";
 import {
     listarColaboradores,
     obtenerColaboradorPorId,
@@ -10,51 +15,45 @@ import {
 import { Colaborador, CrearColaboradorDTO } from "@/types/index";
 
 export function useColaboradores(token: string): UseQueryResult<Colaborador[], Error> {
-    return useQuery<Colaborador[], Error>(
-        ["colaboradores", token],
-        () => listarColaboradores(token)
-    );
+    return useQuery<Colaborador[], Error>({
+        queryKey: ["colaboradores", token],
+        queryFn: () => listarColaboradores(token)
+    });
 }
 
 export function useColaborador(id: number, token: string): UseQueryResult<Colaborador, Error> {
-    return useQuery<Colaborador, Error>(
-        ["colaborador", id, token],
-        () => obtenerColaboradorPorId(id, token)
-    );
+    return useQuery<Colaborador, Error>({
+        queryKey: ["colaborador", id, token],
+        queryFn: () => obtenerColaboradorPorId(id, token)
+    });
 }
 
 export function useCrearColaborador(): UseMutationResult<Colaborador, Error, CrearColaboradorDTO> {
     const qc = useQueryClient();
-    return useMutation<Colaborador, Error, CrearColaboradorDTO>(
-        (dto: CrearColaboradorDTO) => crearColaborador(dto),
-        {
-            onSuccess: () => {
-                qc.invalidateQueries(["colaboradores"]);
-            }
+    return useMutation<Colaborador, Error, CrearColaboradorDTO>({
+        mutationFn: (dto: CrearColaboradorDTO) => crearColaborador(dto),
+        onSuccess: () => {
+            qc.invalidateQueries({ queryKey: ["colaboradores"] });
         }
-    );
+    });
 }
 
 export function useActualizarColaborador(): UseMutationResult<Colaborador, Error, CrearColaboradorDTO> {
     const qc = useQueryClient();
-    return useMutation<Colaborador, Error, CrearColaboradorDTO>(
-        (dto: CrearColaboradorDTO) => actualizarColaborador(dto),
-        {
-            onSuccess: () => {
-                qc.invalidateQueries(["colaboradores"]);
-            }
+    return useMutation<Colaborador, Error, CrearColaboradorDTO>({
+        mutationFn: (dto: CrearColaboradorDTO) => actualizarColaborador(dto),
+        onSuccess: () => {
+            qc.invalidateQueries({ queryKey: ["colaboradores"] });
         }
-    );
+    });
 }
 
 export function useEliminarColaborador(): UseMutationResult<void, Error, { id: number; token: string }> {
     const qc = useQueryClient();
-    return useMutation<void, Error, { id: number; token: string }>(
-        ({ id, token }) => eliminarColaborador(id, token),
-        {
-            onSuccess: () => {
-                qc.invalidateQueries(["colaboradores"]);
-            }
+    return useMutation<void, Error, { id: number; token: string }>({
+        mutationFn: ({ id, token }) => eliminarColaborador(id, token),
+        onSuccess: () => {
+            qc.invalidateQueries({ queryKey: ["colaboradores"] });
         }
-    );
+    });
 }
