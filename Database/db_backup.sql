@@ -900,6 +900,7 @@ COPY public.cita (id, id_tipo, id_mascota, id_colaborador, fecha_hora, modificab
 COPY public.cliente (id, nombre_completo, fecha_nacimiento, clave, telefono, email, direccion) FROM stdin;
 1	Santiago Martinez	2001-10-11	\\x313233343536373839	3178048999	email@correo.com	Mi Casa
 2	Santiago Martinez	2001-10-11	\\x313233343536373839	3178048999	email@correo.com	Mi Casa
+3	Anna Maria Alvarez	2001-10-11	\\x313233343536373839	3178048999	email1@correo.com	Mi Casa
 \.
 
 
