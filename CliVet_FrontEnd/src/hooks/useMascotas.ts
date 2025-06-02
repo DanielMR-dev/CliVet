@@ -15,12 +15,22 @@ import {
 } from "@/services/mascotaService";
 import { Mascota, CrearMascotaDTO } from "@/types/index";
 
-export function useMascotas(token: string): UseQueryResult<Mascota[], Error> {
+export function useMascotas(
+    token: string
+): UseQueryResult<Mascota[], Error> {
     return useQuery<Mascota[], Error>({
         queryKey: ["mascotas", token],
-        queryFn: () => listarMascotas(token)
+        queryFn: () => listarMascotas(token),
+        enabled: Boolean(token),           // Sólo ejecuta la query si token !== ""
+        refetchOnWindowFocus: false,       // Desactiva re-fetch al enfocar la ventana
+        refetchOnMount: false,             // No volver a fetch al volver a montar el componente
+        refetchOnReconnect: false,         // No volver a fetch al reconectarse a la red
+        staleTime: Infinity,               // Marca el resultado como “siempre fresco” (opcional)
     });
 }
+
+
+
 
 export function useMascotasPorUsuario(id: number, token: string): UseQueryResult<Mascota[], Error> {
     return useQuery<Mascota[], Error>({

@@ -1,5 +1,5 @@
 import { callGateway } from "@/services/apiGateway";
-import { Servicio, ServicioArraySchema } from "@/types/servicio";
+import { Servicio, ServicioArraySchema } from "@/types/servicios";
 
 /**
  * Lista todos los servicios que ofrece la clínica.

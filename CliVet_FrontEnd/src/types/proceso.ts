@@ -2,9 +2,10 @@ import { z } from "zod";
 
 // Schema para un Proceso
 export const ProcesoSchema = z.object({
-    id:          z.number(),
-    nombre:      z.string(),
-    descripcion: z.string(),
+    id:             z.number(),
+    nombre:         z.string(),
+    descripcion:    z.string(),
+    precios:        z.string()
 });
 
 export const ProcesoArraySchema = z.array(ProcesoSchema);

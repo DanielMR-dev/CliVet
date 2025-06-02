@@ -5,6 +5,7 @@ export const ServicioSchema = z.object({
     id:          z.number(),
     nombre:      z.string(),
     descripcion: z.string(),
+    precios:     z.string()
 });
 
 export const ServicioArraySchema = z.array(ServicioSchema);

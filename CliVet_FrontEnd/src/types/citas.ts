@@ -1,12 +1,12 @@
-import { z } from "zod";
+import { z } from 'zod';
 
 export const CrearCitaSchema = z.object({
     id:                     z.number(),
     id_tipo:                z.number(),
     id_mascota:             z.number(),
     id_colaborador:         z.number(),
-    fecha_hora:             z.string(),  // ISO 8601
-    modificable_por_usuario:z.number(),  // 0 ó 1
+    fecha_hora:             z.string(),  
+    modificable_por_usuario:z.number(),  
     access_token:           z.string(),
 });
 

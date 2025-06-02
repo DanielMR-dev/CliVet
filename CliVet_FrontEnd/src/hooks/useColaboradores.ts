@@ -14,10 +14,17 @@ import {
 } from "@/services/colaboradorService";
 import { Colaborador, CrearColaboradorDTO } from "@/types/index";
 
-export function useColaboradores(token: string): UseQueryResult<Colaborador[], Error> {
+export function useColaboradores(
+    token: string
+): UseQueryResult<Colaborador[], Error> {
     return useQuery<Colaborador[], Error>({
         queryKey: ["colaboradores", token],
-        queryFn: () => listarColaboradores(token)
+        queryFn: () => listarColaboradores(token),
+        enabled: Boolean(token),
+        refetchOnWindowFocus: false,
+        refetchOnMount: false,
+        refetchOnReconnect: false,
+        staleTime: Infinity,
     });
 }
 

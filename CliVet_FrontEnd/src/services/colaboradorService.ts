@@ -6,25 +6,41 @@ import {
     ColaboradorSchema
 } from "@/types/index";
 
+interface GatewayResponse<T> {
+    datos: T;
+    status: number;
+}
+
+/**
+ * Lista todos los colaboradores de la clínica.
+ * @param access_token Access token del empleado/admin
+ */
+
 export async function listarColaboradores(
     access_token: string
 ): Promise<Colaborador[]> {
-    const res = await callGateway<{ access_token: string }, unknown>(
+    const res = await callGateway<
+        { access_token: string }, 
+        GatewayResponse<unknown[]>
+    >(
         "listar_colaboradores",
-        { access_token }
+        { access_token: access_token }
     );
-    return ColaboradorArraySchema.parse(res);
+    return ColaboradorArraySchema.parse(res.datos);
 }
 
 export async function obtenerColaboradorPorId(
     id: number,
     access_token: string
 ): Promise<Colaborador> {
-    const res = await callGateway<{ id: number; access_token: string }, unknown>(
+    const res = await callGateway<
+        { id: number; access_token: string }, 
+        GatewayResponse<unknown[]>
+    >(
         "listar_colaborador_id",
         { id, access_token }
     );
-    return ColaboradorSchema.parse(res);
+    return ColaboradorSchema.parse(res.datos);
 }
 
 export async function crearColaborador(

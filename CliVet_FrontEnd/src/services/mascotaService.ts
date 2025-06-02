@@ -5,15 +5,26 @@ import {
     MascotaArraySchema,
     MascotaSchema
 } from "@/types/index";
+interface GatewayResponse<T> {
+    data: T;
+    status: number;
+}
+/**
+ * Lista todas las mascotas de la clínica.
+ * @param access_token  Access token del empleado/admin
+ */
 
 export async function listarMascotas(
     access_token: string
 ): Promise<Mascota[]> {
-    const res = await callGateway<{ access_token: string }, unknown>(
+    const res = await callGateway<
+        { access_token: string }, 
+        GatewayResponse<unknown[]>
+    >(
         "listar_mascotas",
         { access_token }
     );
-    return MascotaArraySchema.parse(res);
+    return MascotaArraySchema.parse(res.data);
 }
 
 export async function obtenerMascotaPorId(
