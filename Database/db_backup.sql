@@ -909,6 +909,7 @@ COPY public.cliente (id, nombre_completo, fecha_nacimiento, clave, telefono, ema
 --
 
 COPY public.colaborador (id, nombre_completo, id_tipo, email, telefono, direccion) FROM stdin;
+10	Jacinto Gutierrez	4	email2@clivet.com	3202020	Carrera 42 #12-128
 \.
 
 
@@ -992,6 +993,7 @@ COPY public.especie (id, nombre) FROM stdin;
 --
 
 COPY public.mascota (id, nombre, edad, id_propietario, agresividad, peso, direccion, id_especie) FROM stdin;
+5	Firulais Quinto	24	1	Pasiva	60	calle 2 Carrera 3	1
 \.
 
 
