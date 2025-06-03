@@ -42,7 +42,7 @@ export default function AddMascotaModal({
     };
 
     // React Query v5: para saber si está cargando, usamos status === "loading"
-    const cargando = crearMut.status === "loading";
+    const cargando = crearMut.status === "pending";
 
     return (
         <Transition.Root show={isOpen} as={Fragment}>

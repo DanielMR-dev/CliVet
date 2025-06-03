@@ -1,5 +1,4 @@
 // src/services/mascotaService.ts
-
 import { callGateway } from "./apiGateway";
 import { Mascota, MascotaArraySchema, CrearMascotaDTO, MascotaSchema } from "@/types/mascota";
 

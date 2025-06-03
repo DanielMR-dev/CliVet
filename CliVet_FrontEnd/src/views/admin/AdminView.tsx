@@ -198,19 +198,7 @@ export default function AdminView() {
                             procesos?.map((p: Proceso) => (
                                 <div
                                     key={p.id}
-                                    className="border p-4 bg-white rounded shadow-md hover:bg-gray-50 transition cursor-pointer"
-                                    onClick={() => {
-                                        // Como ejemplo, abro InfoCardModal con datos mínimos:
-                                        setSelectedColaborador({
-                                            id: p.id,
-                                            nombre_completo: p.nombre,
-                                            id_tipo: 0,
-                                            email: "",
-                                            telefono: "",
-                                            direccion: ""
-                                        } as Colaborador);
-                                        setInfoCardModalOpen(true);
-                                    }}
+                                    className="border p-4 bg-white rounded shadow-md hover:bg-gray-50 transition"
                                 >
                                     <h3 className="font-semibold border-b pb-2">{p.nombre}</h3>
                                     <p className="mt-2 text-gray-600">{p.descripcion}</p>
