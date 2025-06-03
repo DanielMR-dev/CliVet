@@ -1,57 +1,54 @@
+// src/services/mascotaService.ts
+
 import { callGateway } from "./apiGateway";
-import {
-    CrearMascotaDTO,
-    Mascota,
-    MascotaArraySchema,
-    MascotaSchema
-} from "@/types/index";
+import { Mascota, MascotaArraySchema, CrearMascotaDTO, MascotaSchema } from "@/types/mascota";
+
 interface GatewayResponse<T> {
-    data: T;
+    datos: T;
     status: number;
 }
+
 /**
- * Lista todas las mascotas de la clínica.
+ * Lista todas las mascotas.
  * @param access_token  Access token del empleado/admin
  */
-
 export async function listarMascotas(
     access_token: string
 ): Promise<Mascota[]> {
     const res = await callGateway<
-        { access_token: string }, 
+        { access_token: string },
         GatewayResponse<unknown[]>
     >(
         "listar_mascotas",
         { access_token }
     );
-    return MascotaArraySchema.parse(res.data);
+    return MascotaArraySchema.parse(res.datos);
 }
 
+/**
+ * Obtiene una mascota por su ID.
+ */
 export async function obtenerMascotaPorId(
     id: number,
     access_token: string
 ): Promise<Mascota> {
-    const res = await callGateway<{ id: number; access_token: string }, unknown>(
+    const res = await callGateway<
+        { id: number; access_token: string },
+        GatewayResponse<unknown>
+    >(
         "listar_mascota_id",
         { id, access_token }
     );
-    return MascotaSchema.parse(res);
+    return MascotaArraySchema.parse([res.datos])[0];
 }
 
-export async function listarMascotasPorUsuario(
-    id: number,
-    access_token: string
-): Promise<Mascota[]> {
-    const res = await callGateway<{ id: number; access_token: string }, unknown>(
-        "listar_mascota_id_usuario",
-        { id, access_token }
-    );
-    return MascotaArraySchema.parse(res);
-}
-
+/**
+ * Crea una nueva mascota.
+ */
 export async function crearMascota(
     dto: CrearMascotaDTO
 ): Promise<Mascota> {
+    // El gateway ignora el campo `id` en creación
     const res = await callGateway<CrearMascotaDTO, unknown>(
         "crear_mascota",
         dto
@@ -59,6 +56,9 @@ export async function crearMascota(
     return MascotaSchema.parse(res);
 }
 
+/**
+ * Actualiza una mascota existente.
+ */
 export async function actualizarMascota(
     dto: CrearMascotaDTO
 ): Promise<Mascota> {
@@ -69,6 +69,9 @@ export async function actualizarMascota(
     return MascotaSchema.parse(res);
 }
 
+/**
+ * Elimina una mascota por ID.
+ */
 export async function eliminarMascota(
     id: number,
     access_token: string

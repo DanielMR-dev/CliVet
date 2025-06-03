@@ -1,3 +1,5 @@
+// src/hooks/useColaboradores.ts
+
 import {
     useQuery,
     useMutation,
@@ -12,11 +14,12 @@ import {
     actualizarColaborador,
     eliminarColaborador
 } from "@/services/colaboradorService";
-import { Colaborador, CrearColaboradorDTO } from "@/types/index";
+import type { Colaborador, CrearColaboradorDTO } from "@/types/colaborador";
 
-export function useColaboradores(
-    token: string
-): UseQueryResult<Colaborador[], Error> {
+/**
+ * Hook para listar todos los colaboradores (array).
+ */
+export function useColaboradores(token: string): UseQueryResult<Colaborador[], Error> {
     return useQuery<Colaborador[], Error>({
         queryKey: ["colaboradores", token],
         queryFn: () => listarColaboradores(token),
@@ -28,39 +31,99 @@ export function useColaboradores(
     });
 }
 
-export function useColaborador(id: number, token: string): UseQueryResult<Colaborador, Error> {
+/**
+ * Hook para obtener un colaborador por ID.
+ */
+export function useColaborador(
+    id: number,
+    token: string
+): UseQueryResult<Colaborador, Error> {
     return useQuery<Colaborador, Error>({
         queryKey: ["colaborador", id, token],
-        queryFn: () => obtenerColaboradorPorId(id, token)
+        queryFn: () => obtenerColaboradorPorId(id, token),
+        enabled: Boolean(token),
+        refetchOnWindowFocus: false,
+        refetchOnMount: false,
+        refetchOnReconnect: false,
+        staleTime: Infinity,
     });
 }
 
-export function useCrearColaborador(): UseMutationResult<Colaborador, Error, CrearColaboradorDTO> {
+/**
+ * Hook para crear un colaborador.
+ * El DTO que recibe debe incluir el access_token:
+ *   { id: number; nombre_completo: string; id_tipo: number;
+ *     email: string; telefono: string; direccion: string; access_token: string }
+ */
+export function useCrearColaborador(): UseMutationResult<
+    void,
+    Error,
+    CrearColaboradorDTO & { access_token: string }
+> {
     const qc = useQueryClient();
-    return useMutation<Colaborador, Error, CrearColaboradorDTO>({
-        mutationFn: (dto: CrearColaboradorDTO) => crearColaborador(dto),
-        onSuccess: () => {
-            qc.invalidateQueries({ queryKey: ["colaboradores"] });
+
+    return useMutation<void, Error, CrearColaboradorDTO & { access_token: string }>({
+        mutationFn: (dto) => crearColaborador(dto),
+        onSuccess: (_, dto) => {
+            // Invalidamos la query de "colaboradores" con la misma clave
+            qc.invalidateQueries({
+                queryKey: ["colaboradores", dto.access_token]
+            });
         }
     });
 }
 
-export function useActualizarColaborador(): UseMutationResult<Colaborador, Error, CrearColaboradorDTO> {
+/**
+ * Hook para actualizar un colaborador.
+ * El DTO que recibe debe incluir { id, access_token, ...camposActualizados }
+ */
+export function useActualizarColaborador(): UseMutationResult<
+    void,
+    Error,
+    Partial<Omit<CrearColaboradorDTO, "id">> & {
+        id: number;
+        access_token: string;
+    }
+> {
     const qc = useQueryClient();
-    return useMutation<Colaborador, Error, CrearColaboradorDTO>({
-        mutationFn: (dto: CrearColaboradorDTO) => actualizarColaborador(dto),
-        onSuccess: () => {
-            qc.invalidateQueries({ queryKey: ["colaboradores"] });
+
+    return useMutation<
+        void,
+        Error,
+        Partial<Omit<CrearColaboradorDTO, "id">> & { id: number; access_token: string }
+    >({
+        mutationFn: (dto) => actualizarColaborador(dto),
+        onSuccess: (_, dto) => {
+            // Invalidamos la lista de colaboradores
+            qc.invalidateQueries({
+                queryKey: ["colaboradores", dto.access_token]
+            });
+            // Invalidamos el detalle del colaborador que acabamos de actualizar
+            qc.invalidateQueries({
+                queryKey: ["colaborador", dto.id, dto.access_token]
+            });
         }
     });
 }
 
-export function useEliminarColaborador(): UseMutationResult<void, Error, { id: number; token: string }> {
+/**
+ * Hook para eliminar un colaborador por ID.
+ * Recibe { id: number; access_token: string }
+ */
+export function useEliminarColaborador(): UseMutationResult<
+    void,
+    Error,
+    { id: number; access_token: string }
+> {
     const qc = useQueryClient();
-    return useMutation<void, Error, { id: number; token: string }>({
-        mutationFn: ({ id, token }) => eliminarColaborador(id, token),
-        onSuccess: () => {
-            qc.invalidateQueries({ queryKey: ["colaboradores"] });
+
+    return useMutation<void, Error, { id: number; access_token: string }>({
+        mutationFn: ({ id, access_token }) => eliminarColaborador(id, access_token),
+        onSuccess: (_, dto) => {
+            // Invalidamos la lista de colaboradores nuevamente
+            qc.invalidateQueries({
+                queryKey: ["colaboradores", dto.access_token]
+            });
         }
     });
 }

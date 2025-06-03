@@ -1,25 +1,29 @@
+// src/views/admin/components/ConfirmDeleteModal.tsx
 import { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import type { Colaborador } from "@/types/colaborador";
 
-interface InfoCardModalProps {
+interface ConfirmDeleteModalProps {
     isOpen: boolean;
     onClose: () => void;
-    colaborador: Colaborador | null;
+    title: string;
+    description: string;
+    onConfirm: () => void;
 }
 
-/**
- * Modal genérico para mostrar los detalles de un Colaborador (Información estática).
- * Fondo opaco al 50% (bg-opacity-50).
- */
-export default function InfoCardModal({
+export default function ConfirmDeleteModal({
     isOpen,
     onClose,
-    colaborador
-}: InfoCardModalProps) {
+    title,
+    description,
+    onConfirm
+}: ConfirmDeleteModalProps) {
     return (
         <Transition.Root show={isOpen} as={Fragment}>
-            <Dialog as="div" className="fixed z-10 inset-0 overflow-y-auto" onClose={onClose}>
+            <Dialog
+                as="div"
+                className="fixed z-10 inset-0 overflow-y-auto"
+                onClose={onClose}
+            >
                 <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
                     {/* Fondo semitransparente */}
                     <Transition.Child
@@ -31,11 +35,14 @@ export default function InfoCardModal({
                         leaveFrom="opacity-100"
                         leaveTo="opacity-0"
                     >
-                        <div className="fixed inset-0 bg-gray-500/50 transition-opacity" />
+                        <div className="fixed inset-0 bg-gray-800/50 transition-opacity" />
                     </Transition.Child>
 
-                    {/* Centrado vertical */}
-                    <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">
+                    {/* Hack de centrado vertical */}
+                    <span
+                        className="hidden sm:inline-block sm:align-middle sm:h-screen"
+                        aria-hidden="true"
+                    >
                         &#8203;
                     </span>
 
@@ -53,40 +60,35 @@ export default function InfoCardModal({
                                         sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6">
                             <div className="sm:flex sm:items-start">
                                 <div className="mt-3 text-center sm:mt-0 sm:text-left w-full">
-                                    <Dialog.Title as="h3" className="text-lg leading-6 font-medium text-gray-900">
-                                        Detalles del Colaborador
+                                    <Dialog.Title
+                                        as="h3"
+                                        className="text-lg leading-6 font-medium text-gray-900"
+                                    >
+                                        {title}
                                     </Dialog.Title>
                                     <div className="mt-2">
-                                        {colaborador ? (
-                                            <>
-                                                <p className="text-sm text-gray-600">
-                                                    <strong>Nombre:</strong> {colaborador.nombre_completo}
-                                                </p>
-                                                <p className="text-sm text-gray-600">
-                                                    <strong>Email:</strong> {colaborador.email}
-                                                </p>
-                                                <p className="text-sm text-gray-600">
-                                                    <strong>Teléfono:</strong> {colaborador.telefono}
-                                                </p>
-                                                <p className="text-sm text-gray-600">
-                                                    <strong>Dirección:</strong> {colaborador.direccion}
-                                                </p>
-                                            </>
-                                        ) : (
-                                            <p className="text-sm text-gray-600">No hay información disponible.</p>
-                                        )}
+                                        <p className="text-sm text-gray-500">{description}</p>
                                     </div>
                                 </div>
                             </div>
-                            <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                            <div className="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse space-x-2 space-x-reverse">
                                 <button
                                     type="button"
+                                    onClick={onConfirm}
+                                    className="w-full inline-flex justify-center rounded-md border border-transparent
+                                               shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700
+                                               focus:outline-none sm:ml-3 sm:w-auto sm:text-sm"
+                                >
+                                    Eliminar
+                                </button>
+                                <button
+                                    type="button"
+                                    onClick={onClose}
                                     className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300
                                                shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50
                                                focus:outline-none sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
-                                    onClick={onClose}
                                 >
-                                    Cerrar
+                                    Cancelar
                                 </button>
                             </div>
                         </div>

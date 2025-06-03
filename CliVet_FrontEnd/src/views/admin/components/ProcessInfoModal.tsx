@@ -1,22 +1,22 @@
 import { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import type { Colaborador } from "@/types/colaborador";
+import type { Proceso } from "@/types/proceso";
 
-interface InfoCardModalProps {
+interface ProcessInfoModalProps {
     isOpen: boolean;
     onClose: () => void;
-    colaborador: Colaborador | null;
+    proceso: Proceso | null;
 }
 
 /**
- * Modal genérico para mostrar los detalles de un Colaborador (Información estática).
- * Fondo opaco al 50% (bg-opacity-50).
+ * Modal específico para mostrar información de un Proceso.
+ * Fondo con opacidad al 50% (bg-opacity-50).
  */
-export default function InfoCardModal({
+export default function ProcessInfoModal({
     isOpen,
     onClose,
-    colaborador
-}: InfoCardModalProps) {
+    proceso
+}: ProcessInfoModalProps) {
     return (
         <Transition.Root show={isOpen} as={Fragment}>
             <Dialog as="div" className="fixed z-10 inset-0 overflow-y-auto" onClose={onClose}>
@@ -31,7 +31,7 @@ export default function InfoCardModal({
                         leaveFrom="opacity-100"
                         leaveTo="opacity-0"
                     >
-                        <div className="fixed inset-0 bg-gray-500/50 transition-opacity" />
+                        <div className="fixed inset-0 bg-gray-500 bg-opacity-50 transition-opacity" />
                     </Transition.Child>
 
                     {/* Centrado vertical */}
@@ -54,22 +54,19 @@ export default function InfoCardModal({
                             <div className="sm:flex sm:items-start">
                                 <div className="mt-3 text-center sm:mt-0 sm:text-left w-full">
                                     <Dialog.Title as="h3" className="text-lg leading-6 font-medium text-gray-900">
-                                        Detalles del Colaborador
+                                        Detalles del Proceso
                                     </Dialog.Title>
                                     <div className="mt-2">
-                                        {colaborador ? (
+                                        {proceso ? (
                                             <>
                                                 <p className="text-sm text-gray-600">
-                                                    <strong>Nombre:</strong> {colaborador.nombre_completo}
+                                                    <strong>Nombre:</strong> {proceso.nombre}
                                                 </p>
                                                 <p className="text-sm text-gray-600">
-                                                    <strong>Email:</strong> {colaborador.email}
+                                                    <strong>Descripción:</strong> {proceso.descripcion}
                                                 </p>
                                                 <p className="text-sm text-gray-600">
-                                                    <strong>Teléfono:</strong> {colaborador.telefono}
-                                                </p>
-                                                <p className="text-sm text-gray-600">
-                                                    <strong>Dirección:</strong> {colaborador.direccion}
+                                                    <strong>Precios:</strong> {proceso.precios}
                                                 </p>
                                             </>
                                         ) : (

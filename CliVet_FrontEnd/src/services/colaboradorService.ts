@@ -1,68 +1,98 @@
+// src/services/colaboradorService.ts
+
 import { callGateway } from "./apiGateway";
 import {
-    CrearColaboradorDTO,
-    Colaborador,
     ColaboradorArraySchema,
-    ColaboradorSchema
-} from "@/types/index";
+    Colaborador,
+    CrearColaboradorDTO
+} from "@/types/colaborador";
 
+/**
+ * Interfaz que refleja la respuesta del gateway:
+ * {
+ *   "datos": T,
+ *   "status": number
+ * }
+ */
 interface GatewayResponse<T> {
     datos: T;
     status: number;
 }
 
 /**
- * Lista todos los colaboradores de la clínica.
- * @param access_token Access token del empleado/admin
+ * listarColaboradores(access_token):
+ *   → Llama a "listar_colaboradores" y retorna un array de Colaborador.
  */
-
 export async function listarColaboradores(
     access_token: string
 ): Promise<Colaborador[]> {
     const res = await callGateway<
-        { access_token: string }, 
+        { access_token: string },
         GatewayResponse<unknown[]>
     >(
         "listar_colaboradores",
-        { access_token: access_token }
+        { access_token }
     );
+
     return ColaboradorArraySchema.parse(res.datos);
 }
 
+/**
+ * obtenerColaboradorPorId(id, access_token):
+ *   → Llama a "listar_colaborador_id" y retorna un solo Colaborador.
+ */
 export async function obtenerColaboradorPorId(
     id: number,
     access_token: string
 ): Promise<Colaborador> {
     const res = await callGateway<
-        { id: number; access_token: string }, 
+        { id: number; access_token: string },
         GatewayResponse<unknown[]>
     >(
         "listar_colaborador_id",
         { id, access_token }
     );
-    return ColaboradorSchema.parse(res.datos);
+
+    const arr = ColaboradorArraySchema.parse(res.datos);
+    return arr[0];
 }
 
+/**
+ * crearColaborador(dto con access_token):
+ *   → Llama a "crear_colaborador". No retorna el objeto creado, solo mensaje + status.
+ */
 export async function crearColaborador(
-    dto: CrearColaboradorDTO
-): Promise<Colaborador> {
-    const res = await callGateway<CrearColaboradorDTO, unknown>(
+    dto: CrearColaboradorDTO & { access_token: string }
+): Promise<void> {
+    await callGateway<CrearColaboradorDTO & { access_token: string }, unknown>(
         "crear_colaborador",
         dto
     );
-    return ColaboradorSchema.parse(res);
 }
 
+/**
+ * actualizarColaborador(dto con id y access_token):
+ *   → Llama a "actualizar_colaborador". Tampoco retorna el objeto, solo mensaje + status.
+ */
 export async function actualizarColaborador(
-    dto: CrearColaboradorDTO
-): Promise<Colaborador> {
-    const res = await callGateway<CrearColaboradorDTO, unknown>(
+    dto: Partial<Omit<CrearColaboradorDTO, "id">> & {
+        id: number;
+        access_token: string;
+    }
+): Promise<void> {
+    await callGateway<
+        Partial<Omit<CrearColaboradorDTO, "id">> & { id: number; access_token: string },
+        unknown
+    >(
         "actualizar_colaborador",
         dto
     );
-    return ColaboradorSchema.parse(res);
 }
 
+/**
+ * eliminarColaborador(id, access_token):
+ *   → Llama a "eliminar_colaborador". No retorna datos de interés, solo mensaje + status.
+ */
 export async function eliminarColaborador(
     id: number,
     access_token: string

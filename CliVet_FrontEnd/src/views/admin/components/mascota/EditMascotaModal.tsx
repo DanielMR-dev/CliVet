@@ -1,80 +1,75 @@
+// src/views/admin/components/mascota/EditMascotaModal.tsx
 import { Fragment, useState, useEffect } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import type { Colaborador, CrearColaboradorDTO } from "@/types/colaborador";
-import { useActualizarColaborador, useEliminarColaborador } from "@/hooks/useColaboradores";
+import type { Mascota, CrearMascotaDTO } from "@/types/mascota";
+import { useActualizarMascota, useEliminarMascota } from "@/hooks/useMascotas";
 
-interface EditCollaboratorModalProps {
+interface EditMascotaModalProps {
     isOpen: boolean;
     onClose: () => void;
-    colaborador: Colaborador | null;
+    mascota: Mascota | null;
     token: string;
 }
 
-/**
- * Al igual que en AddCollaboratorModal, en React Query la mutación
- * usa `status` con valores “idle” | “pending” | “error” | “success”.  
- * Por eso comparamos contra "pending" (no contra "loading").
- * También sustituimos Dialog.Overlay por <div>.
- */
-export default function EditCollaboratorModal({
+export default function EditMascotaModal({
     isOpen,
     onClose,
-    colaborador,
+    mascota,
     token
-}: EditCollaboratorModalProps) {
-    const actualizarMut = useActualizarColaborador();
-    const eliminarMut = useEliminarColaborador();
+}: EditMascotaModalProps) {
+    const actualizarMut = useActualizarMascota();
+    const eliminarMut = useEliminarMascota();
 
-    // Estados locales para el formulario de edición
-    const [form, setForm] = useState<Omit<CrearColaboradorDTO, "id" | "access_token">>({
-        nombre_completo: "",
-        id_tipo: 1,
-        email: "",
-        telefono: "",
-        direccion: ""
+    // Formulario local
+    const [form, setForm] = useState<Omit<CrearMascotaDTO, "id" | "access_token">>({
+        nombre: "",
+        edad: 0,
+        raza: "",
+        sexo: ""
     });
 
-    // Cuando cambie `colaborador`, rellenamos el formulario
+    // Cuando cambia la mascota seleccionada, rellenamos el formulario
     useEffect(() => {
-        if (colaborador) {
+        if (mascota) {
             setForm({
-                nombre_completo: colaborador.nombre_completo,
-                id_tipo: colaborador.id_tipo,
-                email: colaborador.email,
-                telefono: colaborador.telefono,
-                direccion: colaborador.direccion
+                nombre: mascota.nombre,
+                edad: mascota.edad,
+                raza: mascota.raza,
+                sexo: mascota.sexo
             });
         }
-    }, [colaborador]);
+    }, [mascota]);
 
     const handleUpdate = async () => {
-        if (!token || !colaborador) return;
-
+        if (!token || !mascota) return;
         await actualizarMut.mutateAsync({
-            id: colaborador.id,
-            ...form,
+            id: mascota.id,
+            nombre: form.nombre,
+            edad: form.edad,
+            raza: form.raza,
+            sexo: form.sexo,
             access_token: token
         });
         onClose();
     };
 
     const handleDelete = async () => {
-        if (!token || !colaborador) return;
-
-        await eliminarMut.mutateAsync({
-            id: colaborador.id,
-            access_token: token
-        });
+        if (!token || !mascota) return;
+        await eliminarMut.mutateAsync({ id: mascota.id, access_token: token });
         onClose();
     };
 
-    // Revisamos si las mutaciones están en curso con status === "pending"
+    // React Query v5:
     const guardandoCambios = actualizarMut.status === "pending";
     const eliminando = eliminarMut.status === "pending";
 
     return (
         <Transition.Root show={isOpen} as={Fragment}>
-            <Dialog as="div" className="fixed z-10 inset-0 overflow-y-auto" onClose={onClose}>
+            <Dialog
+                as="div"
+                className="fixed z-10 inset-0 overflow-y-auto"
+                onClose={onClose}
+            >
                 <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
                     {/* Fondo semitransparente */}
                     <Transition.Child
@@ -86,11 +81,14 @@ export default function EditCollaboratorModal({
                         leaveFrom="opacity-100"
                         leaveTo="opacity-0"
                     >
-                        <div className="fixed inset-0 bg-gray-500/50 transition-opacity" />
+                        <div className="fixed inset-0 bg-gray-800 bg-opacity-50 transition-opacity" />
                     </Transition.Child>
 
-                    {/* Centrado vertical */}
-                    <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">
+                    {/* Hack de centrado vertical */}
+                    <span
+                        className="hidden sm:inline-block sm:align-middle sm:h-screen"
+                        aria-hidden="true"
+                    >
                         &#8203;
                     </span>
 
@@ -108,24 +106,25 @@ export default function EditCollaboratorModal({
                                         sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6">
                             <div className="sm:flex sm:items-start">
                                 <div className="mt-3 text-center sm:mt-0 sm:text-left w-full">
-                                    <Dialog.Title as="h3" className="text-lg leading-6 font-medium text-gray-900">
-                                        {colaborador
-                                            ? "Editar Colaborador"
-                                            : "Sin colaborador seleccionado"}
+                                    <Dialog.Title
+                                        as="h3"
+                                        className="text-lg leading-6 font-medium text-gray-900"
+                                    >
+                                        {mascota ? "Editar Mascota" : "Sin mascota seleccionada"}
                                     </Dialog.Title>
-                                    {colaborador && (
-                                        <div className="mt-4 space-y-3">
+                                    {mascota && (
+                                        <div className="mt-4 space-y-4">
                                             <div>
                                                 <label className="block text-sm font-medium text-gray-700">
-                                                    Nombre completo
+                                                    Nombre
                                                 </label>
                                                 <input
                                                     type="text"
-                                                    value={form.nombre_completo}
+                                                    value={form.nombre}
                                                     onChange={(e) =>
                                                         setForm(prev => ({
                                                             ...prev,
-                                                            nombre_completo: e.target.value
+                                                            nombre: e.target.value
                                                         }))
                                                     }
                                                     className="mt-1 block w-full border border-gray-300 rounded-md p-2"
@@ -133,15 +132,15 @@ export default function EditCollaboratorModal({
                                             </div>
                                             <div>
                                                 <label className="block text-sm font-medium text-gray-700">
-                                                    ID Tipo
+                                                    Edad
                                                 </label>
                                                 <input
                                                     type="number"
-                                                    value={form.id_tipo}
+                                                    value={form.edad}
                                                     onChange={(e) =>
                                                         setForm(prev => ({
                                                             ...prev,
-                                                            id_tipo: Number(e.target.value)
+                                                            edad: Number(e.target.value)
                                                         }))
                                                     }
                                                     className="mt-1 block w-full border border-gray-300 rounded-md p-2"
@@ -149,31 +148,15 @@ export default function EditCollaboratorModal({
                                             </div>
                                             <div>
                                                 <label className="block text-sm font-medium text-gray-700">
-                                                    Email
-                                                </label>
-                                                <input
-                                                    type="email"
-                                                    value={form.email}
-                                                    onChange={(e) =>
-                                                        setForm(prev => ({
-                                                            ...prev,
-                                                            email: e.target.value
-                                                        }))
-                                                    }
-                                                    className="mt-1 block w-full border border-gray-300 rounded-md p-2"
-                                                />
-                                            </div>
-                                            <div>
-                                                <label className="block text-sm font-medium text-gray-700">
-                                                    Teléfono
+                                                    Raza
                                                 </label>
                                                 <input
                                                     type="text"
-                                                    value={form.telefono}
+                                                    value={form.raza}
                                                     onChange={(e) =>
                                                         setForm(prev => ({
                                                             ...prev,
-                                                            telefono: e.target.value
+                                                            raza: e.target.value
                                                         }))
                                                     }
                                                     className="mt-1 block w-full border border-gray-300 rounded-md p-2"
@@ -181,15 +164,15 @@ export default function EditCollaboratorModal({
                                             </div>
                                             <div>
                                                 <label className="block text-sm font-medium text-gray-700">
-                                                    Dirección
+                                                    Sexo
                                                 </label>
                                                 <input
                                                     type="text"
-                                                    value={form.direccion}
+                                                    value={form.sexo}
                                                     onChange={(e) =>
                                                         setForm(prev => ({
                                                             ...prev,
-                                                            direccion: e.target.value
+                                                            sexo: e.target.value
                                                         }))
                                                     }
                                                     className="mt-1 block w-full border border-gray-300 rounded-md p-2"
@@ -200,31 +183,35 @@ export default function EditCollaboratorModal({
                                 </div>
                             </div>
                             <div className="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse space-x-2 space-x-reverse">
-                                {/* Botón Guardar Cambios */}
+                                {/* Guardar Cambios */}
                                 <button
                                     type="button"
                                     disabled={guardandoCambios}
                                     onClick={handleUpdate}
-                                    className="w-full inline-flex justify-center rounded-md border border-transparent
+                                    className={`w-full inline-flex justify-center rounded-md border border-transparent
                                                shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700
-                                               focus:outline-none sm:ml-3 sm:w-auto sm:text-sm disabled:opacity-50"
+                                               focus:outline-none sm:ml-3 sm:w-auto sm:text-sm ${
+                                                   guardandoCambios ? "opacity-50 cursor-not-allowed" : ""
+                                               }`}
                                 >
                                     {guardandoCambios ? "Guardando…" : "Guardar Cambios"}
                                 </button>
 
-                                {/* Botón Eliminar */}
+                                {/* Eliminar */}
                                 <button
                                     type="button"
                                     disabled={eliminando}
                                     onClick={handleDelete}
-                                    className="w-full inline-flex justify-center rounded-md border border-transparent
+                                    className={`w-full inline-flex justify-center rounded-md border border-transparent
                                                shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700
-                                               focus:outline-none sm:ml-3 sm:w-auto sm:text-sm disabled:opacity-50"
+                                               focus:outline-none sm:ml-3 sm:w-auto sm:text-sm ${
+                                                   eliminando ? "opacity-50 cursor-not-allowed" : ""
+                                               }`}
                                 >
                                     {eliminando ? "Eliminando…" : "Eliminar"}
                                 </button>
 
-                                {/* Botón Cancelar */}
+                                {/* Cancelar */}
                                 <button
                                     type="button"
                                     onClick={onClose}

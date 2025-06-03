@@ -1,56 +1,56 @@
+// src/views/admin/components/cita/AddCitaModal.tsx
 import { Fragment, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import type { CrearColaboradorDTO } from "@/types/colaborador";
-import { useCrearColaborador } from "@/hooks/useColaboradores";
+import type { CrearCitaDTO } from "@/types/cita";
+import { useCrearCita } from "@/hooks/useCitas";
 
-interface AddCollaboratorModalProps {
+interface AddCitaModalProps {
     isOpen: boolean;
     onClose: () => void;
     token: string;
 }
 
-/**
- * Modal de alta de Colaborador.
- * Usa status === "pending" para checar si la mutación está ejecutándose.
- */
-export default function AddCollaboratorModal({
+export default function AddCitaModal({
     isOpen,
     onClose,
     token
-}: AddCollaboratorModalProps) {
-    const crearMut = useCrearColaborador();
+}: AddCitaModalProps) {
+    const crearMut = useCrearCita();
 
-    // Formulario local (omitimos id y access_token, los añadimos en mutateAsync)
-    const [form, setForm] = useState<Omit<CrearColaboradorDTO, "id" | "access_token">>({
-        nombre_completo: "",
-        id_tipo: 1,
-        email: "",
-        telefono: "",
-        direccion: ""
+    // Formulario local
+    const [form, setForm] = useState<Omit<CrearCitaDTO, "id" | "access_token">>({
+        id_mascota: 0,
+        id_servicio: 0,
+        fecha: "",
+        precio: 0
     });
 
     const handleSubmit = async () => {
         if (!token) return;
 
         await crearMut.mutateAsync({
-            id: 0, // ignorado por el gateway
-            nombre_completo: form.nombre_completo,
-            id_tipo: form.id_tipo,
-            email: form.email,
-            telefono: form.telefono,
-            direccion: form.direccion,
+            id: 0, // se ignora en creación
+            id_mascota: form.id_mascota,
+            id_servicio: form.id_servicio,
+            fecha: form.fecha,
+            precio: form.precio,
             access_token: token
         });
 
         onClose();
-        setForm({ nombre_completo: "", id_tipo: 1, email: "", telefono: "", direccion: "" });
+        setForm({ id_mascota: 0, id_servicio: 0, fecha: "", precio: 0 });
     };
 
-    const guardando = crearMut.status === "pending";
+    // React Query v5
+    const cargando = crearMut.status === "pending";
 
     return (
         <Transition.Root show={isOpen} as={Fragment}>
-            <Dialog as="div" className="fixed z-10 inset-0 overflow-y-auto" onClose={onClose}>
+            <Dialog
+                as="div"
+                className="fixed z-10 inset-0 overflow-y-auto"
+                onClose={onClose}
+            >
                 <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
                     {/* Fondo semitransparente */}
                     <Transition.Child
@@ -62,11 +62,14 @@ export default function AddCollaboratorModal({
                         leaveFrom="opacity-100"
                         leaveTo="opacity-0"
                     >
-                        <div className="fixed inset-0 bg-gray-500 bg-opacity-50 transition-opacity" />
+                        <div className="fixed inset-0 bg-gray-800/50 transition-opacity" />
                     </Transition.Child>
 
-                    {/* Centrado vertical */}
-                    <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">
+                    {/* Hack de centrado vertical */}
+                    <span
+                        className="hidden sm:inline-block sm:align-middle sm:h-screen"
+                        aria-hidden="true"
+                    >
                         &#8203;
                     </span>
 
@@ -84,37 +87,24 @@ export default function AddCollaboratorModal({
                                         sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6">
                             <div className="sm:flex sm:items-start">
                                 <div className="mt-3 text-center sm:mt-0 sm:text-left w-full">
-                                    <Dialog.Title as="h3" className="text-lg leading-6 font-medium text-gray-900">
-                                        Agregar Colaborador
+                                    <Dialog.Title
+                                        as="h3"
+                                        className="text-lg leading-6 font-medium text-gray-900"
+                                    >
+                                        Agregar Cita
                                     </Dialog.Title>
-                                    <div className="mt-4 space-y-3">
+                                    <div className="mt-4 space-y-4">
                                         <div>
                                             <label className="block text-sm font-medium text-gray-700">
-                                                Nombre completo
-                                            </label>
-                                            <input
-                                                type="text"
-                                                value={form.nombre_completo}
-                                                onChange={(e) =>
-                                                    setForm(prev => ({
-                                                        ...prev,
-                                                        nombre_completo: e.target.value
-                                                    }))
-                                                }
-                                                className="mt-1 block w-full border border-gray-300 rounded-md p-2"
-                                            />
-                                        </div>
-                                        <div>
-                                            <label className="block text-sm font-medium text-gray-700">
-                                                ID Tipo
+                                                ID Mascota
                                             </label>
                                             <input
                                                 type="number"
-                                                value={form.id_tipo}
+                                                value={form.id_mascota}
                                                 onChange={(e) =>
                                                     setForm(prev => ({
                                                         ...prev,
-                                                        id_tipo: Number(e.target.value)
+                                                        id_mascota: Number(e.target.value)
                                                     }))
                                                 }
                                                 className="mt-1 block w-full border border-gray-300 rounded-md p-2"
@@ -122,15 +112,15 @@ export default function AddCollaboratorModal({
                                         </div>
                                         <div>
                                             <label className="block text-sm font-medium text-gray-700">
-                                                Email
+                                                ID Servicio
                                             </label>
                                             <input
-                                                type="email"
-                                                value={form.email}
+                                                type="number"
+                                                value={form.id_servicio}
                                                 onChange={(e) =>
                                                     setForm(prev => ({
                                                         ...prev,
-                                                        email: e.target.value
+                                                        id_servicio: Number(e.target.value)
                                                     }))
                                                 }
                                                 className="mt-1 block w-full border border-gray-300 rounded-md p-2"
@@ -138,15 +128,15 @@ export default function AddCollaboratorModal({
                                         </div>
                                         <div>
                                             <label className="block text-sm font-medium text-gray-700">
-                                                Teléfono
+                                                Fecha (YYYY-MM-DD)
                                             </label>
                                             <input
-                                                type="text"
-                                                value={form.telefono}
+                                                type="date"
+                                                value={form.fecha}
                                                 onChange={(e) =>
                                                     setForm(prev => ({
                                                         ...prev,
-                                                        telefono: e.target.value
+                                                        fecha: e.target.value
                                                     }))
                                                 }
                                                 className="mt-1 block w-full border border-gray-300 rounded-md p-2"
@@ -154,15 +144,15 @@ export default function AddCollaboratorModal({
                                         </div>
                                         <div>
                                             <label className="block text-sm font-medium text-gray-700">
-                                                Dirección
+                                                Precio
                                             </label>
                                             <input
-                                                type="text"
-                                                value={form.direccion}
+                                                type="number"
+                                                value={form.precio}
                                                 onChange={(e) =>
                                                     setForm(prev => ({
                                                         ...prev,
-                                                        direccion: e.target.value
+                                                        precio: Number(e.target.value)
                                                     }))
                                                 }
                                                 className="mt-1 block w-full border border-gray-300 rounded-md p-2"
@@ -174,13 +164,15 @@ export default function AddCollaboratorModal({
                             <div className="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse">
                                 <button
                                     type="button"
-                                    disabled={guardando}
+                                    disabled={cargando}
                                     onClick={handleSubmit}
-                                    className="w-full inline-flex justify-center rounded-md border border-transparent
+                                    className={`w-full inline-flex justify-center rounded-md border border-transparent
                                                shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700
-                                               focus:outline-none sm:ml-3 sm:w-auto sm:text-sm disabled:opacity-50"
+                                               focus:outline-none sm:ml-3 sm:w-auto sm:text-sm ${
+                                                   cargando ? "opacity-50 cursor-not-allowed" : ""
+                                               }`}
                                 >
-                                    {guardando ? "Guardando…" : "Guardar"}
+                                    {cargando ? "Guardando…" : "Guardar"}
                                 </button>
                                 <button
                                     type="button"

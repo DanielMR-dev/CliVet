@@ -1,22 +1,38 @@
 import { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import type { Colaborador } from "@/types/colaborador";
+import { useEliminarColaborador } from "@/hooks/useColaboradores";
 
-interface InfoCardModalProps {
+interface ConfirmDeleteModalProps {
     isOpen: boolean;
     onClose: () => void;
     colaborador: Colaborador | null;
+    token: string;
 }
 
 /**
- * Modal genérico para mostrar los detalles de un Colaborador (Información estática).
- * Fondo opaco al 50% (bg-opacity-50).
+ * Modal de confirmación antes de eliminar un colaborador.  
+ * Usa status === "pending" para ver si la mutación se está ejecutando.
  */
-export default function InfoCardModal({
+export default function ConfirmDeleteModal({
     isOpen,
     onClose,
-    colaborador
-}: InfoCardModalProps) {
+    colaborador,
+    token
+}: ConfirmDeleteModalProps) {
+    const eliminarMut = useEliminarColaborador();
+
+    const handleDelete = async () => {
+        if (!token || !colaborador) return;
+        await eliminarMut.mutateAsync({
+            id: colaborador.id,
+            access_token: token
+        });
+        onClose();
+    };
+
+    const eliminando = eliminarMut.status === "pending";
+
     return (
         <Transition.Root show={isOpen} as={Fragment}>
             <Dialog as="div" className="fixed z-10 inset-0 overflow-y-auto" onClose={onClose}>
@@ -31,7 +47,7 @@ export default function InfoCardModal({
                         leaveFrom="opacity-100"
                         leaveTo="opacity-0"
                     >
-                        <div className="fixed inset-0 bg-gray-500/50 transition-opacity" />
+                        <div className="fixed inset-0 bg-gray-500 bg-opacity-50 transition-opacity" />
                     </Transition.Child>
 
                     {/* Centrado vertical */}
@@ -50,43 +66,45 @@ export default function InfoCardModal({
                     >
                         <div className="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left
                                         overflow-hidden shadow-xl transform transition-all
-                                        sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6">
+                                        sm:my-8 sm:align-middle sm:max-w-md sm:w-full sm:p-6">
                             <div className="sm:flex sm:items-start">
                                 <div className="mt-3 text-center sm:mt-0 sm:text-left w-full">
-                                    <Dialog.Title as="h3" className="text-lg leading-6 font-medium text-gray-900">
-                                        Detalles del Colaborador
+                                    <Dialog.Title as="h3" className="text-lg leading-6 font-medium text-red-700">
+                                        Confirmar Eliminación
                                     </Dialog.Title>
                                     <div className="mt-2">
                                         {colaborador ? (
-                                            <>
-                                                <p className="text-sm text-gray-600">
-                                                    <strong>Nombre:</strong> {colaborador.nombre_completo}
-                                                </p>
-                                                <p className="text-sm text-gray-600">
-                                                    <strong>Email:</strong> {colaborador.email}
-                                                </p>
-                                                <p className="text-sm text-gray-600">
-                                                    <strong>Teléfono:</strong> {colaborador.telefono}
-                                                </p>
-                                                <p className="text-sm text-gray-600">
-                                                    <strong>Dirección:</strong> {colaborador.direccion}
-                                                </p>
-                                            </>
+                                            <p className="text-sm text-gray-600">
+                                                ¿Seguro que deseas eliminar a{" "}
+                                                <strong>{colaborador.nombre_completo}</strong>?
+                                            </p>
                                         ) : (
-                                            <p className="text-sm text-gray-600">No hay información disponible.</p>
+                                            <p className="text-sm text-gray-600">
+                                                No hay colaborador seleccionado.
+                                            </p>
                                         )}
                                     </div>
                                 </div>
                             </div>
-                            <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                            <div className="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse space-x-2 space-x-reverse">
                                 <button
                                     type="button"
+                                    disabled={eliminando}
+                                    onClick={handleDelete}
+                                    className="w-full inline-flex justify-center rounded-md border border-transparent
+                                               shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700
+                                               focus:outline-none sm:ml-3 sm:w-auto sm:text-sm disabled:opacity-50"
+                                >
+                                    {eliminando ? "Eliminando…" : "Eliminar"}
+                                </button>
+                                <button
+                                    type="button"
+                                    onClick={onClose}
                                     className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300
                                                shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50
                                                focus:outline-none sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
-                                    onClick={onClose}
                                 >
-                                    Cerrar
+                                    Cancelar
                                 </button>
                             </div>
                         </div>

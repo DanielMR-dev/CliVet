@@ -2,7 +2,7 @@ import { useState } from "react";
 import { FiEdit, FiSearch, FiTrash } from "react-icons/fi";
 import AddCollaboratorModal from "./AddCollaboratorModal";
 import EditCollaboratorModal from "./EditCollaboratorModal";
-import DeleteCollaboratorModal from "./DeleteCollaboratorModal";
+import DeleteCollaboratorModal from "./ConfirmDeleteModal";
 
 export default function CollaboratorsTab() {
     const [addCollaboratorModalOpen, setAddCollaboratorModalOpen] = useState<boolean>(false); // Modal para Agregar colaborador

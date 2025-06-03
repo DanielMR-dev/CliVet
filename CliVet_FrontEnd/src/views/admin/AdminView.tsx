@@ -1,28 +1,51 @@
 // src/views/admin/AdminView.tsx
-
 import { useState, useEffect } from "react";
 import { FiSearch } from "react-icons/fi";
 import HeaderAdmin from "./components/HeaderAdmin";
 import InfoCardModal from "./components/InfoCardModal";
-import AddCollaboratorModal from "./components/AddCollaboratorModal";
+import AddCollaboratorModal from "./components/collaborator/AddCollaboratorModal";
+import EditCollaboratorModal from "./components/collaborator/EditCollaboratorModal";
+import AddMascotaModal from "./components/mascota/AddMascotaModal";
+import EditMascotaModal from "./components/mascota/EditMascotaModal";
+import AddCitaModal from "./components/cita/AddCitaModal";
+import EditCitaModal from "./components/cita/EditCitaModal";
+import ConfirmDeleteModal from "./components/ConfirmDeleteModal";
 import { useAuth } from "@/context/AuthContext";
-import { useProcesos } from "@/hooks/useProcesos";
 import { useColaboradores } from "@/hooks/useColaboradores";
+import { useProcesos } from "@/hooks/useProcesos";
 import { useMascotas } from "@/hooks/useMascotas";
-import type { Proceso, Colaborador, Mascota, Cita } from "@/types/index";
 import { useCitas } from "@/hooks/useCitas";
+import type { Colaborador } from "@/types/colaborador";
+import type { Proceso } from "@/types/proceso";
+import type { Mascota } from "@/types/mascota";
+import type { Cita } from "@/types/cita";
 
 export default function AdminView() {
-    // 1) Obtenemos token y setToken desde el contexto global de Auth
+    // 1) Token
     const { token, setToken } = useAuth();
 
-    // 2) Estados para controlar modales y pestaña activa
-    const [infoCardModalOpen, setInfoCardModalOpen] = useState<boolean>(false);
-    const [addCollaboratorModalOpen, setAddCollaboratorModalOpen] = useState<boolean>(false);
-    const [activeTab, setActiveTab] =
-        useState<"Procesos" | "Colaboradores" | "Mascotas" | "Servicios">("Procesos");
+    // 2) Estado pestañas + modales
+    const [infoCardModalOpen, setInfoCardModalOpen] = useState(false);
+    const [addCollaboratorModalOpen, setAddCollaboratorModalOpen] = useState(false);
+    const [editCollaboratorModalOpen, setEditCollaboratorModalOpen] = useState(false);
+    const [confirmDeleteCollaboratorOpen, setConfirmDeleteCollaboratorOpen] = useState(false);
 
-    // 3) Generar access_token aleatorio la primera vez que se monte
+    const [addMascotaModalOpen, setAddMascotaModalOpen] = useState(false);
+    const [editMascotaModalOpen, setEditMascotaModalOpen] = useState(false);
+    const [confirmDeleteMascotaOpen, setConfirmDeleteMascotaOpen] = useState(false);
+
+    const [addCitaModalOpen, setAddCitaModalOpen] = useState(false);
+    const [editCitaModalOpen, setEditCitaModalOpen] = useState(false);
+    const [confirmDeleteCitaOpen, setConfirmDeleteCitaOpen] = useState(false);
+
+    const [activeTab, setActiveTab] = useState<"Procesos" | "Colaboradores" | "Mascotas" | "Citas">("Procesos");
+
+    // Elementos seleccionados
+    const [selectedColaborador, setSelectedColaborador] = useState<Colaborador | null>(null);
+    const [selectedMascota, setSelectedMascota] = useState<Mascota | null>(null);
+    const [selectedCita, setSelectedCita] = useState<Cita | null>(null);
+
+    // 3) Generar token al montar si no existe
     useEffect(() => {
         if (!token) {
             const nuevoToken = crypto.randomUUID();
@@ -30,9 +53,7 @@ export default function AdminView() {
         }
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-    // 4) Invocamos los hooks: 
-    //    Gracias a { enabled: Boolean(token) } dentro de cada hook,
-    //    NO se disparará la petición hasta que `token` NO sea cadena vacía.
+    // 4) Hooks React Query
     const {
         data: procesos,
         isLoading: loadingProcesos,
@@ -62,13 +83,14 @@ export default function AdminView() {
             <HeaderAdmin />
 
             <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                {/* Título */}
                 <section className="text-center mt-4">
                     <h2 className="text-2xl font-semibold">Panel de control</h2>
                 </section>
 
-                {/* ─── Pestañas ─────────────────────────────────────────── */}
+                {/* Pestañas */}
                 <div className="flex justify-center space-x-2 mt-4">
-                    {["Procesos", "Colaboradores", "Mascotas", "Servicios"].map(tab => (
+                    {["Procesos", "Colaboradores", "Mascotas", "Citas"].map(tab => (
                         <button
                             key={tab}
                             onClick={() => setActiveTab(tab as any)}
@@ -83,7 +105,7 @@ export default function AdminView() {
                     ))}
                 </div>
 
-                {/* ─── Barra de búsqueda y botón Agregar ───────────────── */}
+                {/* Barra de búsqueda / botones Agregar */}
                 <div
                     className={`flex mt-4 ${
                         activeTab === "Procesos" ? "justify-end" : "justify-between"
@@ -99,17 +121,49 @@ export default function AdminView() {
                             <FiSearch className="absolute right-3 top-3 text-gray-500" />
                         </div>
                     )}
+
+                    {/* Agregar Colaborador */}
                     {activeTab === "Colaboradores" && (
                         <button
                             className="px-6 py-2 bg-gray-300 rounded hover:bg-gray-400"
-                            onClick={() => setAddCollaboratorModalOpen(true)}
+                            onClick={() => {
+                                setSelectedColaborador(null);
+                                setAddCollaboratorModalOpen(true);
+                            }}
+                        >
+                            Agregar
+                        </button>
+                    )}
+
+                    {/* Agregar Mascota */}
+                    {activeTab === "Mascotas" && (
+                        <button
+                            className="px-6 py-2 bg-gray-300 rounded hover:bg-gray-400"
+                            onClick={() => {
+                                setSelectedMascota(null);
+                                setAddMascotaModalOpen(true);
+                            }}
+                        >
+                            Agregar
+                        </button>
+                    )}
+
+                    {/* Agregar Cita */}
+                    {activeTab === "Citas" && (
+                        <button
+                            className="px-6 py-2 bg-gray-300 rounded hover:bg-gray-400"
+                            onClick={() => {
+                                setSelectedCita(null);
+                                setAddCitaModalOpen(true);
+                            }}
                         >
                             Agregar
                         </button>
                     )}
                 </div>
 
-                {/* ─── Contenido de cada pestaña ────────────────────────── */}
+                {/* ─── Contenido por pestaña ────────────────────────────────── */}
+
                 {activeTab === "Procesos" && (
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-6">
                         {loadingProcesos ? (
@@ -145,12 +199,23 @@ export default function AdminView() {
                                 <div
                                     key={p.id}
                                     className="border p-4 bg-white rounded shadow-md hover:bg-gray-50 transition cursor-pointer"
-                                    onClick={() => setInfoCardModalOpen(true)}
+                                    onClick={() => {
+                                        // Como ejemplo, abro InfoCardModal con datos mínimos:
+                                        setSelectedColaborador({
+                                            id: p.id,
+                                            nombre_completo: p.nombre,
+                                            id_tipo: 0,
+                                            email: "",
+                                            telefono: "",
+                                            direccion: ""
+                                        } as Colaborador);
+                                        setInfoCardModalOpen(true);
+                                    }}
                                 >
                                     <h3 className="font-semibold border-b pb-2">{p.nombre}</h3>
                                     <p className="mt-2 text-gray-600">{p.descripcion}</p>
-                                    <p className="mt-1 text-gray-600">
-                                        <span className="font-bold">Precio:</span> {p.precios}
+                                    <p className="mt-1 text-sm text-gray-500">
+                                        Precio: {p.precios}
                                     </p>
                                 </div>
                             ))
@@ -192,15 +257,46 @@ export default function AdminView() {
                             colaboradores?.map((c: Colaborador) => (
                                 <div
                                     key={c.id}
-                                    className="border p-4 bg-white rounded shadow-md hover:bg-gray-50 transition cursor-pointer"
-                                    onClick={() => setInfoCardModalOpen(true)}
+                                    className="border p-4 bg-white rounded shadow-md hover:bg-gray-50 transition flex flex-col"
                                 >
-                                    <h3 className="font-semibold border-b pb-2">
-                                        {c.nombre_completo}
-                                    </h3>
-                                    <p className="mt-2 text-gray-600">Email: {c.email}</p>
-                                    <p className="mt-1 text-gray-600">Tel: {c.telefono}</p>
-                                    <p className="mt-1 text-gray-600">Dirección: {c.direccion}</p>
+                                    <div
+                                        className="flex-1"
+                                        onClick={() => {
+                                            setSelectedColaborador(c);
+                                            setInfoCardModalOpen(true);
+                                        }}
+                                    >
+                                        <h3 className="font-semibold border-b pb-2">
+                                            {c.nombre_completo}
+                                        </h3>
+                                        <p className="mt-2 text-gray-600">{c.email}</p>
+                                        <p className="mt-1 text-sm text-gray-500">
+                                            Tel: {c.telefono}
+                                        </p>
+                                        <p className="mt-1 text-sm text-gray-500">
+                                            Dirección: {c.direccion}
+                                        </p>
+                                    </div>
+                                    <div className="mt-4 flex justify-end space-x-2">
+                                        <button
+                                            onClick={() => {
+                                                setSelectedColaborador(c);
+                                                setEditCollaboratorModalOpen(true);
+                                            }}
+                                            className="px-3 py-1 bg-yellow-500 text-white rounded hover:bg-yellow-600"
+                                        >
+                                            Editar
+                                        </button>
+                                        <button
+                                            onClick={() => {
+                                                setSelectedColaborador(c);
+                                                setConfirmDeleteCollaboratorOpen(true);
+                                            }}
+                                            className="px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700"
+                                        >
+                                            Eliminar
+                                        </button>
+                                    </div>
                                 </div>
                             ))
                         )}
@@ -241,23 +337,47 @@ export default function AdminView() {
                             mascotas?.map((m: Mascota) => (
                                 <div
                                     key={m.id}
-                                    className="border p-4 bg-white rounded shadow-md hover:bg-gray-50 transition cursor-pointer"
-                                    onClick={() => setInfoCardModalOpen(true)}
+                                    className="border p-4 bg-white rounded shadow-md hover:bg-gray-50 transition flex flex-col"
                                 >
-                                    <h3 className="font-semibold border-b pb-2">
-                                        {m.nombre}
-                                    </h3>
-                                    <p className="mt-2 text-gray-600">Edad: {m.edad}</p>
-                                    <p className="mt-1 text-gray-600">Agresividad: {m.agresividad}</p>
-                                    <p className="mt-1 text-gray-600">Peso: {m.peso}</p>
-                                    <p className="mt-1 text-gray-600">Dirección: {m.direccion}</p>
+                                    <div
+                                        className="flex-1 cursor-pointer"
+                                        onClick={() => {
+                                            setSelectedMascota(m);
+                                            setEditMascotaModalOpen(true);
+                                        }}
+                                    >
+                                        <h3 className="font-semibold border-b pb-2">{m.nombre}</h3>
+                                        <p className="mt-2 text-gray-600">Edad: {m.edad}</p>
+                                        <p className="mt-1 text-sm text-gray-500">Raza: {m.raza}</p>
+                                        <p className="mt-1 text-sm text-gray-500">Sexo: {m.sexo}</p>
+                                    </div>
+                                    <div className="mt-4 flex justify-end space-x-2">
+                                        <button
+                                            onClick={() => {
+                                                setSelectedMascota(m);
+                                                setEditMascotaModalOpen(true);
+                                            }}
+                                            className="px-3 py-1 bg-yellow-500 text-white rounded hover:bg-yellow-600"
+                                        >
+                                            Editar
+                                        </button>
+                                        <button
+                                            onClick={() => {
+                                                setSelectedMascota(m);
+                                                setConfirmDeleteMascotaOpen(true);
+                                            }}
+                                            className="px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700"
+                                        >
+                                            Eliminar
+                                        </button>
+                                    </div>
                                 </div>
                             ))
                         )}
                     </div>
                 )}
 
-                {activeTab === "Servicios" && (
+                {activeTab === "Citas" && (
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
                         {loadingCitas ? (
                             <div className="col-span-3 text-center text-gray-700">
@@ -281,45 +401,137 @@ export default function AdminView() {
                                         d="M4 12a8 8 0 018-8v8H4z"
                                     ></path>
                                 </svg>
-                                <span className="ml-2">Cargando servicios…</span>
+                                <span className="ml-2">Cargando citas…</span>
                             </div>
                         ) : errorCitas ? (
                             <div className="col-span-3 text-center text-red-600">
-                                ❌ Error al cargar servicios
+                                ❌ Error al cargar citas
                             </div>
                         ) : (
-                            // citas?.map((ci: Cita) => (
-                            //     <div
-                            //         key={ci.id}
-                            //         className="border p-4 bg-white rounded shadow-md hover:bg-gray-50 transition cursor-pointer"
-                            //         onClick={() => setInfoCardModalOpen(true)}
-                            //     >
-                            //         <h3 className="font-semibold border-b pb-2">
-                            //             {ci.nombre}
-                            //         </h3>
-                            //         <p className="mt-2 text-gray-600">
-                            //             {ci.descripcion}
-                            //         </p>
-                            //         <p className="mt-1 text-sm text-gray-500">
-                            //             Precio: {ci.precios}
-                            //         </p>
-                            //     </div>
-                            // ))
-                            <h1>To Do</h1>
+                            citas?.map((ci: Cita) => (
+                                <div
+                                    key={ci.id}
+                                    className="border p-4 bg-white rounded shadow-md hover:bg-gray-50 transition flex flex-col"
+                                >
+                                    <div
+                                        className="flex-1 cursor-pointer"
+                                        onClick={() => {
+                                            setSelectedCita(ci);
+                                            setEditCitaModalOpen(true);
+                                        }}
+                                    >
+                                        <h3 className="font-semibold border-b pb-2">
+                                            Cita #{ci.id}
+                                        </h3>
+                                        <p className="mt-2 text-gray-600">Mascota ID: {ci.id_mascota}</p>
+                                        <p className="mt-1 text-sm text-gray-500">Servicio ID: {ci.id_servicio}</p>
+                                        <p className="mt-1 text-sm text-gray-500">Fecha: {ci.fecha.slice(0, 10)}</p>
+                                        <p className="mt-1 text-sm text-gray-500">Precio: {ci.precio}</p>
+                                    </div>
+                                    <div className="mt-4 flex justify-end space-x-2">
+                                        <button
+                                            onClick={() => {
+                                                setSelectedCita(ci);
+                                                setEditCitaModalOpen(true);
+                                            }}
+                                            className="px-3 py-1 bg-yellow-500 text-white rounded hover:bg-yellow-600"
+                                        >
+                                            Editar
+                                        </button>
+                                        <button
+                                            onClick={() => {
+                                                setSelectedCita(ci);
+                                                setConfirmDeleteCitaOpen(true);
+                                            }}
+                                            className="px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700"
+                                        >
+                                            Eliminar
+                                        </button>
+                                    </div>
+                                </div>
+                            ))
                         )}
                     </div>
                 )}
-
-                {/* ─── Modales ─────────────────────────────────────────────── */}
-                <InfoCardModal
-                    isOpen={infoCardModalOpen}
-                    onClose={() => setInfoCardModalOpen(false)}
-                />
-                <AddCollaboratorModal
-                    isOpen={addCollaboratorModalOpen}
-                    onClose={() => setAddCollaboratorModalOpen(false)}
-                />
             </main>
+
+            {/* ─── Modales ──────────────────────────────────── */}
+
+            {/* InfoCardModal (para detalles sencillos) */}
+            <InfoCardModal
+                isOpen={infoCardModalOpen}
+                onClose={() => setInfoCardModalOpen(false)}
+                colaborador={selectedColaborador}
+            />
+
+            {/* Modales de Colaborador */}
+            <AddCollaboratorModal
+                isOpen={addCollaboratorModalOpen}
+                onClose={() => setAddCollaboratorModalOpen(false)}
+                token={token}
+            />
+            <EditCollaboratorModal
+                isOpen={editCollaboratorModalOpen}
+                onClose={() => setEditCollaboratorModalOpen(false)}
+                colaborador={selectedColaborador}
+                token={token}
+            />
+            <ConfirmDeleteModal
+                isOpen={confirmDeleteCollaboratorOpen}
+                onClose={() => setConfirmDeleteCollaboratorOpen(false)}
+                title="¿Deseas eliminar al colaborador?"
+                description={`Eliminar a ${selectedColaborador?.nombre_completo ?? ""} no se podrá deshacer.`}
+                onConfirm={() => {
+                    setConfirmDeleteCollaboratorOpen(false);
+                    // Nota: la mutación de eliminación ya se dispara dentro de EditCollaboratorModal
+                }}
+            />
+
+            {/* Modales de Mascota */}
+            <AddMascotaModal
+                isOpen={addMascotaModalOpen}
+                onClose={() => setAddMascotaModalOpen(false)}
+                token={token}
+            />
+            <EditMascotaModal
+                isOpen={editMascotaModalOpen}
+                onClose={() => setEditMascotaModalOpen(false)}
+                mascota={selectedMascota}
+                token={token}
+            />
+            <ConfirmDeleteModal
+                isOpen={confirmDeleteMascotaOpen}
+                onClose={() => setConfirmDeleteMascotaOpen(false)}
+                title="¿Deseas eliminar la mascota?"
+                description={`Eliminar a ${selectedMascota?.nombre ?? ""} no se podrá deshacer.`}
+                onConfirm={() => {
+                    setConfirmDeleteMascotaOpen(false);
+                    // La mutación de eliminación ya se dispara dentro de EditMascotaModal
+                }}
+            />
+
+            {/* Modales de Cita */}
+            <AddCitaModal
+                isOpen={addCitaModalOpen}
+                onClose={() => setAddCitaModalOpen(false)}
+                token={token}
+            />
+            <EditCitaModal
+                isOpen={editCitaModalOpen}
+                onClose={() => setEditCitaModalOpen(false)}
+                cita={selectedCita}
+                token={token}
+            />
+            <ConfirmDeleteModal
+                isOpen={confirmDeleteCitaOpen}
+                onClose={() => setConfirmDeleteCitaOpen(false)}
+                title="¿Deseas eliminar la cita?"
+                description={`Eliminar la cita #${selectedCita?.id ?? ""} no se podrá deshacer.`}
+                onConfirm={() => {
+                    setConfirmDeleteCitaOpen(false);
+                    // La mutación de eliminación ya se dispara dentro de EditCitaModal
+                }}
+            />
         </div>
     );
 }

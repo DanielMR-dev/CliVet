@@ -1,0 +1,2011 @@
+{
+	"info": {
+		"_postman_id": "8a4c108f-087d-49f8-8070-eb7224456aab",
+		"name": "Clivet",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "44261051",
+		"_collection_link": "https://lunar-capsule-3795095.postman.co/workspace/Santiago-Mart%C3%ADnez's-Workspace~3f5c8441-44ca-42da-85b7-a5be34c69d9a/collection/44261051-8a4c108f-087d-49f8-8070-eb7224456aab?action=share&source=collection_link&creator=44261051"
+	},
+	"item": [
+		{
+			"name": "admin",
+			"item": [
+				{
+					"name": "/admin/colaborador",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n \"id\": 7,\r\n \"nombre_completo\": \"Un pibe x\",\r\n \"id_tipo\": 4,\r\n \"email\": \"JohnDoe@clivet.com\",\r\n \"telefono\": \"310700674\",\r\n \"direccion\": \"calle 32x 10-20\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{admin-url}}/admin/colaborador",
+							"host": [
+								"{{admin-url}}"
+							],
+							"path": [
+								"admin",
+								"colaborador"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/admin/colaboradores",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n \"id\": 4,\r\n \"nombre_completo\": \"John Doe xd xd\",\r\n \"id_tipo\": 3,\r\n \"email\": \"JohnDoe@clivet.com\",\r\n \"telefono\": \"310700674\",\r\n \"direccion\": \"calle 32x 10-20\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{admin-url}}/admin/colaboradores",
+							"host": [
+								"{{admin-url}}"
+							],
+							"path": [
+								"admin",
+								"colaboradores"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/admin/colaboradores/:id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{admin-url}}/admin/colaboradores/1",
+							"host": [
+								"{{admin-url}}"
+							],
+							"path": [
+								"admin",
+								"colaboradores",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/admin/colaborador/:id",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n \"nombre_completo\": \"Raul el vacunas\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{admin-url}}/admin/colaboradores/{{id}}",
+							"host": [
+								"{{admin-url}}"
+							],
+							"path": [
+								"admin",
+								"colaboradores",
+								"{{id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/admin/colaborador/:id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n \"nombre_completo\": \"Raul el vacunas\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{admin-url}}/admin/colaboradores/{{id}}",
+							"host": [
+								"{{admin-url}}"
+							],
+							"path": [
+								"admin",
+								"colaboradores",
+								"{{id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/admin/medico",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 1,\r\n    \"nombre_completo\": \"EL medico\",\r\n    \"clave\": \"123456\",\r\n    \"id_rol\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{admin-url}}/admin/medico",
+							"host": [
+								"{{admin-url}}"
+							],
+							"path": [
+								"admin",
+								"medico"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/admin/procesos",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n \"id\": 4,\r\n \"nombre_completo\": \"John Doe xd xd\",\r\n \"id_tipo\": 3,\r\n \"email\": \"JohnDoe@clivet.com\",\r\n \"telefono\": \"310700674\",\r\n \"direccion\": \"calle 32x 10-20\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{admin-url}}/admin/procesos",
+							"host": [
+								"{{admin-url}}"
+							],
+							"path": [
+								"admin",
+								"procesos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/admin/procesos/:id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n \"id\": 4,\r\n \"nombre_completo\": \"John Doe xd xd\",\r\n \"id_tipo\": 3,\r\n \"email\": \"JohnDoe@clivet.com\",\r\n \"telefono\": \"310700674\",\r\n \"direccion\": \"calle 32x 10-20\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{admin-url}}/admin/procesos/{{id}}",
+							"host": [
+								"{{admin-url}}"
+							],
+							"path": [
+								"admin",
+								"procesos",
+								"{{id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "citas",
+			"item": [
+				{
+					"name": "/citas",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n \"id\": 5,\r\n\"id_tipo\": 3,\r\n\"id_mascota\": 2,\r\n\"id_colaborador\": 2,\r\n\"fecha_hora\": \"2023-11-20 15:30:00\",\r\n\"modificable_por_usuario\": 1   \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{citas-url}}/citas",
+							"host": [
+								"{{citas-url}}"
+							],
+							"path": [
+								"citas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/citas",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 10,\r\n    \"id_tipo\": 4,\r\n    \"id_mascota\": 1,\r\n    \"id_colaborador\": 4,\r\n    \"fecha_hora\": \"2025-04-07 07:00:00\",\r\n    \"modificable_por_usuario\": 1   \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{citas-url}}/citas",
+							"host": [
+								"{{citas-url}}"
+							],
+							"path": [
+								"citas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/citas/:id",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id_tipo\": 4,\r\n    \"id_mascota\": 1,\r\n    \"id_colaborador\": 4,\r\n    \"fecha_hora\": \"2025-04-07T11:00:00\",\r\n    \"modificable_por_usuario\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{citas-url}}/citas/{{id}}",
+							"host": [
+								"{{citas-url}}"
+							],
+							"path": [
+								"citas",
+								"{{id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/citas/:id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{citas-url}}/citas/{{id}}",
+							"host": [
+								"{{citas-url}}"
+							],
+							"path": [
+								"citas",
+								"{{id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/citas/guarderia",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"fecha_ingreso\" : \"2025-04-09 17:00:00\",\r\n    \"fecha_recogida\": \"2025-04-09 18:00:00\",\r\n    \"numero_horas\": 1,\r\n    \"id_mascota\": 1,\r\n    \"observaciones\": \"hace mucha kk\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{citas-url}}/citas/guarderia?fecha_hora_inicio=2025-04-09 10&fecha_hora_fin=2025-04-09 12&peso_mascota=100",
+							"host": [
+								"{{citas-url}}"
+							],
+							"path": [
+								"citas",
+								"guarderia"
+							],
+							"query": [
+								{
+									"key": "fecha_hora_inicio",
+									"value": "2025-04-09 10"
+								},
+								{
+									"key": "fecha_hora_fin",
+									"value": "2025-04-09 12"
+								},
+								{
+									"key": "peso_mascota",
+									"value": "100"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/citas/fechaTipo",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{citas-url}}/citas/fechaTipo?fecha=2025-04-06&id_tipo=2",
+							"host": [
+								"{{citas-url}}"
+							],
+							"path": [
+								"citas",
+								"fechaTipo"
+							],
+							"query": [
+								{
+									"key": "fecha",
+									"value": "2025-04-06"
+								},
+								{
+									"key": "id_tipo",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/citas/tipo",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n \"id\": 5,\r\n\"id_tipo\": 3,\r\n\"id_mascota\": 2,\r\n\"id_colaborador\": 2,\r\n\"fecha_hora\": \"2023-11-20 15:30:00\",\r\n\"modificable_por_usuario\": 1   \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{citas-url}}/citas/tipo?id_tipo=1",
+							"host": [
+								"{{citas-url}}"
+							],
+							"path": [
+								"citas",
+								"tipo"
+							],
+							"query": [
+								{
+									"key": "id_tipo",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/citas/colaborador/:id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n \"id\": 5,\r\n\"id_tipo\": 3,\r\n\"id_mascota\": 2,\r\n\"id_colaborador\": 2,\r\n\"fecha_hora\": \"2023-11-20 15:30:00\",\r\n\"modificable_por_usuario\": 1   \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{citas-url}}/citas/colaborador/{{id}}",
+							"host": [
+								"{{citas-url}}"
+							],
+							"path": [
+								"citas",
+								"colaborador",
+								"{{id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/citas/cliente/:id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n \"id\": 5,\r\n\"id_tipo\": 3,\r\n\"id_mascota\": 2,\r\n\"id_colaborador\": 2,\r\n\"fecha_hora\": \"2023-11-20 15:30:00\",\r\n\"modificable_por_usuario\": 1   \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{citas-url}}/citas/cliente/{{id}}",
+							"host": [
+								"{{citas-url}}"
+							],
+							"path": [
+								"citas",
+								"cliente",
+								"{{id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/citas/mascota/:id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n \"id\": 5,\r\n\"id_tipo\": 3,\r\n\"id_mascota\": 2,\r\n\"id_colaborador\": 2,\r\n\"fecha_hora\": \"2023-11-20 15:30:00\",\r\n\"modificable_por_usuario\": 1   \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{citas-url}}/citas/mascota/{{id}}",
+							"host": [
+								"{{citas-url}}"
+							],
+							"path": [
+								"citas",
+								"mascota",
+								"{{id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/citas/disponibles/:fecha/:id_tipo",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n \"id\": 5,\r\n\"id_tipo\": 3,\r\n\"id_mascota\": 2,\r\n\"id_colaborador\": 2,\r\n\"fecha_hora\": \"2023-11-20 15:30:00\",\r\n\"modificable_por_usuario\": 1   \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{citas-url}}/citas/disponibles/{{fecha}}/{{id_tipo}}",
+							"host": [
+								"{{citas-url}}"
+							],
+							"path": [
+								"citas",
+								"disponibles",
+								"{{fecha}}",
+								"{{id_tipo}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/citas/guarderia",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"fecha_ingreso\" : \"2025-04-09 17\",\r\n    \"fecha_recogida\": \"2025-04-09 18\",\r\n    \"numero_horas\": 5,\r\n    \"id_mascota\": 1,\r\n    \"observaciones\": \"hace mucha kk\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{citas-url}}/citas/guarderia",
+							"host": [
+								"{{citas-url}}"
+							],
+							"path": [
+								"citas",
+								"guarderia"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/citas/recordatorio",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"fecha\" : \"2025-04-09\",\r\n    \"metodo_envio\": 35,\r\n    \"id_cita\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{citas-url}}/citas/recordatorio",
+							"host": [
+								"{{citas-url}}"
+							],
+							"path": [
+								"citas",
+								"recordatorio"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "mascotas",
+			"item": [
+				{
+					"name": "/mascotas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{mascotas-url}}/mascotas",
+							"host": [
+								"{{mascotas-url}}"
+							],
+							"path": [
+								"mascotas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/mascotas/:id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{mascotas-url}}/mascotas/{{id}}",
+							"host": [
+								"{{mascotas-url}}"
+							],
+							"path": [
+								"mascotas",
+								"{{id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/mascotas/usuario/:id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{mascotas-url}}/mascotas/usuario/{{id}}",
+							"host": [
+								"{{mascotas-url}}"
+							],
+							"path": [
+								"mascotas",
+								"usuario",
+								"{{id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/mascotas",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 2,\r\n    \"nombre\": \"Firulais segundo\",\r\n    \"edad\": 25, \r\n    \"id_propietario\": 1,\r\n    \"agresividad\": \"Aleta\",\r\n    \"peso\": 100,\r\n    \"direccion\": \"calle x\",\r\n    \"id_especie\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{mascotas-url}}/mascotas",
+							"host": [
+								"{{mascotas-url}}"
+							],
+							"path": [
+								"mascotas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/mascotas/:id",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"Firulais segundo\",\r\n    \"edad\": 25, \r\n    \"id_propietario\": 1,\r\n    \"agresividad\": \"ya no tan aleta\",\r\n    \"peso\": 100,\r\n    \"direccion\": \"calle x\",\r\n    \"id_especie\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{mascotas-url}}/mascotas/{{id}}",
+							"host": [
+								"{{mascotas-url}}"
+							],
+							"path": [
+								"mascotas",
+								"{{id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/mascotas/:id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 2,\r\n    \"nombre\": \"Firulais segundo\",\r\n    \"edad\": 25, \r\n    \"id_propietario\": 1,\r\n    \"agresividad\": \"Aleta\",\r\n    \"peso\": 100,\r\n    \"direccion\": \"calle x\",\r\n    \"id_especie\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{mascotas-url}}/mascotas/{{id}}",
+							"host": [
+								"{{mascotas-url}}"
+							],
+							"path": [
+								"mascotas",
+								"{{id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "usuario",
+			"item": [
+				{
+					"name": "/usuarios/registrar",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 4,\r\n    \"nombre_completo\": \"Raul velez\",\r\n    \"fecha_nacimiento\": \"2000-09-01\",\r\n    \"clave\": \"123456\",\r\n    \"email\": \"correo@correo.com\",\r\n    \"telefono\": \"3178048900\",\r\n    \"direccion\": \"ccalle x\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{usuarios-url}}/usuarios/registrar",
+							"host": [
+								"{{usuarios-url}}"
+							],
+							"path": [
+								"usuarios",
+								"registrar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/usuarios/ingresar",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 2,\r\n    \"clave\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{usuarios-url}}/usuarios/ingresar",
+							"host": [
+								"{{usuarios-url}}"
+							],
+							"path": [
+								"usuarios",
+								"ingresar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/usuarios/ingresar/empleado",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 1,\r\n    \"clave\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{usuarios-url}}/usuarios/ingresar/empleado",
+							"host": [
+								"{{usuarios-url}}"
+							],
+							"path": [
+								"usuarios",
+								"ingresar",
+								"empleado"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/usuarios/:id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{usuarios-url}}/usuarios/{{id}}",
+							"host": [
+								"{{usuarios-url}}"
+							],
+							"path": [
+								"usuarios",
+								"{{id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/usuarios/:id",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "    {\r\n        \"nombre_completo\": \"Raul kkck\",\r\n        \"fecha_nacimiento\": \"2000-02-01\",\r\n        \"clave\": \"123456\",\r\n        \"telefono\": \"3178048944\",\r\n        \"email\": \"correo@correo.com\",\r\n        \"direccion\": \"ccalle x\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{usuarios-url}}/usuarios/{{id}}",
+							"host": [
+								"{{usuarios-url}}"
+							],
+							"path": [
+								"usuarios",
+								"{{id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/usuarios/:id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{usuarios-url}}/usuarios/{{id}}",
+							"host": [
+								"{{usuarios-url}}"
+							],
+							"path": [
+								"usuarios",
+								"{{id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "gateway_test",
+			"item": [
+				{
+					"name": "crear_colaborador",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"servicio\" : \"crear_colaborador\",\r\n    \"datos\" : {\r\n        \"id\": 10,\r\n        \"nombre_completo\": \"Jacinto Gutierrez\",\r\n        \"id_tipo\": 4,\r\n        \"email\": \"email2@clivet.com\",\r\n        \"telefono\": \"3202020\",\r\n        \"direccion\": \"Carrera 42 #12-128\",\r\n        \"access_token\" : \"12asdadadada215484asdad\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8001/api/redirect/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"api",
+								"redirect",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "listar_colaboradores",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"servicio\" : \"listar_colaboradores\",\r\n    \"datos\" : {\r\n        \"access_token\" : \"12adada215484asdad\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8001/api/redirect/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"api",
+								"redirect",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "listar_colaborador_id",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"servicio\" : \"listar_colaborador_id\",\r\n    \"datos\" : {\r\n        \"id\": 5,\r\n        \"access_token\" : \"12adada215484asdad\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8001/api/redirect/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"api",
+								"redirect",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "actualizar_colaborador",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"servicio\" : \"actualizar_colaborador\",\r\n    \"datos\" : {\r\n        \"id\" : 5,\r\n        \"telefono\" : \"3333335\",\r\n        \"access_token\" : \"12adada215484asdad\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8001/api/redirect/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"api",
+								"redirect",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "eliminar_colaborador",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"servicio\" : \"eliminar_colaborador\",\r\n    \"datos\" : {\r\n        \"id\": 1,\r\n        \"access_token\" : \"12adada215484asdad\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8001/api/redirect/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"api",
+								"redirect",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "crear_medico",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"servicio\" : \"crear_medico\",\r\n    \"datos\" : {\r\n        \"id\": 15,\r\n        \"nombre_completo\": \"Jaime Macias\",\r\n        \"clave\": \"clave\",\r\n        \"id_rol\": 1,\r\n        \"access_token\" : \"12adada215484asdad\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8001/api/redirect/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"api",
+								"redirect",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "listar_procesos",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"servicio\" : \"listar_procesos\",\r\n    \"datos\" : {\r\n        \"access_token\" : \"12adada215484asdad\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8001/api/redirect/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"api",
+								"redirect",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "listar_proceso_id",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"servicio\" : \"listar_proceso_id\",\r\n    \"datos\" : {\r\n        \"id\" : 6,\r\n        \"access_token\" : \"12adada215484asdad\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8001/api/redirect/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"api",
+								"redirect",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "listar_citas",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"servicio\" : \"listar_citas\",\r\n    \"datos\" : {\r\n        \"access_token\" : \"12adada215484asdad\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8001/api/redirect/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"api",
+								"redirect",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "crear_cita",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"servicio\" : \"crear_cita\",\r\n    \"datos\" : {\r\n        \"id\": 18,\r\n        \"id_tipo\": 4,\r\n        \"id_mascota\": 1,\r\n        \"id_colaborador\": 2,\r\n        \"fecha_hora\": \"2025-05-15 13:00:00\",\r\n        \"modificable_por_usuario\": 1 ,\r\n        \"access_token\" : \"12adada215484asdad\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8001/api/redirect/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"api",
+								"redirect",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "actualizar_cita",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"servicio\" : \"actualizar_cita\",\r\n    \"datos\" : {\r\n        \"id\": 1,\r\n        \"id_colaborador\" : 3,\r\n        \"access_token\" : \"12adada215484asdad\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8001/api/redirect/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"api",
+								"redirect",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "eliminar_cita",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"servicio\" : \"eliminar_cita\",\r\n    \"datos\" : {\r\n        \"id\": 1,\r\n        \"access_token\" : \"12adada215484asdad\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8001/api/redirect/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"api",
+								"redirect",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "calcular_precio_guarderia",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"servicio\" : \"calcular_precio_guarderia\",\r\n    \"datos\" : {\r\n        \"fecha_hora_inicio\" : \"2025-04-22 10\",\r\n        \"fecha_hora_fin\" : \"2025-04-22 14\",\r\n        \"peso_mascota\" : 30,\r\n        \"access_token\" : \"12adada215484asdad\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8001/api/redirect/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"api",
+								"redirect",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "citas_fechaTipo",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"servicio\" : \"citas_fechaTipo\",\r\n    \"datos\" : {\r\n        \"fecha\" : \"2025-04-06\",\r\n        \"id_tipo\" : 2,\r\n        \"access_token\" : \"12adada215484asdad\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8001/api/redirect/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"api",
+								"redirect",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "citas_tipo",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"servicio\" : \"citas_tipo\",\r\n    \"datos\" : {\r\n        \"id_tipo\" : 4,\r\n        \"access_token\" : \"12adada215484asdad\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8001/api/redirect/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"api",
+								"redirect",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "citas_colaborador",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"servicio\" : \"citas_colaborador\",\r\n    \"datos\" : {\r\n        \"id\" : 2,\r\n        \"access_token\" : \"12adada215484asdad\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8001/api/redirect/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"api",
+								"redirect",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "citas_cliente",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"servicio\" : \"citas_cliente\",\r\n    \"datos\" : {\r\n        \"id\" : 1,\r\n        \"access_token\" : \"12adada215484asdad\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8001/api/redirect/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"api",
+								"redirect",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "citas_mascota",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"servicio\" : \"citas_mascota\",\r\n    \"datos\" : {\r\n        \"id\" : 1,\r\n        \"access_token\" : \"12adada215484asdad\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8001/api/redirect/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"api",
+								"redirect",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "citas_disponibles",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"servicio\" : \"citas_disponibles\",\r\n    \"datos\" : {\r\n        \"id_tipo\" : 1,\r\n        \"fecha\" : \"2025-04-22\",\r\n        \"access_token\" : \"12adada215484asdad\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8001/api/redirect/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"api",
+								"redirect",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "crear_guarderia",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"servicio\" : \"crear_guarderia\",\r\n    \"datos\" : {\r\n        \"fecha_ingreso\" : \"2025-04-18 17\",\r\n        \"fecha_recogida\": \"2025-04-18 19\",\r\n        \"numero_horas\": 2,\r\n        \"id_mascota\": 2,\r\n        \"observaciones\": \"Se porta bien\",\r\n        \"access_token\" : \"12adada215484asdad\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8001/api/redirect/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"api",
+								"redirect",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "crear_recordatorio",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"servicio\" : \"crear_recordatorio\",\r\n    \"datos\" : {\r\n        \"fecha\" : \"2025-04-18\",\r\n        \"metodo_envio\": 35,\r\n        \"id_cita\" : 2,\r\n        \"access_token\" : \"12adada215484asdad\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8001/api/redirect/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"api",
+								"redirect",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "listar_mascotas",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"servicio\" : \"listar_mascotas\",\r\n    \"datos\" : {\r\n        \"access_token\" : \"12adada215484asdad\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8001/api/redirect/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"api",
+								"redirect",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "listar_mascota_id",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"servicio\" : \"listar_mascota_id\",\r\n    \"datos\" : {\r\n        \"id\" : 2,\r\n        \"access_token\" : \"12adada215484asdad\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8001/api/redirect/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"api",
+								"redirect",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "listar_mascota_id_usuario",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"servicio\" : \"listar_mascota_id_usuario\",\r\n    \"datos\" : {\r\n        \"id\" : 2,\r\n        \"access_token\" : \"12adada215484asdad\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8001/api/redirect/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"api",
+								"redirect",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "crear_mascota",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"servicio\" : \"crear_mascota\",\r\n    \"datos\" : {\r\n        \"id\": 5,\r\n        \"nombre\": \"Firulais Quinto\",\r\n        \"edad\": 24, \r\n        \"id_propietario\": 1,\r\n        \"agresividad\": \"Pasiva\",\r\n        \"peso\": 60,\r\n        \"direccion\": \"calle 2 Carrera 3\",\r\n        \"id_especie\": 1,\r\n        \"access_token\" : \"12adada215484asdad\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8001/api/redirect/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"api",
+								"redirect",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "actualizar_mascota",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"servicio\" : \"actualizar_mascota\",\r\n    \"datos\" : {\r\n        \"id\": 5,\r\n        \"nombre\": \"Firulais Quinta Primera\",\r\n        \"edad\": 27, \r\n        \"access_token\" : \"12adada215484asdad\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8001/api/redirect/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"api",
+								"redirect",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "eliminar_mascota",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"servicio\" : \"eliminar_mascota\",\r\n    \"datos\" : {\r\n        \"id\": 2,\r\n        \"access_token\" : \"12adada215484asdad\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8001/api/redirect/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"api",
+								"redirect",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "registrar_usuario",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"servicio\" : \"registrar_usuario\",\r\n    \"datos\" : {\r\n        \"id\": 7,\r\n        \"nombre_completo\": \"Santiago Martinez\",\r\n        \"fecha_nacimiento\": \"2001-10-11\",\r\n        \"clave\": \"123456789\",\r\n        \"email\": \"email@correo.com\",\r\n        \"telefono\": \"3178048999\",\r\n        \"direccion\": \"Mi Casa\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8001/api/redirect/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"api",
+								"redirect",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login_cliente",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"servicio\" : \"login_cliente\",\r\n    \"datos\" : {\r\n        \"id\": 7,\r\n        \"clave\": \"123456789\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8001/api/redirect/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"api",
+								"redirect",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login_empleado",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"servicio\" : \"login_empleado\",\r\n    \"datos\" : {\r\n        \"id\": 7,\r\n        \"clave\": \"123456789\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8001/api/redirect/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"api",
+								"redirect",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "listar_usuario_id",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"servicio\" : \"listar_usuario_id\",\r\n    \"datos\" : {\r\n        \"id\": 1,\r\n        \"access_token\" : \"12adada215484asdad\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8001/api/redirect/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"api",
+								"redirect",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "actualizar_usuario",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"servicio\" : \"actualizar_usuario\",\r\n    \"datos\" : {\r\n        \"id\": 1,\r\n        \"telefono\" : 310353535,\r\n        \"access_token\" : \"12adada215484asdad\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8001/api/redirect/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"api",
+								"redirect",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "eliminar_usuario",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"servicio\" : \"actualizar_usuario\",\r\n    \"datos\" : {\r\n        \"id\": 1,\r\n        \"telefono\" : 310353535,\r\n        \"access_token\" : \"12adada215484asdad\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8001/api/redirect/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"api",
+								"redirect",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
